@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+
+
+    <item android:title="">
+        <menu>
+
+            <item
+                android:id="@+id/my_orders"
+                android:icon="@drawable/ic_order"
+                android:iconTint="@color/header_color"
+                android:title="@string/my_orders" />
+            <item
+                android:id="@+id/my_cart"
+                android:icon="@drawable/ic_cart"
+                android:iconTint="@color/header_color"
+                android:title="@string/my_cart" />
+            <item
+                android:id="@+id/my_wishlist"
+                android:iconTint="@color/header_color"
+                android:icon="@drawable/ic_favorite"
+                android:title="@string/my_wishlist" />
+            <item
+                android:id="@+id/my_account"
+                android:iconTint="@color/header_color"
+                android:icon="@drawable/ic_person"
+                android:title="@string/my_account" />
+
+
+
+            <item
+                android:id="@+id/share"
+                android:iconTint="@color/header_color"
+                android:icon="@drawable/share"
+                android:title="@string/share_app" />
+
+
+            <item
+                android:id="@+id/logout"
+                android:iconTint="@color/header_color"
+                android:icon="@drawable/ic_logout"
+                android:title="@string/logout" />
+        </menu>
+    </item>
+
+    <item android:title="@string/help_support"
+        android:visible="true">
+        <menu>
+
+            <item android:title="Helpline Number:+91-7447478373"
+                android:id="@+id/contact"
+                />
+
+        </menu>
+    </item>
+
+</menu>
