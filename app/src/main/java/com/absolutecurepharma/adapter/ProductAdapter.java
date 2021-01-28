@@ -2,6 +2,7 @@ package com.absolutecurepharma.adapter;
 
 
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.Paint;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -11,6 +12,7 @@ import android.widget.TextView;
 
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.absolutecurepharma.ProductDetailActivity;
 import com.absolutecurepharma.R;
 import com.squareup.picasso.Picasso;
 
@@ -44,6 +46,13 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ItemRowH
         Picasso.with(mContext).load(productimage[i]).into(itemRowHolder.image);
 
         itemRowHolder.tvOldPrice.setPaintFlags(itemRowHolder.tvOldPrice.getPaintFlags() | Paint.STRIKE_THRU_TEXT_FLAG);
+
+        itemRowHolder.itemView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                mContext.startActivity(new Intent(mContext,ProductDetailActivity.class));
+            }
+        });
     }
 
 

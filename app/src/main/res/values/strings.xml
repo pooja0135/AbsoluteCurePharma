@@ -10,5 +10,6 @@
     <string name="share_app">Share App</string>
     <string name="logout">Logout</string>
     <string name="help_support"><![CDATA[Help & Support]]></string>
+    <string name="lorem_ipsum_dolor_sit_amet_consectetur_adipiscing_elit_pellentesque_a_erat_ullamcorper_semper_erat_ac_porta_lacus_pellentesque_nisl_sapien_pellentesque_commodo_nulla_ac_accumsan_volutpat_felis_nullam_quis_augue_vel_ipsum_placerat_consequat">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque a erat ullamcorper, semper erat ac, porta lacus. Pellentesque nisl sapien, pellentesque commodo nulla ac, accumsan volutpat felis. Nullam quis augue vel ipsum placerat consequat.</string>
 
 </resources>
