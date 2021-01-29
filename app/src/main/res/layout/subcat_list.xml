@@ -11,7 +11,7 @@
     android:weightSum="2"
     android:orientation="horizontal"
     android:layout_width="match_parent"
-    android:layout_height="@dimen/_70sdp">
+    android:layout_height="@dimen/_80sdp">
     <LinearLayout
         android:layout_weight=".5"
         android:layout_width="0dp"
@@ -49,30 +49,114 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:paddingStart="@dimen/_3sdp"
-            android:text="Accessories"
+            android:text="Paracetamol 500mg Jar Of 1000 Tablets"
         android:textSize="@dimen/_11sdp"
         />
 
+        <TextView
+            android:id="@+id/tvCompanyName"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="left"
+            android:layout_marginLeft="@dimen/_10sdp"
+            android:text="By Alkem Laboratories Ltd."
+            android:textColor="@color/grey_600"
+            android:textSize="@dimen/_9sdp"
+            />
+
+        <TextView
+            android:id="@+id/tvSize"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="left"
+            android:layout_marginLeft="@dimen/_10sdp"
+            android:text="1000 Tablet(s) in Jar"
+            android:textColor="@color/grey_700"
+            android:textSize="@dimen/_8sdp"
+
+            />
+
+
         <RelativeLayout
-            android:layout_marginTop="@dimen/_5sdp"
-            android:id="@+id/relGrid"
+
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
-            <TextView
-                android:layout_marginLeft="@dimen/_5sdp"
-                android:gravity="center_vertical"
-                android:layout_centerVertical="true"
-                android:textColor="@color/grey_600"
-                android:layout_width="match_parent"
+            <LinearLayout
+                android:orientation="horizontal"
+                android:layout_marginTop="@dimen/_5sdp"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:paddingStart="@dimen/_3sdp"
-                android:id="@+id/tvDescription"
-                android:text="Lorem Ipsum has been the industry's standard. "
+                android:layout_gravity="left">
+
+                <TextView
+                    android:id="@+id/tvFinalprice"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_marginLeft="@dimen/_10sdp"
+                    android:singleLine="true"
+                    android:text="\u20B9320"
+                    android:textColor="@color/green_700"
+                    android:textSize="@dimen/_10sdp"
+                    />
+
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content">
+                    <TextView
+                        android:layout_gravity="center_vertical"
+                        android:gravity="center_vertical"
+                        android:id="@+id/tvOldPrice"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="@dimen/_5sdp"
+                        android:layout_toRightOf="@+id/tvFinalprice"
+                        android:singleLine="true"
+                        android:text="\u20B9400"
+                        android:textColor="@color/grey_600"
+                        android:textSize="@dimen/_8sdp" />
+
+                    <TextView
+                        android:background="@drawable/discount"
+                        android:id="@+id/tvDiscount"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="@dimen/_5sdp"
+                        android:layout_gravity="center_vertical"
+                        android:paddingBottom="@dimen/_2sdp"
+                        android:paddingTop="@dimen/_2sdp"
+                        android:paddingLeft="@dimen/_5sdp"
+                        android:paddingRight="@dimen/_5sdp"
+                        android:singleLine="true"
+                        android:text="20%off"
+                        android:textColor="@color/white"
+                        android:textSize="@dimen/_7sdp" />
+
+
+
+                </LinearLayout>
+
+
+
+            </LinearLayout>
+            <TextView
+                android:layout_alignParentRight="true"
+                android:id="@+id/tvAddToCart"
+                android:layout_width="@dimen/_70sdp"
+                android:layout_height="wrap_content"
+                android:textAlignment="center"
+                android:background="@drawable/rectangle_button"
+                android:gravity="center"
+                android:paddingTop="@dimen/_5sdp"
+                android:paddingBottom="@dimen/_5sdp"
+                android:text="Add to Cart"
+                android:textColor="@color/white"
+                android:textAllCaps="false"
                 android:textSize="@dimen/_9sdp"
-                />
-
-
+                android:textStyle="bold" />
         </RelativeLayout>
+
 
 
 

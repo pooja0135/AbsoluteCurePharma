@@ -13,7 +13,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.absolutecurepharma.R;
 import com.squareup.picasso.Picasso;
 
-public abstract class SubCategoryAdapter extends RecyclerView.Adapter<SubCategoryAdapter.ItemRowHolder> {
+public abstract class ProductListAdapter extends RecyclerView.Adapter<ProductListAdapter.ItemRowHolder> {
 
 
     private Context mContext;
@@ -23,7 +23,7 @@ public abstract class SubCategoryAdapter extends RecyclerView.Adapter<SubCategor
     protected abstract void onSubCategoryClick(View view, String str);
 
 
-    public SubCategoryAdapter(Context context, int[]categoryimage, String[]categoryname) {
+    public ProductListAdapter(Context context, int[]categoryimage, String[]categoryname) {
         this.categoryimage = categoryimage;
         this.categoryname = categoryname;
         this.mContext = context;

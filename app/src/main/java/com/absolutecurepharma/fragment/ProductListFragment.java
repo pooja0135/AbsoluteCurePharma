@@ -6,22 +6,22 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.absolutecurepharma.R;
 import com.absolutecurepharma.adapter.ProductAdapter;
-import com.absolutecurepharma.adapter.SubCategoryAdapter;
+import com.absolutecurepharma.adapter.ProductListAdapter;
 
 public class ProductListFragment extends Fragment {
 
     View view;
     RecyclerView rvProduct;
-    ProductAdapter productAdapter;
-    int [] productimage={R.drawable.product_image1,R.drawable.product_image2,R.drawable.product_image3,R.drawable.product_image4};
-    String[] productname={"Paracetamol","Borncorid","Cetaphil","Head&shoulders"};
-    String[] productsize={"500mg","200ml","118ml","400ml",};
+    ProductListAdapter productAdapter;
+    int [] categoryimage={R.drawable.pharmacy,R.drawable.cosmetics,R.drawable.ayurvedic,R.drawable.vitamin_supplements};
+    String[] categoryname={"Pharmacy","Cosmetics","Ayurvedic","Vitamin &Supplements"};
 
 
     @Override
@@ -32,12 +32,24 @@ public class ProductListFragment extends Fragment {
         // DrawerActivity.ivHome.setVisibility(View.VISIBLE);
 
         rvProduct=view.findViewById(R.id.rvProduct);
-        rvProduct.setLayoutManager(new GridLayoutManager(getActivity(),2));
-        productAdapter=new ProductAdapter(getActivity(),productimage,productname,productsize);
+        rvProduct.setLayoutManager(new LinearLayoutManager(getActivity()));
+        productAdapter= new ProductListAdapter(getActivity(), categoryimage, categoryname) {
+            @Override
+            protected void onSubCategoryClick(View view, String str) {
+                replaceFragmentWithAnimation(new ProductListFragment());
+            }
+        };
         rvProduct.setAdapter(productAdapter);
 
 
         return view;
+    }
+
+    public void replaceFragmentWithAnimation(Fragment fragment) {
+        FragmentTransaction transaction = getFragmentManager().beginTransaction();
+        //  transaction.setCustomAnimations(R.anim.enter_from_left, R.anim.exit_to_right, R.anim.enter_from_right, R.anim.exit_to_left);
+        transaction.replace(R.id.main_fragment_container, fragment);
+        transaction.commit();
     }
 
 }
