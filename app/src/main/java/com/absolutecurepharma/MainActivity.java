@@ -81,6 +81,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                     drawer.openDrawer(Gravity.LEFT);
                 }
                 break;
+            case R.id.ivCart:
+                startActivity(new Intent(this,CartListActivity.class));
+                break;
         }
     }
 }
