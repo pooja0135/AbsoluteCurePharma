@@ -1,0 +1,193 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:card_view="http://schemas.android.com/apk/res-auto"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_margin="@dimen/_5sdp"
+
+    >
+<androidx.cardview.widget.CardView
+    android:layout_margin="@dimen/_5sdp"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    card_view:cardCornerRadius="@dimen/_5sdp">
+    <LinearLayout
+        android:id="@+id/layout_item"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/_175sdp"
+        android:orientation="vertical"
+        android:background="@color/white">
+
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+                <ImageView
+                    android:layout_centerInParent="true"
+                    android:id="@+id/ivProduct"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/_90sdp"
+                    android:layout_gravity="center"
+                    android:paddingTop="@dimen/_10sdp"
+                    android:paddingLeft="@dimen/_5sdp"
+                    android:paddingRight="@dimen/_5sdp"
+                    />
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:layout_marginBottom="@dimen/_20sdp"
+                android:layout_marginLeft="@dimen/_15sdp"
+                android:background="@color/green_700"
+                android:layout_gravity="bottom"
+                android:layout_width="@dimen/_56sdp"
+                android:layout_height="@dimen/_16sdp">
+
+                <TextView
+                    android:id="@+id/tvDiscount"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_alignParentEnd="true"
+                    android:layout_alignParentBottom="true"
+                    android:singleLine="true"
+                    android:gravity="center"
+                    android:textColor="@color/white"
+                    android:text="0% OFF "
+                    android:textSize="@dimen/_10sdp" />
+
+            </RelativeLayout>
+        </FrameLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:weightSum="2">
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:layout_weight="2">
+                <TextView
+                    android:singleLine="true"
+                    android:layout_gravity="left"
+                    android:id="@+id/tvProductName"
+                    android:text=""
+                    android:textSize="@dimen/_11sdp"
+                    android:textColor="@color/black"
+                    android:layout_marginLeft="@dimen/_10sdp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+                <TextView
+                    android:id="@+id/tvSize"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:paddingLeft="@dimen/_10sdp"
+                    android:text="100 mg"
+                    android:textColor="@color/grey_600"
+                    android:textSize="@dimen/_8sdp" />
+
+                <RelativeLayout
+                    android:layout_gravity="left"
+                    android:layout_width="wrap_content"
+                    android:layout_height="@dimen/_15sdp">
+
+
+                    <TextView
+                        android:id="@+id/tvFinalprice"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="@dimen/_10sdp"
+                        android:layout_centerVertical="true"
+                        android:singleLine="true"
+                        android:text="\u20B9 499"
+                        android:textColor="@color/green_500"
+                        android:textSize="@dimen/_10sdp"
+                        />
+
+
+                    <TextView
+                        android:singleLine="true"
+                        android:layout_marginTop="@dimen/_2sdp"
+                        android:id="@+id/tvOldPrice"
+                        android:layout_toRightOf="@+id/tvFinalprice"
+                        android:textSize="@dimen/_9sdp"
+                        android:layout_marginLeft="@dimen/_4sdp"
+                        android:text=" \u20B9 1399"
+                        android:textColor="@color/red_500"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content" />
+
+
+                </RelativeLayout>
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+
+                    <LinearLayout
+                        android:visibility="gone"
+                        android:layout_marginRight="@dimen/_10sdp"
+                        android:orientation="vertical"
+                        android:layout_alignParentRight="true"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content">
+
+
+                    </LinearLayout>
+
+
+
+                </RelativeLayout>
+
+
+            </LinearLayout>
+        </LinearLayout>
+
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+
+            <RelativeLayout
+                android:layout_centerInParent="true"
+                android:id="@+id/rlAddtocart"
+                android:layout_marginTop="@dimen/_5sdp"
+                android:layout_gravity="center"
+                android:layout_marginRight="@dimen/_5sdp"
+                android:layout_marginBottom="@dimen/_5sdp"
+                android:layout_width="@dimen/_60sdp"
+                android:layout_height="@dimen/_22sdp"
+                android:background="@drawable/rectangle_cart">
+                <TextView
+                    android:id="@+id/tvAddtoCart"
+                    android:textColor="@color/purple_500"
+                    android:textAlignment="center"
+                    android:layout_centerInParent="true"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Add To Cart"
+                    android:textStyle="bold"
+                    android:padding="@dimen/_5sdp"
+                    android:paddingRight="@dimen/_5sdp"
+                    android:textSize="@dimen/_9sdp"/>
+
+
+            </RelativeLayout>
+
+
+        </RelativeLayout>
+
+
+
+    </LinearLayout>
+</androidx.cardview.widget.CardView>
+
+
+</LinearLayout>
