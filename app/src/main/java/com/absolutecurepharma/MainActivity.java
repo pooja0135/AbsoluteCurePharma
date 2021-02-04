@@ -27,6 +27,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     LinearLayout llOrder;
     LinearLayout llAccount;
     LinearLayout llCart;
+    LinearLayout llSearch;
     public static ImageView ivMenu,ivCart;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -35,6 +36,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
         ivMenu = findViewById(R.id.ivMenu);
         ivCart = findViewById(R.id.ivCart);
+        llSearch = findViewById(R.id.llSearch);
         drawer = findViewById(R.id.drawer);
         navigationView = findViewById(R.id.nav_view);
         View headerview = navigationView.getHeaderView(0);
@@ -49,6 +51,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         rlHome.setOnClickListener(this);
         llAccount.setOnClickListener(this);
         llCart.setOnClickListener(this);
+        llOrder.setOnClickListener(this);
+        llSearch.setOnClickListener(this);
         ivCart.setOnClickListener(this);
         ivMenu.setOnClickListener(this);
 
@@ -90,6 +94,12 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 break;
             case R.id.ivCart:
                 startActivity(new Intent(this,CartListActivity.class));
+                break;
+            case R.id.llSearch:
+                startActivity(new Intent(this,SearchActivity.class));
+                break;
+            case R.id.llOrder:
+                startActivity(new Intent(this,OrderListActivity.class));
                 break;
         }
     }

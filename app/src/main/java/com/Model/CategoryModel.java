@@ -10,6 +10,16 @@ public class CategoryModel {
     private String marked_price;
     private String selling_price;
     private String product_image;
+
+    public String getProduct_id() {
+        return product_id;
+    }
+
+    public void setProduct_id(String product_id) {
+        this.product_id = product_id;
+    }
+
+    private String product_id;
     private String size;
 
 

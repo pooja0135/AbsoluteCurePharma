@@ -24,7 +24,7 @@ public class SplashActivity extends AppCompatActivity {
 
 
             @Override public void run() {
-                startActivity(new Intent(SplashActivity.this,LoginActivity.class));
+                startActivity(new Intent(SplashActivity.this,MainActivity.class));
                 // This method will be executed once the timer is over
 //                if (prefManager.getStringPreference(SplashActivity.this, "userid").equalsIgnoreCase(" ") || prefManager.getStringPreference(SplashActivity.this, "userid") != null ) {
 //                    // User is already logged in. Take him to main activity
