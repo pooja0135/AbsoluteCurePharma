@@ -1,6 +1,8 @@
 package com.absolutecurepharma.fragment;
 
+import android.content.Intent;
 import android.os.Bundle;
+import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -11,6 +13,7 @@ import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.absolutecurepharma.ProductDetailActivity;
 import com.absolutecurepharma.R;
 import com.absolutecurepharma.adapter.ProductAdapter;
 import com.absolutecurepharma.adapter.ProductListAdapter;
@@ -31,12 +34,27 @@ public class ProductListFragment extends Fragment {
         view = inflater.inflate(R.layout.product_list_fragment, container, false);
         // DrawerActivity.ivHome.setVisibility(View.VISIBLE);
 
+        view.setFocusableInTouchMode(true);
+        view.requestFocus();
+        view.setOnKeyListener(new View.OnKeyListener() {
+            @Override
+            public boolean onKey(View v, int keyCode, KeyEvent event) {
+                if (event.getAction() == KeyEvent.ACTION_DOWN) {
+                    if (keyCode == KeyEvent.KEYCODE_BACK) {
+                       replaceFragmentWithAnimation(new DashboardFragment());
+                        return true;
+                    }
+                }
+                return false;
+            }
+        });
+
         rvProduct=view.findViewById(R.id.rvProduct);
         rvProduct.setLayoutManager(new LinearLayoutManager(getActivity()));
         productAdapter= new ProductListAdapter(getActivity(), categoryimage, categoryname) {
             @Override
             protected void onSubCategoryClick(View view, String str) {
-                replaceFragmentWithAnimation(new ProductListFragment());
+                startActivity(new Intent(getActivity(), ProductDetailActivity.class));
             }
         };
         rvProduct.setAdapter(productAdapter);

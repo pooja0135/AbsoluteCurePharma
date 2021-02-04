@@ -26,6 +26,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     RelativeLayout rlHome;
     LinearLayout llOrder;
     LinearLayout llAccount;
+    LinearLayout llCart;
     public static ImageView ivMenu,ivCart;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -40,12 +41,14 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         rlHome = headerview.findViewById(R.id.rlHome);
         llOrder = headerview.findViewById(R.id.llOrder);
         llAccount = headerview.findViewById(R.id.llAccount);
+        llCart = headerview.findViewById(R.id.llCart);
 
 
 
         //setOnClickListener
         rlHome.setOnClickListener(this);
         llAccount.setOnClickListener(this);
+        llCart.setOnClickListener(this);
         ivCart.setOnClickListener(this);
         ivMenu.setOnClickListener(this);
 
@@ -72,14 +75,18 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             case R.id.llAccount:
                 startActivity(new Intent(this,LoginActivity.class));
                 break;
+            case R.id.llCart:
+                startActivity(new Intent(this,CartListActivity.class));
+                break;
 
             case R.id.ivMenu:
-                if (ivMenu.getTag().equals("arrow")) {
+                drawer.openDrawer(Gravity.LEFT);
+               /* if (ivMenu.getTag().equals("arrow")) {
                 }
                 else
                     {
                     drawer.openDrawer(Gravity.LEFT);
-                }
+                }*/
                 break;
             case R.id.ivCart:
                 startActivity(new Intent(this,CartListActivity.class));

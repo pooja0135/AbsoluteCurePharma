@@ -3,9 +3,11 @@ package com.absolutecurepharma;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.viewpager.widget.ViewPager;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.view.View;
+import android.widget.ImageView;
 
 import com.absolutecurepharma.adapter.ProductDetailPagerAdapter;
 import com.google.android.material.tabs.TabLayout;
@@ -13,7 +15,7 @@ import com.google.android.material.tabs.TabLayout;
 import java.util.Timer;
 import java.util.TimerTask;
 
-public class ProductDetailActivity extends AppCompatActivity {
+public class ProductDetailActivity extends AppCompatActivity implements View.OnClickListener{
 
     ViewPager bannerViewpager;
     ProductDetailPagerAdapter productDetailPagerAdapter;
@@ -22,11 +24,14 @@ public class ProductDetailActivity extends AppCompatActivity {
     Timer timer;
     long DELAY_MS = 1000;
     long PERIOD_MS = 3000;
+    ImageView ivBack,ivCart;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_product_detail);
 
+        ivBack=findViewById(R.id.ivBack);
+        ivCart=findViewById(R.id.ivCart);
         bannerViewpager=findViewById(R.id.bannerViewpager);
         productDetailPagerAdapter=new ProductDetailPagerAdapter(this,array) {
             @Override
@@ -67,5 +72,23 @@ public class ProductDetailActivity extends AppCompatActivity {
         }, DELAY_MS, PERIOD_MS);
 
 
+        //setOnClickListener
+        ivBack.setOnClickListener(this);
+        ivCart.setOnClickListener(this);
+
+
+    }
+
+    @Override
+    public void onClick(View v) {
+        switch (v.getId())
+        {
+            case R.id.ivBack:
+                finish();
+                break;
+            case R.id.ivCart:
+                startActivity(new Intent(this,CartListActivity.class));
+                break;
+        }
     }
 }
