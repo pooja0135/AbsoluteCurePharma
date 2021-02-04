@@ -131,7 +131,7 @@ public class LoginActivity extends AppCompatActivity  implements View.OnClickLis
                     JSONObject jObj = new JSONObject(response);
 
                     if(jObj.getString("Success").equalsIgnoreCase("true")) {
-                        Log.d(TAG, "Login Response: " + response.toString());
+
 
                     }
                     else {
