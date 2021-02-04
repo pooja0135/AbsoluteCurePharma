@@ -2,9 +2,12 @@ package com.absolutecurepharma.fragment;
 
 import android.os.Bundle;
 import android.os.Handler;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
+import android.widget.Toast;
 
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
@@ -13,12 +16,35 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.viewpager.widget.ViewPager;
 
+import com.Model.CategoryModel;
+import com.SeverCall.AppConfig;
 import com.absolutecurepharma.R;
+
 import com.absolutecurepharma.adapter.CardPagerAdapter;
 import com.absolutecurepharma.adapter.CategoryAdapter;
 import com.absolutecurepharma.adapter.ProductAdapter;
+import com.absolutecurepharma.customecomponent.CustomLoader;
+import com.absolutecurepharma.utils.Utils;
+import com.android.volley.AuthFailureError;
+import com.android.volley.NetworkError;
+import com.android.volley.NoConnectionError;
+import com.android.volley.ParseError;
+import com.android.volley.Request;
+import com.android.volley.Response;
+import com.android.volley.ServerError;
+import com.android.volley.TimeoutError;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.StringRequest;
+import com.android.volley.toolbox.Volley;
 import com.google.android.material.tabs.TabLayout;
 
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Timer;
 import java.util.TimerTask;
 
@@ -32,13 +58,16 @@ public class DashboardFragment  extends Fragment {
     Timer timer;
     long DELAY_MS = 1000;
     long PERIOD_MS = 3000;
+    ArrayList<CategoryModel>catlist;
+    ArrayList<CategoryModel>prodlist;
+
+    CustomLoader loader;
 
     int [] array={R.drawable.banner1,R.drawable.banner2};
-    int [] categoryimage={R.drawable.pharmacy,R.drawable.cosmetics,R.drawable.ayurvedic,R.drawable.vitamin_supplements};
-    String[] categoryname={"Pharmacy","Cosmetics","Ayurvedic","Vitamin &\nSupplements"};
-    int [] productimage={R.drawable.product_image1,R.drawable.product_image2,R.drawable.product_image3,R.drawable.product_image4};
-    String[] productname={"Paracetamol","Borncorid","Cetaphil","Head&shoulders"};
-    String[] productsize={"500mg","200ml","118ml","400ml",};
+//
+//    int [] productimage={R.drawable.product_image1,R.drawable.product_image2,R.drawable.product_image3,R.drawable.product_image4};
+//    String[] productname={"Paracetamol","Borncorid","Cetaphil","Head&shoulders"};
+//    String[] productsize={"500mg","200ml","118ml","400ml",};
 
 
 
@@ -53,21 +82,33 @@ public class DashboardFragment  extends Fragment {
         rvCategory     =view.findViewById(R.id.rvCategory);
         rvProduct     =view.findViewById(R.id.rvProduct);
 
+
+        loader = new CustomLoader(getContext(), android.R.style.Theme_Translucent_NoTitleBar_Fullscreen);
+        catlist=new ArrayList<>();
+        prodlist=new ArrayList<>();
+        if (Utils.isNetworkConnectedMainThred(getActivity())) {
+            getCategory();
+            getProduct();
+        } else {
+            Toast.makeText(getActivity(), "No Internet Connection!", Toast.LENGTH_SHORT).show();
+        }
+
+
+
         rvProduct.setLayoutManager(new GridLayoutManager(getActivity(),2));
         rvCategory.setLayoutManager(new LinearLayoutManager(getActivity(),LinearLayoutManager.HORIZONTAL,false));
-        categoryAdapter= new CategoryAdapter(getActivity(), categoryimage, categoryname) {
+        categoryAdapter= new CategoryAdapter(getActivity(), catlist) {
             @Override
             protected void onCategoryClick(View view, String str) {
-                replaceFragmentWithAnimation(new ProductListFragment());
+                //replaceFragmentWithAnimation(new SubcategoryFragment());
             }
         };
-        productAdapter=new ProductAdapter(getActivity(),productimage,productname,productsize);
-        rvProduct.setAdapter(productAdapter);
-        rvCategory.setAdapter(categoryAdapter);
+//        productAdapter=new ProductAdapter(getActivity(),productimage,productname,productsize);
+//        rvProduct.setAdapter(productAdapter);
 
 
-         TabLayout tabLayout = (TabLayout) view.findViewById(R.id.tabDots);
-         tabLayout.setupWithViewPager(bannerViewpager, true);
+        TabLayout tabLayout = (TabLayout) view.findViewById(R.id.tabDots);
+        tabLayout.setupWithViewPager(bannerViewpager, true);
 
 
         CardPagerAdapter mCardAdapterbelow = new CardPagerAdapter(getActivity(), array) {
@@ -107,9 +148,6 @@ public class DashboardFragment  extends Fragment {
                 handler.post(Update);
             }
         }, DELAY_MS, PERIOD_MS);
-
-
-
         return view;
     }
 
@@ -120,4 +158,130 @@ public class DashboardFragment  extends Fragment {
         transaction.commit();
     }
 
+
+    //*******************************************************************//
+    public void getCategory(){
+        //loader.setMessage("Loading...Please Wait..");
+        loader.show();
+        StringRequest stringRequest = new StringRequest(Request.Method.GET, AppConfig.GETCATEGORY,new Response.Listener<String>() {
+            @Override
+            public void onResponse(String response) {
+                Log.d("testttttttt", response);
+                loader.dismiss();
+
+                try {
+                    //converting the string to json array object
+                    JSONObject jsonObject = new JSONObject(response);
+
+                    if(jsonObject.getString("Success").equalsIgnoreCase("true")) {
+                        JSONArray array = jsonObject.getJSONArray("Category");
+                        {
+                            //traversing through all the object
+                            for (int i = 0; i < array.length(); i++) {
+                                //getting product object from json array
+                                JSONObject cat = array.getJSONObject(i);
+                                CategoryModel catModel = new CategoryModel();
+                                //adding the product to product list
+                                catModel.setCat_id(cat.getString("cat_id"));
+                                catModel.setCat_name(cat.getString("cat_name"));
+                                catModel.setCat_image(cat.getString("cat_image"));
+                                catlist.add(catModel);
+                            }
+                        }
+                    }
+                    else {
+                        Toast.makeText(getContext(),
+                                jsonObject.getString("message")+response,
+                                Toast.LENGTH_LONG).show();
+                    }
+                    //creating adapter object and setting it to recyclerview
+                    categoryAdapter = new CategoryAdapter(getContext(), catlist) {
+                        @Override
+                        protected void onCategoryClick(View view, String str) {
+
+                        }
+                    };
+                    rvCategory.setAdapter(categoryAdapter);
+                } catch (JSONException e) {
+
+                    Log.e("testerroor",e.toString());
+                    e.printStackTrace();
+                }
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+
+            }
+        });
+
+        //adding our stringrequest to queue
+        Volley.newRequestQueue(getContext()).add(stringRequest);
+    }
+    public void getProduct(){
+        //loader.setMessage("Loading...Please Wait..");
+        loader.show();
+        StringRequest stringRequest = new StringRequest(Request.Method.POST, AppConfig.GETPRODUCT,new Response.Listener<String>() {
+            @Override
+            public void onResponse(String response) {
+                Log.d("Product", response);
+                loader.dismiss();
+                try {
+                    //converting the string to json array object
+                    JSONObject jsonObject = new JSONObject(response);
+
+                    if(jsonObject.getString("Success").equalsIgnoreCase("true")) {
+                        JSONArray array = jsonObject.getJSONArray("Product");
+                        {
+                            //traversing through all the object
+                            for (int i = 0; i < array.length(); i++) {
+
+                                //getting product object from json array
+                                JSONObject cat = array.getJSONObject(i);
+                                CategoryModel catModel = new CategoryModel();
+                                //adding the product to product list
+                                catModel.setProduct_name(cat.getString("product_name"));
+                                catModel.setProduct_image(cat.getString("product_image"));
+                                catModel.setMarked_price(cat.getString("marked_price"));
+                                catModel.setSelling_price(cat.getString("selling_price"));
+                                catModel.setSize(cat.getString("size"));
+                                prodlist.add(catModel);
+                            }
+                        }
+                    }
+                    else {
+                        Toast.makeText(getContext(),
+                                jsonObject.getString("message")+response,
+                                Toast.LENGTH_LONG).show();
+                    }
+                    //creating adapter object and setting it to recyclerview
+                    productAdapter = new ProductAdapter(getContext(), prodlist);
+                    rvProduct.setAdapter(productAdapter);
+
+                } catch (JSONException e) {
+
+                    Log.e("testerroor",e.toString());
+                    e.printStackTrace();
+                }
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+
+            }
+        }){
+
+            @Override
+            protected Map<String, String> getParams() {
+                // Posting parameters to login url
+                Map<String, String> params = new HashMap<String, String>();
+                params.put("cat_id", "");
+
+                Log.e("",""+params);
+                return params;
+            }
+        };;
+        //adding our stringrequest to queue
+        Volley.newRequestQueue(getContext()).add(stringRequest);
+    }
 }

@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "149621969031",
+    "project_id": "absolutecurepharma",
+    "storage_bucket": "absolutecurepharma.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:149621969031:android:9e8e2b5b00b04f435f2822",
+        "android_client_info": {
+          "package_name": "com.absolutecurepharma"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "149621969031-1m1b2m0djqq56mrksa5c573dlov9avhi.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.absolutecurepharma",
+            "certificate_hash": "6dcb5b8e0474d9a732030b7a8d0733ded6c12e0b"
+          }
+        },
+        {
+          "client_id": "149621969031-vosc1461ls1u27o2fft5b0271devui7d.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyD3t3PSNzdujDS7c5PsDOfQPr2ReQ1zhEo"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "149621969031-vosc1461ls1u27o2fft5b0271devui7d.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
