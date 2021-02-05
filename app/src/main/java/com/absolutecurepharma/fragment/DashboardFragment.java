@@ -97,12 +97,7 @@ public class DashboardFragment  extends Fragment {
 
         rvProduct.setLayoutManager(new GridLayoutManager(getActivity(),2));
         rvCategory.setLayoutManager(new LinearLayoutManager(getActivity(),LinearLayoutManager.HORIZONTAL,false));
-        categoryAdapter= new CategoryAdapter(getActivity(), catlist) {
-            @Override
-            protected void onCategoryClick(View view, String str) {
-                //replaceFragmentWithAnimation(new SubcategoryFragment());
-            }
-        };
+
 //        productAdapter=new ProductAdapter(getActivity(),productimage,productname,productsize);
 //        rvProduct.setAdapter(productAdapter);
 
@@ -186,6 +181,7 @@ public class DashboardFragment  extends Fragment {
                                 catModel.setCat_name(cat.getString("cat_name"));
                                 catModel.setCat_image(cat.getString("cat_image"));
                                 catlist.add(catModel);
+
                             }
                         }
                     }
@@ -195,12 +191,7 @@ public class DashboardFragment  extends Fragment {
                                 Toast.LENGTH_LONG).show();
                     }
                     //creating adapter object and setting it to recyclerview
-                    categoryAdapter = new CategoryAdapter(getContext(), catlist) {
-                        @Override
-                        protected void onCategoryClick(View view, String str) {
-
-                        }
-                    };
+                    categoryAdapter = new CategoryAdapter(getContext(), catlist);
                     rvCategory.setAdapter(categoryAdapter);
                 } catch (JSONException e) {
 
@@ -284,4 +275,5 @@ public class DashboardFragment  extends Fragment {
         //adding our stringrequest to queue
         Volley.newRequestQueue(getContext()).add(stringRequest);
     }
+
 }
