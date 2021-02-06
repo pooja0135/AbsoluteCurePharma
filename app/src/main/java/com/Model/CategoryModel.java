@@ -11,6 +11,16 @@ public class CategoryModel {
     private String selling_price;
     private String product_image;
 
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
+    private String description;
+
     public String getProduct_id() {
         return product_id;
     }

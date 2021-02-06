@@ -14,5 +14,7 @@ public class AppConfig {
 
     public static String GETPRODUCT =BASE_URL+"getProducts.php";
 
+    public static String PRODUCTDETAILS =BASE_URL+"getProductDetails.php";
+
 
 }

@@ -10,26 +10,42 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.recyclerview.widget.RecyclerView;
 
 
 import com.Model.CategoryModel;
 import com.SeverCall.AppConfig;
+import com.SeverCall.Constants;
 import com.absolutecurepharma.ProductDetailActivity;
 import com.absolutecurepharma.R;
 
+import com.absolutecurepharma.customecomponent.CustomLoader;
+import com.absolutecurepharma.utils.Utils;
+import com.android.volley.Request;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.StringRequest;
+import com.android.volley.toolbox.Volley;
 import com.bumptech.glide.Glide;
 import com.squareup.picasso.Picasso;
 
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import java.text.DecimalFormat;
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 
 public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ItemRowHolder> {
 
 
     private Context mContext;
     private ArrayList<CategoryModel> categoryModel;
+    CustomLoader loader;
 //    int [] productimage={R.drawable.product_image1,R.drawable.product_image2,R.drawable.product_image3,R.drawable.product_image4};
 //    String[] productname={"Paracetamol","Borncorid","Cetaphil","Almond"};
 //    String[] productsize={"500mg","200ml","118ml","500gram",};
@@ -45,6 +61,7 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ItemRowH
         mContext=context;
         categoryModel=catlist;
 
+
     }
 
     @Override
@@ -55,6 +72,8 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ItemRowH
     }
     @Override
     public void onBindViewHolder(ItemRowHolder itemRowHolder, int i) {
+        loader = new CustomLoader(mContext, android.R.style.Theme_Translucent_NoTitleBar_Fullscreen);
+
         CategoryModel catMod = categoryModel.get(i);
         itemRowHolder.tvProductName.setText(catMod.getProduct_name());
         itemRowHolder.tvSize.setText(catMod.getSize());
@@ -78,7 +97,10 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ItemRowH
         itemRowHolder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                Constants.product_id=catMod.getProduct_id();
+                Log.e("newwwww",""+catMod.getProduct_id());
                 mContext.startActivity(new Intent(mContext,ProductDetailActivity.class));
+
             }
         });
     }
@@ -119,5 +141,7 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ItemRowH
         }
 
     }
+
+
 
 }

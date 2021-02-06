@@ -16,6 +16,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.viewpager.widget.ViewPager;
 
+
 import com.Model.CategoryModel;
 import com.SeverCall.AppConfig;
 import com.absolutecurepharma.R;
@@ -56,8 +57,8 @@ public class DashboardFragment  extends Fragment {
     ProductAdapter productAdapter;
     int currentPage = 0;
     Timer timer;
-    long DELAY_MS = 1000;
-    long PERIOD_MS = 3000;
+    long DELAY_MS = 5000;
+    long PERIOD_MS = 5000;
     ArrayList<CategoryModel>catlist;
     ArrayList<CategoryModel>prodlist;
 
