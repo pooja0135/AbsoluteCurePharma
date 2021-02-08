@@ -32,6 +32,7 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.text.DecimalFormat;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Timer;
@@ -48,18 +49,16 @@ public class ProductDetailActivity extends AppCompatActivity implements View.OnC
     long PERIOD_MS = 3000;
     ImageView ivBack,ivCart;
     CustomLoader loader;
-    String productName;
+    String productName,companyName,markerdPrice,sellingPrice,sizes,details;
     TextView tvProductName;
+    ActivityProductDetailBinding binding;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        ActivityProductDetailBinding binding;
-
         binding = DataBindingUtil.setContentView(this, R.layout.activity_product_detail);
 
         loader = new CustomLoader(this, android.R.style.Theme_Translucent_NoTitleBar_Fullscreen);
-        tvProductName=findViewById(R.id.tvProductName);
         bannerViewpager=findViewById(R.id.bannerViewpager);
         productDetailPagerAdapter=new ProductDetailPagerAdapter(this,array) {
             @Override
@@ -109,6 +108,7 @@ public class ProductDetailActivity extends AppCompatActivity implements View.OnC
         //setOnClickListener
         binding.ivBack.setOnClickListener(this);
         binding.ivCart.setOnClickListener(this);
+        binding.tvAddToCart.setOnClickListener(this);
 
 
     }
@@ -122,6 +122,9 @@ public class ProductDetailActivity extends AppCompatActivity implements View.OnC
                 break;
             case R.id.ivCart:
                 startActivity(new Intent(this,CartListActivity.class));
+                break;
+            case R.id.tvAddToCart:
+               addToCart();
                 break;
         }
     }
@@ -147,8 +150,22 @@ public class ProductDetailActivity extends AppCompatActivity implements View.OnC
                                 //getting product object from json array
                                 JSONObject prod = array.getJSONObject(i);
                                 productName=prod.getString("product_name");
+                                companyName=prod.getString("company");
+                                sizes=prod.getString("size");
+                                details=prod.getString("description");
+                                markerdPrice=prod.getString("marked_price");
+                                sellingPrice=prod.getString("selling_price");
 
-                                tvProductName.setText(""+productName);
+                                double discount= Double.parseDouble(markerdPrice)-Double.parseDouble(sellingPrice);
+                                double dis_percent=(discount*100)/Double.parseDouble(markerdPrice);
+                                DecimalFormat precision = new DecimalFormat("1");
+
+                              binding.tvProductName.setText(""+productName);
+                              binding.tvCompanyName.setText(""+companyName);
+                              binding.tvDescription.setText(""+details);
+                              binding.tvFinalprice.setText("\u20b9"+""+markerdPrice);
+                              binding.tvOldPrice.setText("\u20b9"+""+sellingPrice);
+                              binding.tvDiscount.setText(""+precision.format(dis_percent)+" % off");
                             }
                         }
                     }
@@ -185,5 +202,60 @@ public class ProductDetailActivity extends AppCompatActivity implements View.OnC
         Volley.newRequestQueue(ProductDetailActivity.this).add(stringRequest);
     }
 
+    public void addToCart(){
+        loader.show();
+        StringRequest stringRequest = new StringRequest(Request.Method.POST, AppConfig.ADDTOCART,new Response.Listener<String>() {
+            @Override
+            public void onResponse(String response) {
+                Log.d("Product", response);
+                loader.dismiss();
+                try {
+                    //converting the string to json array object
+                    JSONObject jsonObject = new JSONObject(response);
+
+                    if(jsonObject.getString("Success").equalsIgnoreCase("true")) {
+                        JSONArray array = jsonObject.getJSONArray("Product");
+                        {
+                               // JSONObject prod = array.getJSONObject(i);
+                                Log.e("bhagyaa",""+array.getString(Integer.parseInt("success_msg")));
+
+                        }
+                    }
+                    else {
+                        Toast.makeText(ProductDetailActivity.this,
+                                jsonObject.getString("message")+response,
+                                Toast.LENGTH_LONG).show();
+                    }
+
+                } catch (JSONException e) {
+
+                    Log.e("testerroor",e.toString());
+                    e.printStackTrace();
+                }
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+
+            }
+        }){
+
+            @Override
+            protected Map<String, String> getParams() {
+                // Posting parameters to login url
+                Map<String, String> params = new HashMap<String, String>();
+                params.put("prod_id","1") ;
+                params.put("user_id","1") ;
+                params.put("qty","1") ;
+                params.put("price","1") ;
+                params.put("total","1") ;
+
+                Log.e("",""+params);
+                return params;
+            }
+        };;
+        //adding our stringrequest to queue
+        Volley.newRequestQueue(ProductDetailActivity.this).add(stringRequest);
+    }
 
 }

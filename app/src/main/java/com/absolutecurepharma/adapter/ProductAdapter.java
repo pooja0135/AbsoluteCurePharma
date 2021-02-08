@@ -82,7 +82,7 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ItemRowH
 
         double discount= Double.parseDouble(catMod.getMarked_price())-Double.parseDouble(catMod.getSelling_price());
         double dis_percent=(discount*100)/Double.parseDouble(catMod.getMarked_price());
-        DecimalFormat precision = new DecimalFormat("0");
+        DecimalFormat precision = new DecimalFormat("1");
         itemRowHolder.tvDiscount.setText(precision.format(dis_percent)+" % off");
 
         String image_url= AppConfig.IMAGE_PATH +categoryModel.get(i).getProduct_image();
