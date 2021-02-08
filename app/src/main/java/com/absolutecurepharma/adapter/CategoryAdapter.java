@@ -26,6 +26,7 @@ import com.absolutecurepharma.LoginActivity;
 import com.absolutecurepharma.R;
 
 
+import com.absolutecurepharma.customecomponent.CustomLoader;
 import com.absolutecurepharma.fragment.SubcategoryFragment;
 import com.bumptech.glide.Glide;
 import com.squareup.picasso.Picasso;
@@ -38,6 +39,7 @@ import static java.security.AccessController.getContext;
 public class CategoryAdapter extends RecyclerView.Adapter<CategoryAdapter.ItemRowHolder> {
     private Context mContext;
     private ArrayList<CategoryModel> categoryModel;
+    CustomLoader loader;
 
     public CategoryAdapter(Context context, ArrayList CategoryModel) {
 
@@ -46,6 +48,7 @@ public class CategoryAdapter extends RecyclerView.Adapter<CategoryAdapter.ItemRo
     }
     @Override
     public ItemRowHolder onCreateViewHolder(ViewGroup viewGroup, int i) {
+
         View v = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.category_list, null);
         ItemRowHolder mh = new ItemRowHolder(v);
 
@@ -53,6 +56,7 @@ public class CategoryAdapter extends RecyclerView.Adapter<CategoryAdapter.ItemRo
     }
     @Override
     public void onBindViewHolder(ItemRowHolder itemRowHolder, int i) {
+        loader = new CustomLoader(mContext, android.R.style.Theme_Translucent_NoTitleBar_Fullscreen);
 
         CategoryModel catMod = categoryModel.get(i);
         itemRowHolder.llnew.setOnClickListener(new View.OnClickListener() {

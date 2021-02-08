@@ -237,6 +237,7 @@ public class DashboardFragment  extends Fragment {
                                 catModel.setMarked_price(cat.getString("marked_price"));
                                 catModel.setSelling_price(cat.getString("selling_price"));
                                 catModel.setSize(cat.getString("size"));
+                                catModel.setProduct_id(cat.getString("id"));
                                 prodlist.add(catModel);
                             }
                         }
@@ -272,7 +273,7 @@ public class DashboardFragment  extends Fragment {
                 Log.e("",""+params);
                 return params;
             }
-        };;
+        };
         //adding our stringrequest to queue
         Volley.newRequestQueue(getContext()).add(stringRequest);
     }

@@ -18,5 +18,7 @@ public class AppConfig {
 
     public static String ADDTOCART =BASE_URL+"addtocart.php";
 
+    public static String GETCART =BASE_URL+"getCart.php";
+
 
 }

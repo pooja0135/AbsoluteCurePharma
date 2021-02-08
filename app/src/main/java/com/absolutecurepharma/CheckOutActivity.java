@@ -12,6 +12,8 @@ import android.widget.TextView;
 
 import com.absolutecurepharma.adapter.CartListAdapter;
 
+import java.util.ArrayList;
+
 public class CheckOutActivity extends AppCompatActivity implements View.OnClickListener {
 
     ImageView ivBack;
@@ -33,23 +35,23 @@ public class CheckOutActivity extends AppCompatActivity implements View.OnClickL
         tvProceed=findViewById(R.id.tvProceed);
         recyclerview=findViewById(R.id.recyclerview);
         recyclerview.setLayoutManager(new LinearLayoutManager(this));
-        cartListAdapter= new CartListAdapter(this, categoryimage, categoryname) {
-
-            @Override
-            protected void onPlusClick(View view, String str) {
-
-            }
-
-            @Override
-            protected void onMinusClick(View view, String str) {
-
-            }
-
-            @Override
-            protected void onDeleteClick(View view, String str) {
-
-            }
-        };
+//        cartListAdapter= new CartListAdapter(this, categoryimage, categoryname) {
+//
+//            @Override
+//            protected void onPlusClick(View view, String str) {
+//
+//            }
+//
+//            @Override
+//            protected void onMinusClick(View view, String str) {
+//
+//            }
+//
+//            @Override
+//            protected void onDeleteClick(View view, String str) {
+//
+//            }
+//        };
 
         recyclerview.setAdapter(cartListAdapter);
 

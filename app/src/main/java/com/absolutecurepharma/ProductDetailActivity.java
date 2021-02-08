@@ -49,7 +49,7 @@ public class ProductDetailActivity extends AppCompatActivity implements View.OnC
     long PERIOD_MS = 3000;
     ImageView ivBack,ivCart;
     CustomLoader loader;
-    String productName,companyName,markerdPrice,sellingPrice,sizes,details;
+    String productName,companyName,markerdPrice,sellingPrice,sizes,details,prodID;
     TextView tvProductName;
     ActivityProductDetailBinding binding;
 
@@ -124,7 +124,7 @@ public class ProductDetailActivity extends AppCompatActivity implements View.OnC
                 startActivity(new Intent(this,CartListActivity.class));
                 break;
             case R.id.tvAddToCart:
-               addToCart();
+               addToCart(prodID,sellingPrice,sellingPrice);
                 break;
         }
     }
@@ -192,7 +192,7 @@ public class ProductDetailActivity extends AppCompatActivity implements View.OnC
             protected Map<String, String> getParams() {
                 // Posting parameters to login url
                 Map<String, String> params = new HashMap<String, String>();
-                params.put("product_id","1") ;
+                params.put("product_id",product_id) ;
 
                 Log.e("",""+params);
                 return params;
@@ -202,9 +202,11 @@ public class ProductDetailActivity extends AppCompatActivity implements View.OnC
         Volley.newRequestQueue(ProductDetailActivity.this).add(stringRequest);
     }
 
-    public void addToCart(){
+    public void addToCart(final String prodId, final String sellingPrice, final String totalPrice){
         loader.show();
+
         StringRequest stringRequest = new StringRequest(Request.Method.POST, AppConfig.ADDTOCART,new Response.Listener<String>() {
+
             @Override
             public void onResponse(String response) {
                 Log.d("Product", response);
@@ -213,17 +215,14 @@ public class ProductDetailActivity extends AppCompatActivity implements View.OnC
                     //converting the string to json array object
                     JSONObject jsonObject = new JSONObject(response);
 
-                    if(jsonObject.getString("Success").equalsIgnoreCase("true")) {
-                        JSONArray array = jsonObject.getJSONArray("Product");
-                        {
-                               // JSONObject prod = array.getJSONObject(i);
-                                Log.e("bhagyaa",""+array.getString(Integer.parseInt("success_msg")));
-
-                        }
+                    if(jsonObject.getString("message").equalsIgnoreCase("true")) {
+                        Toast.makeText(ProductDetailActivity.this,
+                                jsonObject.getString("success_msg"),
+                                Toast.LENGTH_LONG).show();
                     }
                     else {
                         Toast.makeText(ProductDetailActivity.this,
-                                jsonObject.getString("message")+response,
+                                jsonObject.getString("message"),
                                 Toast.LENGTH_LONG).show();
                     }
 
@@ -244,13 +243,13 @@ public class ProductDetailActivity extends AppCompatActivity implements View.OnC
             protected Map<String, String> getParams() {
                 // Posting parameters to login url
                 Map<String, String> params = new HashMap<String, String>();
-                params.put("prod_id","1") ;
+                params.put("prod_id",prodId) ;
                 params.put("user_id","1") ;
                 params.put("qty","1") ;
-                params.put("price","1") ;
-                params.put("total","1") ;
+                params.put("price",sellingPrice) ;
+                params.put("total",totalPrice) ;
 
-                Log.e("",""+params);
+                Log.e("ADD TO CART",""+params);
                 return params;
             }
         };;

@@ -10,15 +10,19 @@ import android.widget.TextView;
 
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.Model.CategoryModel;
 import com.absolutecurepharma.R;
 import com.squareup.picasso.Picasso;
+
+import java.util.ArrayList;
 
 public abstract class CartListAdapter extends RecyclerView.Adapter<CartListAdapter.ItemRowHolder> {
 
 
     private Context mContext;
-    int [] categoryimage={R.drawable.pharmacy,R.drawable.cosmetics,R.drawable.ayurvedic,R.drawable.vitamin_supplements};
-    String[] categoryname={"Pharmacy","Cosmetics","Ayurvedic","Vitamin & Supplements"};
+    private ArrayList<CategoryModel> categoryModel;
+//    int [] categoryimage={R.drawable.pharmacy,R.drawable.cosmetics,R.drawable.ayurvedic,R.drawable.vitamin_supplements};
+//    String[] categoryname={"Pharmacy","Cosmetics","Ayurvedic","Vitamin & Supplements"};
     public View.OnClickListener clickListener;
     public View.OnClickListener minusclickListener;
     public View.OnClickListener deletelickListener;
@@ -27,9 +31,8 @@ public abstract class CartListAdapter extends RecyclerView.Adapter<CartListAdapt
     protected abstract void onDeleteClick(View view, String str);
 
 
-    public CartListAdapter(Context context, int[]categoryimage, String[]categoryname) {
-        this.categoryimage = categoryimage;
-        this.categoryname = categoryname;
+    public CartListAdapter(Context context, ArrayList categoryModel) {
+        this.categoryModel = categoryModel;
         this.mContext = context;
         clickListener = new View.OnClickListener() {
             @Override
@@ -60,12 +63,12 @@ public abstract class CartListAdapter extends RecyclerView.Adapter<CartListAdapt
     }
     @Override
     public void onBindViewHolder(ItemRowHolder itemRowHolder, int i) {
+        CategoryModel catMod = categoryModel.get(i);
+
+        itemRowHolder.tvSubcategory.setText(catMod.getProduct_id());
 
 
-        itemRowHolder.tvSubcategory.setText(categoryname[i]);
-
-
-        Picasso.with(mContext).load(categoryimage[i]).fit().centerCrop().into(itemRowHolder.ivSubcategory);
+       // Picasso.with(mContext).load(categoryimage[i]).fit().centerCrop().into(itemRowHolder.ivSubcategory);
 
         itemRowHolder.ivDelete.setOnClickListener(deletelickListener);
         itemRowHolder.ivMinus.setOnClickListener(minusclickListener);
@@ -78,7 +81,7 @@ public abstract class CartListAdapter extends RecyclerView.Adapter<CartListAdapt
     public int getItemCount() {
 
 
-       return categoryimage.length;
+       return categoryModel.size();
 
 
     }
