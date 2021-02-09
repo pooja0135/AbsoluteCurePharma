@@ -20,5 +20,9 @@ public class AppConfig {
 
     public static String GETCART =BASE_URL+"getCart.php";
 
+    public static String UPDATEQYT =BASE_URL+"update_qty.php";
+
+    public static String DELETEPRODUCT =BASE_URL+"delete_product.php";
+
 
 }

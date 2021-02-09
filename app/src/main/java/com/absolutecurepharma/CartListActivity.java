@@ -67,6 +67,7 @@ public class CartListActivity extends AppCompatActivity implements View.OnClickL
         rvCart = findViewById(R.id.rvCart);
         tvFinalprice = findViewById(R.id.tvFinalprice);
         tvProceed = findViewById(R.id.tvProceed);
+        layout_cart_empty = findViewById(R.id.layout_cart_empty);
         loader = new CustomLoader(CartListActivity.this, android.R.style.Theme_Translucent_NoTitleBar_Fullscreen);
         catlist=new ArrayList<>();
 
@@ -145,15 +146,21 @@ public class CartListActivity extends AppCompatActivity implements View.OnClickL
                                 JSONObject cat = array.getJSONObject(i);
                                 CategoryModel catModel = new CategoryModel();
                                 //adding the product to product list
-//                                catModel.setCat_id(cat.getString("cat_id"));
-//                                catModel.setCat_name(cat.getString("cat_name"));
-//                                catModel.setCat_image(cat.getString("cat_image"));
+                                catModel.setProduct_name(cat.getString("product_name"));
+                                catModel.setSize(cat.getString("size"));
+                                catModel.setProduct_id(cat.getString("product_id"));
+                                catModel.setProduct_image(cat.getString("product_image"));
+                                catModel.setMarked_price(cat.getString("marked_price"));
+                                catModel.setSelling_price(cat.getString("selling_price"));
+                                catModel.setCompany(cat.getString("company"));
+                                catModel.setQty(cat.getString("qty"));
                                 catlist.add(catModel);
 
                             }
                         }
                     }
                     else {
+                        layout_cart_empty.setVisibility(View.VISIBLE);
                         Toast.makeText(CartListActivity.this,
                                 jsonObject.getString("message")+response,
                                 Toast.LENGTH_LONG).show();
@@ -162,6 +169,7 @@ public class CartListActivity extends AppCompatActivity implements View.OnClickL
                     cartListAdapter = new CartListAdapter(CartListActivity.this, catlist) {
                         @Override
                         protected void onPlusClick(View view, String str) {
+
 
                         }
 
@@ -193,7 +201,7 @@ public class CartListActivity extends AppCompatActivity implements View.OnClickL
             protected Map<String, String> getParams() {
                 // Posting parameters to login url
                 Map<String, String> params = new HashMap<String, String>();
-                params.put("user_id", "1");
+                params.put("user_id",  "1");
 
                 Log.e("", "" + params);
                 return params;

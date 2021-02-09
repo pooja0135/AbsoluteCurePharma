@@ -11,6 +11,26 @@ public class CategoryModel {
     private String selling_price;
     private String product_image;
 
+    public String getQty() {
+        return qty;
+    }
+
+    public void setQty(String qty) {
+        this.qty = qty;
+    }
+
+    private String qty;
+
+    public String getCompany() {
+        return company;
+    }
+
+    public void setCompany(String company) {
+        this.company = company;
+    }
+
+    private String company;
+
     public String getDescription() {
         return description;
     }

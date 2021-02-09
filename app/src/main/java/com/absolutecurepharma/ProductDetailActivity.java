@@ -70,7 +70,7 @@ public class ProductDetailActivity extends AppCompatActivity implements View.OnC
         TabLayout tabLayout = (TabLayout) findViewById(R.id.tabDots);
         tabLayout.setupWithViewPager(bannerViewpager, true);
 
-       binding. bannerViewpager.setAdapter(productDetailPagerAdapter);
+        binding. bannerViewpager.setAdapter(productDetailPagerAdapter);
         productDetailPagerAdapter.notifyDataSetChanged();
         binding.bannerViewpager.setOffscreenPageLimit(2);
         binding.bannerViewpager.setClipToPadding(false);
@@ -124,6 +124,8 @@ public class ProductDetailActivity extends AppCompatActivity implements View.OnC
                 startActivity(new Intent(this,CartListActivity.class));
                 break;
             case R.id.tvAddToCart:
+
+                prodID=Constants.product_id;
                addToCart(prodID,sellingPrice,sellingPrice);
                 break;
         }
@@ -222,7 +224,7 @@ public class ProductDetailActivity extends AppCompatActivity implements View.OnC
                     }
                     else {
                         Toast.makeText(ProductDetailActivity.this,
-                                jsonObject.getString("message"),
+                                jsonObject.getString("success_msg"),
                                 Toast.LENGTH_LONG).show();
                     }
 

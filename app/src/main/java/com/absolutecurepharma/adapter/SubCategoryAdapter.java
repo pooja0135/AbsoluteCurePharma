@@ -99,11 +99,7 @@ public abstract class SubCategoryAdapter extends RecyclerView.Adapter<SubCategor
 
     @Override
     public int getItemCount() {
-
-
       return categoryModel.size();
-
-
     }
 
     public class ItemRowHolder extends RecyclerView.ViewHolder {
@@ -115,10 +111,7 @@ public abstract class SubCategoryAdapter extends RecyclerView.Adapter<SubCategor
         protected TextView tvOldPrice;
         protected TextView tvDiscount;
         protected TextView tvAddToCart;
-
         protected ImageView ivSubcategory;
-
-
 
         public ItemRowHolder(View view) {
             super(view);
@@ -131,13 +124,8 @@ public abstract class SubCategoryAdapter extends RecyclerView.Adapter<SubCategor
             this.tvOldPrice=(TextView)view.findViewById(R.id.tvOldPrice);
             this.tvDiscount=(TextView)view.findViewById(R.id.tvDiscount);
             this.tvAddToCart=(TextView)view.findViewById(R.id.tvAddToCart);
-
-
         }
-
     }
-
-
     public void addToCart(final String prodId,final String sellingPrice, final String totalPrice){
         loader.show();
 
@@ -158,7 +146,7 @@ public abstract class SubCategoryAdapter extends RecyclerView.Adapter<SubCategor
                     }
                     else {
                         Toast.makeText(mContext,
-                                jsonObject.getString("message"),
+                                jsonObject.getString("success_msg"),
                                 Toast.LENGTH_LONG).show();
                     }
 
