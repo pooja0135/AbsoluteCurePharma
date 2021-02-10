@@ -10,7 +10,7 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.absolutecurepharma.adapter.CartListAdapter;
+
 
 import java.util.ArrayList;
 
@@ -19,7 +19,7 @@ public class CheckOutActivity extends AppCompatActivity implements View.OnClickL
     ImageView ivBack;
     TextView tvChange,tvProceed;
     RecyclerView recyclerview;
-    CartListAdapter cartListAdapter;
+   // CartListAdapter cartListAdapter;
     int [] categoryimage={R.drawable.pharmacy,R.drawable.cosmetics,R.drawable.ayurvedic,R.drawable.vitamin_supplements};
     String[] categoryname={"Pharmacy","Cosmetics","Ayurvedic","Vitamin &Supplements"};
 
@@ -53,7 +53,7 @@ public class CheckOutActivity extends AppCompatActivity implements View.OnClickL
 //            }
 //        };
 
-        recyclerview.setAdapter(cartListAdapter);
+      //  recyclerview.setAdapter(cartListAdapter);
 
 
         //setonCLicklistener
