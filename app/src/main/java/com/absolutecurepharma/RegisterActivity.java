@@ -16,6 +16,7 @@ import com.absolutecurepharma.customecomponent.CustomLoader;
 
 
 import com.absolutecurepharma.databinding.ActivityRegisterBinding;
+import com.absolutecurepharma.utils.Preferences;
 import com.absolutecurepharma.utils.Utils;
 import com.android.volley.DefaultRetryPolicy;
 import com.android.volley.Request;
@@ -38,7 +39,7 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
     ActivityRegisterBinding binding;
     String name,email,mobile,password;
     CustomLoader loader;
-
+ Preferences pref;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -52,7 +53,7 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
         Log.e(TAG,"nisha"+name);
 
         loader = new CustomLoader(this, android.R.style.Theme_Translucent_NoTitleBar_Fullscreen);
-
+         pref=new Preferences(this);
 
         //setOnClickListener
         binding.ivBack.setOnClickListener(this);

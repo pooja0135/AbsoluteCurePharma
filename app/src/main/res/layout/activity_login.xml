@@ -69,7 +69,6 @@
                         android:textColor="@color/grey_700"
                         />
                     <EditText
-                        android:text="9823650123"
                         android:layout_marginLeft="@dimen/_10sdp"
                         android:singleLine="true"
                         android:layout_width="match_parent"
@@ -98,7 +97,6 @@
                         android:textColor="@color/grey_700"
                         />
                     <EditText
-                        android:text="1234"
                         android:layout_marginLeft="@dimen/_10sdp"
                         android:singleLine="true"
                         android:layout_width="match_parent"

@@ -14,8 +14,10 @@ import android.widget.Switch;
 import android.widget.Toast;
 
 import com.SeverCall.AppConfig;
+import com.SeverCall.Constants;
 import com.absolutecurepharma.customecomponent.CustomLoader;
 import com.absolutecurepharma.databinding.ActivityLoginBinding;
+import com.absolutecurepharma.utils.Preferences;
 import com.absolutecurepharma.utils.Utils;
 import com.android.volley.DefaultRetryPolicy;
 import com.android.volley.Request;
@@ -38,6 +40,7 @@ public class LoginActivity extends AppCompatActivity  implements View.OnClickLis
     ActivityLoginBinding binding;
     String token,userid,password;
     CustomLoader loader;
+    Preferences pref;
 
     private static final String TAG = LoginActivity.class.getSimpleName();
 
@@ -48,7 +51,7 @@ public class LoginActivity extends AppCompatActivity  implements View.OnClickLis
         binding = DataBindingUtil.setContentView(this, R.layout.activity_login);
 
         loader = new CustomLoader(this, android.R.style.Theme_Translucent_NoTitleBar_Fullscreen);
-
+        pref=new Preferences(this);
 
         binding.btnLogin.setOnClickListener(this);
         binding.ivBack.setOnClickListener(this);
@@ -133,15 +136,16 @@ public class LoginActivity extends AppCompatActivity  implements View.OnClickLis
                 loader.dismiss();
 
                 try {
-                    JSONObject jObj = new JSONObject(response);
+                    JSONObject object = new JSONObject(response);
 
-                    if(jObj.getString("Success").equalsIgnoreCase("true")) {
-//                        PrefManager.setStringPreference(LoginActivity.this,"userid",jObj.getString("id"));
-//                        PrefManager.setStringPreference(LoginActivity.this, Constants.FULLNAME,jObj.getString("full_name"));
-//                        PrefManager.setStringPreference(LoginActivity.this, Constants.MOBILENUMBER,jObj.getString("mobile_no"));
-//                        PrefManager.setStringPreference(LoginActivity.this, Constants.EMAIL,jObj.getString("email"));
-//                        PrefManager.setStringPreference(LoginActivity.this, Constants.PASSWORD,jObj.getString("password"));
-
+                    if(object.getString("Success").equalsIgnoreCase("true")) {
+                        pref.set(Constants.USERID, object.getString("id"));
+                        pref.set(Constants.MOBILENUMBER, object.getString("Phone1"));
+                        pref.set(Constants.FULLNAME, object.getString("mobile_no"));
+                        pref.set(Constants.EMAIL, object.getString("email"));
+                        pref.set(Constants.PASSWORD, object.getString("password"));
+                        pref.commit();
+//
                         startActivity(new Intent(LoginActivity.this,MainActivity.class));
                         Toast.makeText(getApplicationContext(), "Login Success!", Toast.LENGTH_LONG).show();
                     }

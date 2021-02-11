@@ -13,7 +13,12 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.AbsoluteCurePharma"
         android:usesCleartextTraffic="true">
-        <activity android:name=".OrderDetailActivity"></activity>
+        <activity android:name=".ChangePasswordActivity"></activity>
+        <activity android:name=".EditProfileActivity" />
+        <activity android:name=".MyAccountActivity" />
+        <activity android:name=".AddressListActivity" />
+        <activity android:name=".AddAddressActivity" />
+        <activity android:name=".OrderDetailActivity" />
         <activity android:name=".OrderListActivity" />
         <activity android:name=".SearchActivity" />
         <activity android:name=".CheckOutActivity" />

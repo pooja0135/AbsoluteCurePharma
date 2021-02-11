@@ -77,7 +77,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 break;
 
             case R.id.llAccount:
-                startActivity(new Intent(this,LoginActivity.class));
+                startActivity(new Intent(this,MyAccountActivity.class));
                 break;
             case R.id.llCart:
                 startActivity(new Intent(this,CartListActivity.class));
