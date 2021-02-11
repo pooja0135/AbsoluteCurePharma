@@ -16,6 +16,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.viewpager.widget.ViewPager;
 
+
 import com.Model.CategoryModel;
 import com.SeverCall.AppConfig;
 import com.absolutecurepharma.R;
@@ -56,8 +57,8 @@ public class DashboardFragment  extends Fragment {
     ProductAdapter productAdapter;
     int currentPage = 0;
     Timer timer;
-    long DELAY_MS = 1000;
-    long PERIOD_MS = 3000;
+    long DELAY_MS = 5000;
+    long PERIOD_MS = 5000;
     ArrayList<CategoryModel>catlist;
     ArrayList<CategoryModel>prodlist;
 
@@ -97,12 +98,7 @@ public class DashboardFragment  extends Fragment {
 
         rvProduct.setLayoutManager(new GridLayoutManager(getActivity(),2));
         rvCategory.setLayoutManager(new LinearLayoutManager(getActivity(),LinearLayoutManager.HORIZONTAL,false));
-        categoryAdapter= new CategoryAdapter(getActivity(), catlist) {
-            @Override
-            protected void onCategoryClick(View view, String str) {
-                //replaceFragmentWithAnimation(new SubcategoryFragment());
-            }
-        };
+
 //        productAdapter=new ProductAdapter(getActivity(),productimage,productname,productsize);
 //        rvProduct.setAdapter(productAdapter);
 
@@ -186,6 +182,7 @@ public class DashboardFragment  extends Fragment {
                                 catModel.setCat_name(cat.getString("cat_name"));
                                 catModel.setCat_image(cat.getString("cat_image"));
                                 catlist.add(catModel);
+
                             }
                         }
                     }
@@ -195,12 +192,7 @@ public class DashboardFragment  extends Fragment {
                                 Toast.LENGTH_LONG).show();
                     }
                     //creating adapter object and setting it to recyclerview
-                    categoryAdapter = new CategoryAdapter(getContext(), catlist) {
-                        @Override
-                        protected void onCategoryClick(View view, String str) {
-
-                        }
-                    };
+                    categoryAdapter = new CategoryAdapter(getContext(), catlist);
                     rvCategory.setAdapter(categoryAdapter);
                 } catch (JSONException e) {
 
@@ -245,6 +237,7 @@ public class DashboardFragment  extends Fragment {
                                 catModel.setMarked_price(cat.getString("marked_price"));
                                 catModel.setSelling_price(cat.getString("selling_price"));
                                 catModel.setSize(cat.getString("size"));
+                                catModel.setProduct_id(cat.getString("id"));
                                 prodlist.add(catModel);
                             }
                         }
@@ -280,8 +273,9 @@ public class DashboardFragment  extends Fragment {
                 Log.e("",""+params);
                 return params;
             }
-        };;
+        };
         //adding our stringrequest to queue
         Volley.newRequestQueue(getContext()).add(stringRequest);
     }
+
 }

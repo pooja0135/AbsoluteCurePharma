@@ -8,11 +8,21 @@ public class AppConfig {
 
     public static String LOGIN_URL =BASE_URL+"login.php";
 
-        public static String REGISTER_URL =BASE_URL+"Registration.php";
+    public static String REGISTER_URL =BASE_URL+"Registration.php";
 
     public static String GETCATEGORY =BASE_URL+"getCategory.php";
 
     public static String GETPRODUCT =BASE_URL+"getProducts.php";
+
+    public static String PRODUCTDETAILS =BASE_URL+"getProductDetails.php";
+
+    public static String ADDTOCART =BASE_URL+"addtocart.php";
+
+    public static String GETCART =BASE_URL+"getCart.php";
+
+    public static String UPDATEQYT =BASE_URL+"update_qty.php";
+
+    public static String DELETEPRODUCT =BASE_URL+"delete_product.php";
 
 
 }

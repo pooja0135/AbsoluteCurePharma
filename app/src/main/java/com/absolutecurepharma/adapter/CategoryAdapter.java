@@ -1,73 +1,75 @@
 package com.absolutecurepharma.adapter;
 
 
+import android.app.Fragment;
 import android.content.Context;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.FragmentActivity;
+import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 
 import com.Model.CategoryModel;
 import com.SeverCall.AppConfig;
+import com.SeverCall.Constants;
+import com.absolutecurepharma.LoginActivity;
 import com.absolutecurepharma.R;
 
 
+import com.absolutecurepharma.customecomponent.CustomLoader;
+import com.absolutecurepharma.fragment.SubcategoryFragment;
 import com.bumptech.glide.Glide;
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public abstract class CategoryAdapter extends RecyclerView.Adapter<CategoryAdapter.ItemRowHolder> {
+import static java.security.AccessController.getContext;
 
-
+public class CategoryAdapter extends RecyclerView.Adapter<CategoryAdapter.ItemRowHolder> {
     private Context mContext;
     private ArrayList<CategoryModel> categoryModel;
-    public View.OnClickListener clickListener;
+    CustomLoader loader;
 
-
-    //int [] categoryimage={R.drawable.pharmacy,R.drawable.cosmetics,R.drawable.ayurvedic,R.drawable.vitamin_supplements};
-    String[] categoryname={"Pharmacy","Cosmetics","Ayurvedic","Vitamin & Supplements"};
-
-    public CategoryAdapter(Context context,ArrayList CategoryModel) {
+    public CategoryAdapter(Context context, ArrayList CategoryModel) {
 
         this.mContext = context;
         this.categoryModel = CategoryModel;
     }
-
-    protected abstract void onCategoryClick(View view, String str);
-
-
-
-//    public CategoryAdapter(Context context, int[]categoryimage,String[]categoryname) {
-//        this.categoryimage = categoryimage;
-//        this.categoryname = categoryname;
-//        this.mContext = context;
-//        clickListener = new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                onCategoryClick(v, String.valueOf(v.getTag()));
-//            }
-//        };
-//    }
-
     @Override
     public ItemRowHolder onCreateViewHolder(ViewGroup viewGroup, int i) {
+
         View v = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.category_list, null);
         ItemRowHolder mh = new ItemRowHolder(v);
-        v.setOnClickListener(clickListener);
+
         return mh;
     }
     @Override
     public void onBindViewHolder(ItemRowHolder itemRowHolder, int i) {
+        loader = new CustomLoader(mContext, android.R.style.Theme_Translucent_NoTitleBar_Fullscreen);
 
         CategoryModel catMod = categoryModel.get(i);
+        itemRowHolder.llnew.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                Constants.cat_id=catMod.getCat_id();
+                AppCompatActivity activity = (AppCompatActivity) view.getContext();
+                SubcategoryFragment myFragment = new SubcategoryFragment();
+                activity.getSupportFragmentManager().beginTransaction().replace(R.id.main_fragment_container, myFragment).addToBackStack(null).commit();
+
+            }
+        });
 
         //  itemRowHolder.tvCatName.setText(categoryname[i]);
         itemRowHolder.tvCatId.setText(catMod.getCat_id());
@@ -78,18 +80,11 @@ public abstract class CategoryAdapter extends RecyclerView.Adapter<CategoryAdapt
         Glide.with(mContext)
                 .load(image_url)
                 .into(itemRowHolder.image);
-
-
     }
-
 
     @Override
     public int getItemCount() {
-
-
         return categoryModel.size();
-
-
     }
 
     public class ItemRowHolder extends RecyclerView.ViewHolder {
@@ -98,19 +93,17 @@ public abstract class CategoryAdapter extends RecyclerView.Adapter<CategoryAdapt
         protected TextView tvCatId;
 
         protected ImageView image;
-
-
+        protected LinearLayout llnew;
 
         public ItemRowHolder(View view) {
             super(view);
-
             this.tvCatName = (TextView) view.findViewById(R.id.tvCatName);
             this.tvCatId = (TextView) view.findViewById(R.id.tvCatName);
             this.image=(ImageView)view.findViewById(R.id.image);
-
-
+            this.llnew=(LinearLayout) view.findViewById(R.id.llnew);
         }
-
     }
+
+
 
 }

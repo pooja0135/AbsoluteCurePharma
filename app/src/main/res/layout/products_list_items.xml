@@ -172,7 +172,7 @@
                     android:layout_centerInParent="true"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Add To Cart"
+                    android:text="View"
                     android:textStyle="bold"
                     android:padding="@dimen/_5sdp"
                     android:paddingRight="@dimen/_5sdp"
