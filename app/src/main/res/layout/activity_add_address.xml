@@ -1,0 +1,456 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="@color/white"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <RelativeLayout
+        android:background="@color/purple_500"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/_40sdp">
+        <ImageView
+            android:layout_width="@dimen/_35sdp"
+            android:layout_height="match_parent"
+            app:srcCompat="@drawable/ic_back"
+            android:padding="@dimen/_10sdp"
+            android:id="@+id/ivBack"/>
+      
+    </RelativeLayout>
+    <ScrollView
+        android:layout_below="@+id/llHeader"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        >
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical" >
+
+            <RelativeLayout
+                android:layout_marginLeft="@dimen/_10sdp"
+                android:layout_marginRight="@dimen/_10sdp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_marginTop="@dimen/_20sdp"
+                android:orientation="vertical">
+
+
+                <com.absolutecurepharma.customecomponent.CustomTextView
+                    android:id="@+id/tv1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Name*"
+                    app:font_name="NunitoSemiBold.ttf"
+                    android:textSize="@dimen/_12sdp"
+                    android:textColor="@color/grey_500"
+                    />
+
+                <com.absolutecurepharma.customecomponent.CustomEdittext
+                    android:layout_below="@+id/tv1"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/_30sdp"
+                    android:hint=""
+                    android:textSize="@dimen/_14sdp"
+                    android:textColor="@color/black"
+                    android:singleLine="true"
+                    app:font_name="NunitoRegular.ttf"
+                    android:layout_marginTop="@dimen/_5sdp"
+                    android:textColorHint="@color/black"
+                    android:background="@null"
+                    android:id="@+id/edName"
+                    />
+
+                <View
+                    android:layout_below="@+id/edName"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/_1sdp"
+                    android:background="@color/grey_500"/>
+
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:layout_marginLeft="@dimen/_10sdp"
+                android:layout_marginRight="@dimen/_10sdp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_marginTop="@dimen/_20sdp"
+                android:orientation="vertical">
+
+                <com.absolutecurepharma.customecomponent.CustomTextView
+                    android:id="@+id/tv2"
+                    app:font_name="NunitoSemiBold.ttf"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Mobile*"
+                    android:textSize="@dimen/_12sdp"
+                    android:textColor="@color/grey_500"
+                    />
+
+                <com.absolutecurepharma.customecomponent.CustomEdittext
+                    android:layout_below="@+id/tv2"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/_30sdp"
+                    android:hint=""
+                    android:textSize="@dimen/_14sdp"
+                    android:textColor="@color/black"
+                    android:singleLine="true"
+                    android:maxLength="10"
+                    android:inputType="number"
+                    app:font_name="NunitoRegular.ttf"
+                    android:layout_marginTop="@dimen/_5sdp"
+                    android:textColorHint="@color/black"
+                    android:background="@null"
+                    android:id="@+id/edMobile"
+                    />
+
+                <View
+                    android:layout_below="@+id/edMobile"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/_1sdp"
+                    android:background="@color/grey_500" />
+
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:visibility="gone"
+                android:layout_marginLeft="@dimen/_10sdp"
+                android:layout_marginRight="@dimen/_10sdp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_marginTop="@dimen/_20sdp"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/tv3"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Alternate Number (Optional)"
+                    android:textSize="@dimen/_12sdp"
+                    android:textColor="@color/grey_500"
+                    />
+
+                <EditText
+                    android:layout_below="@+id/tv3"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/_30sdp"
+                    android:hint=""
+                    android:textSize="@dimen/_14sdp"
+                    android:textColor="@color/black"
+                    android:singleLine="true"
+                    android:maxLength="10"
+                    android:inputType="number"
+                    android:layout_marginTop="@dimen/_5sdp"
+                    android:textColorHint="@color/grey_500"
+                    android:background="@null"
+                    android:id="@+id/edAlternate"
+                    />
+
+                <View
+                    android:layout_below="@+id/edAlternate"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/_1sdp"
+                    android:background="@color/grey_500" />
+
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:visibility="gone"
+                android:layout_marginLeft="@dimen/_10sdp"
+                android:layout_marginRight="@dimen/_10sdp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_marginTop="@dimen/_20sdp"
+                android:orientation="vertical">
+
+                <com.absolutecurepharma.customecomponent.CustomTextView
+                    android:id="@+id/tv4"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Flat no.,Building name*"
+                    android:textSize="@dimen/_12sdp"
+                    android:textColor="@color/grey_500"
+                    />
+
+                <EditText
+                    android:layout_below="@+id/tv4"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/_30sdp"
+                    android:hint=""
+                    android:textSize="@dimen/_14sdp"
+                    android:textColor="@color/black"
+                    android:singleLine="true"
+                    android:layout_marginTop="@dimen/_5sdp"
+                    android:textColorHint="@color/grey_500"
+                    android:background="@null"
+                    android:id="@+id/edFlat"
+                    />
+
+                <View
+                    android:layout_below="@+id/edFlat"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/_1sdp"
+                    android:background="@color/grey_500"/>
+
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:layout_marginLeft="@dimen/_10sdp"
+                android:layout_marginRight="@dimen/_10sdp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_marginTop="@dimen/_20sdp"
+                android:orientation="vertical">
+
+                <com.absolutecurepharma.customecomponent.CustomTextView
+                    android:id="@+id/tv5"
+                    app:font_name="NunitoSemiBold.ttf"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Locality*"
+                    android:textSize="@dimen/_12sdp"
+                    android:textColor="@color/grey_500"
+                    />
+
+                <com.absolutecurepharma.customecomponent.CustomEdittext
+                    android:layout_below="@+id/tv5"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/_30sdp"
+                    android:hint=""
+                    app:font_name="NunitoRegular.ttf"
+                    android:textSize="@dimen/_14sdp"
+                    android:textColor="@color/black"
+                    android:singleLine="true"
+                    android:layout_marginTop="@dimen/_5sdp"
+                    android:textColorHint="@color/grey_500"
+                    android:background="@null"
+                    android:id="@+id/edLocality"
+                    />
+
+                <View
+                    android:layout_below="@+id/edLocality"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/_1sdp"
+                    android:background="@color/grey_500"/>
+
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:layout_marginLeft="@dimen/_10sdp"
+                android:layout_marginRight="@dimen/_10sdp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_marginTop="@dimen/_20sdp"
+                android:orientation="vertical">
+                <com.absolutecurepharma.customecomponent.CustomTextView
+                    android:id="@+id/tvAddress"
+                    app:font_name="NunitoSemiBold.ttf"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Address"
+                    android:textSize="@dimen/_12sdp"
+                    android:textColor="@color/grey_500"
+                    />
+                <com.absolutecurepharma.customecomponent.CustomEdittext
+                    android:layout_below="@+id/tvAddress"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/_30sdp"
+                    android:hint=""
+                    app:font_name="NunitoRegular.ttf"
+                    android:textSize="@dimen/_14sdp"
+                    android:textColor="@color/black"
+                    android:singleLine="true"
+                    android:layout_marginTop="@dimen/_5sdp"
+                    android:textColorHint="@color/grey_500"
+                    android:background="@null"
+                    android:id="@+id/edAddress"
+                    />
+                <View
+                    android:layout_below="@+id/edAddress"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/_1sdp"
+                    android:background="@color/grey_500"/>
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:layout_marginLeft="@dimen/_10sdp"
+                android:layout_marginRight="@dimen/_10sdp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_marginTop="@dimen/_20sdp"
+                android:orientation="vertical">
+
+                <com.absolutecurepharma.customecomponent.CustomTextView
+                    android:id="@+id/tvState"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="State*"
+                    app:font_name="NunitoSemiBold.ttf"
+                    android:textSize="@dimen/_12sdp"
+                    android:textColor="@color/grey_500"
+                    />
+
+
+                <Spinner
+                    android:layout_below="@+id/tvState"
+                    android:id="@+id/spinnerState"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/_30sdp"
+                    android:layout_marginTop="@dimen/_5sdp"
+                    android:background="@drawable/shape_drop_down_normal"
+                    android:popupBackground="@color/white" />
+
+                <View
+                    android:layout_below="@+id/spinnerState"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/_1sdp"
+                    android:background="@color/grey_500" />
+
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:layout_marginLeft="@dimen/_10sdp"
+                android:layout_marginRight="@dimen/_10sdp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_marginTop="@dimen/_20sdp"
+                android:orientation="vertical">
+
+                <com.absolutecurepharma.customecomponent.CustomTextView
+                    android:id="@+id/tv6"
+                    app:font_name="NunitoSemiBold.ttf"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="City*"
+                    android:textSize="@dimen/_12sdp"
+                    android:textColor="@color/grey_500"
+                    />
+                <Spinner
+                    android:layout_below="@+id/tv6"
+                    android:id="@+id/spinnerCity"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/_30sdp"
+                    android:layout_marginTop="@dimen/_5sdp"
+                    android:background="@drawable/shape_drop_down_normal"
+                    android:popupBackground="@color/white" />
+
+                <View
+                    android:layout_below="@+id/spinnerCity"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/_1sdp"
+                    android:background="@color/grey_500" />
+
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:layout_marginLeft="@dimen/_10sdp"
+                android:layout_marginRight="@dimen/_10sdp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_marginTop="@dimen/_20sdp"
+                android:orientation="vertical">
+
+                <com.absolutecurepharma.customecomponent.CustomTextView
+                    android:id="@+id/tv7"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Pincode*"
+                    app:font_name="NunitoSemiBold.ttf"
+                    android:textSize="@dimen/_12sdp"
+                    android:textColor="@color/grey_500"
+                    />
+
+                <com.absolutecurepharma.customecomponent.CustomEdittext
+                    android:layout_below="@+id/tv7"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/_30sdp"
+                    android:hint=""
+                    android:textSize="@dimen/_14sdp"
+                    android:textColor="@color/black"
+                    android:singleLine="true"
+                    android:maxLength="6"
+                    android:inputType="number"
+                    app:font_name="NunitoRegular.ttf"
+                    android:layout_marginTop="@dimen/_5sdp"
+                    android:textColorHint="@color/grey_500"
+                    android:background="@null"
+                    android:id="@+id/edPincode"
+                    />
+
+                <View
+                    android:layout_below="@+id/edPincode"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/_1sdp"
+                    android:background="@color/grey_500"/>
+
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:layout_marginLeft="@dimen/_10sdp"
+                android:layout_marginRight="@dimen/_10sdp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_marginTop="@dimen/_20sdp"
+                android:orientation="vertical">
+
+                <com.absolutecurepharma.customecomponent.CustomTextView
+                    android:id="@+id/tv8"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Landmark (Optional)"
+                    app:font_name="NunitoSemiBold.ttf"
+                    android:textSize="@dimen/_12sdp"
+                    android:textColor="@color/grey_500"
+                    />
+
+                <com.absolutecurepharma.customecomponent.CustomEdittext
+                    android:layout_below="@+id/tv8"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/_30sdp"
+                    android:hint=""
+                    android:textSize="@dimen/_14sdp"
+                    android:textColor="@color/black"
+                    android:singleLine="true"
+                    app:font_name="NunitoRegular.ttf"
+                    android:layout_marginTop="@dimen/_5sdp"
+                    android:textColorHint="@color/grey_500"
+                    android:background="@null"
+                    android:id="@+id/edLandmark"
+                    />
+
+                <View
+                    android:layout_below="@+id/edLandmark"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/_1sdp"
+                    android:background="@color/grey_500"/>
+
+            </RelativeLayout>
+
+            <Button
+                android:id="@+id/btnSave"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/_40sdp"
+                android:background="@color/purple_500"
+                android:text="Save"
+                android:padding="0dp"
+                android:textAlignment="center"
+                android:textColor="@color/white"
+                android:textSize="@dimen/_15sdp"
+                android:layout_marginTop="@dimen/_20sdp"/>
+        </LinearLayout>
+
+    </ScrollView>
+
+</LinearLayout>
