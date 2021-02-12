@@ -59,6 +59,7 @@ public class CartListActivity extends AppCompatActivity implements View.OnClickL
     LinearLayout layout_cart_empty;
     ArrayList<CategoryModel> catlist;
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -73,6 +74,10 @@ public class CartListActivity extends AppCompatActivity implements View.OnClickL
         layout_cart_empty = findViewById(R.id.layout_cart_empty);
         loader = new CustomLoader(CartListActivity.this, android.R.style.Theme_Translucent_NoTitleBar_Fullscreen);
         catlist = new ArrayList<>();
+
+
+
+
 
         if (Utils.isNetworkConnectedMainThred(this)) {
             getCart();
@@ -104,7 +109,7 @@ public class CartListActivity extends AppCompatActivity implements View.OnClickL
                 startActivity(new Intent(this, MainActivity.class));
                 break;
             case R.id.tvProceed:
-                startActivity(new Intent(this, CheckOutActivity.class));
+                startActivity(new Intent(this, AddAddressActivity.class));
                 break;
         }
     }
@@ -141,7 +146,12 @@ public class CartListActivity extends AppCompatActivity implements View.OnClickL
                                 catModel.setCompany(cat.getString("company"));
                                 catModel.setQty(cat.getString("qty"));
                                 catlist.add(catModel);
+                                double finalamt=0.0;
 
+                                Double qty= Double.valueOf(cat.getString("qty"));
+                                Double price= Double.valueOf(cat.getString("selling_price"));
+                                finalamt = finalamt +  price* qty;
+                                Log.e("EW",""+finalamt);
                             }
                         }
                     } else {
@@ -383,8 +393,10 @@ public class CartListActivity extends AppCompatActivity implements View.OnClickL
 
                             }
 
+
+
                         } else {
-                            // layout_cart_empty.setVisibility(View.VISIBLE);
+                             layout_cart_empty.setVisibility(View.VISIBLE);
                             Toast.makeText(mContext,
                                     jsonObject.getString("message"),
                                     Toast.LENGTH_LONG).show();
@@ -423,7 +435,7 @@ public class CartListActivity extends AppCompatActivity implements View.OnClickL
 
         public void deleteFromCart(final String id, final String userid) {
             //loader.setMessage("Loading...Please Wait..");
-            //  loader.show();
+              loader.show();
             StringRequest stringRequest = new StringRequest(Request.Method.POST, AppConfig.DELETEPRODUCT, new Response.Listener<String>() {
                 @Override
                 public void onResponse(String response) {
