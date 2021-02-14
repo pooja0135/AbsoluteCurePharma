@@ -58,9 +58,6 @@ public class LoginActivity extends AppCompatActivity  implements View.OnClickLis
         binding.tvSignUp.setOnClickListener(this);
         binding.tvForgotPassword.setOnClickListener(this);
 
-
-
-
         //generate token
         getFCM_token();
 
@@ -145,7 +142,6 @@ public class LoginActivity extends AppCompatActivity  implements View.OnClickLis
                         pref.set(Constants.EMAIL, object.getString("email"));
                         pref.set(Constants.PASSWORD, object.getString("password"));
                         pref.commit();
-//
                         startActivity(new Intent(LoginActivity.this,MainActivity.class));
                         Toast.makeText(getApplicationContext(), "Login Success!", Toast.LENGTH_LONG).show();
                     }

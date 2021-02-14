@@ -24,5 +24,7 @@ public class AppConfig {
 
     public static String DELETEPRODUCT =BASE_URL+"delete_product.php";
 
+    public static String MYORDERS =BASE_URL+"getOrders.php";
+
 
 }

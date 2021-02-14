@@ -86,8 +86,6 @@ public class ProductDetailActivity extends AppCompatActivity implements View.OnC
                     currentPage = 0;
                 }
                 bannerViewpager.setCurrentItem(currentPage++, true);
-
-
             }
         };
         timer = new Timer(); // This will create a new Thread
@@ -109,10 +107,7 @@ public class ProductDetailActivity extends AppCompatActivity implements View.OnC
         binding.ivBack.setOnClickListener(this);
         binding.ivCart.setOnClickListener(this);
         binding.tvAddToCart.setOnClickListener(this);
-
-
     }
-
     @Override
     public void onClick(View v) {
         switch (v.getId())
@@ -130,7 +125,6 @@ public class ProductDetailActivity extends AppCompatActivity implements View.OnC
                 break;
         }
     }
-
     public void getProductDetails(final String product_id){
         //loader.setMessage("Loading...Please Wait..");
         loader.show();
@@ -148,8 +142,6 @@ public class ProductDetailActivity extends AppCompatActivity implements View.OnC
                         {
                             //traversing through all the object
                             for (int i = 0; i < array.length(); i++) {
-
-                                //getting product object from json array
                                 JSONObject prod = array.getJSONObject(i);
                                 productName=prod.getString("product_name");
                                 companyName=prod.getString("company");
@@ -195,12 +187,10 @@ public class ProductDetailActivity extends AppCompatActivity implements View.OnC
                 // Posting parameters to login url
                 Map<String, String> params = new HashMap<String, String>();
                 params.put("product_id",product_id) ;
-
                 Log.e("",""+params);
                 return params;
             }
-        };;
-        //adding our stringrequest to queue
+        };
         Volley.newRequestQueue(ProductDetailActivity.this).add(stringRequest);
     }
 

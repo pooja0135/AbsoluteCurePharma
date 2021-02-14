@@ -75,10 +75,6 @@ public class CartListActivity extends AppCompatActivity implements View.OnClickL
         loader = new CustomLoader(CartListActivity.this, android.R.style.Theme_Translucent_NoTitleBar_Fullscreen);
         catlist = new ArrayList<>();
 
-
-
-
-
         if (Utils.isNetworkConnectedMainThred(this)) {
             getCart();
 
@@ -86,10 +82,7 @@ public class CartListActivity extends AppCompatActivity implements View.OnClickL
             Toast.makeText(this, "No Internet Connection!", Toast.LENGTH_SHORT).show();
 
         }
-
         rvCart.setLayoutManager(new LinearLayoutManager(this));
-
-
         rvCart.setAdapter(cartListAdapter);
 
         //setonCLicklistener
@@ -109,7 +102,7 @@ public class CartListActivity extends AppCompatActivity implements View.OnClickL
                 startActivity(new Intent(this, MainActivity.class));
                 break;
             case R.id.tvProceed:
-                startActivity(new Intent(this, AddAddressActivity.class));
+                startActivity(new Intent(this, CheckOutActivity.class));
                 break;
         }
     }
@@ -151,6 +144,8 @@ public class CartListActivity extends AppCompatActivity implements View.OnClickL
                                 Double qty= Double.valueOf(cat.getString("qty"));
                                 Double price= Double.valueOf(cat.getString("selling_price"));
                                 finalamt = finalamt +  price* qty;
+                                String amt=new Double(finalamt).toString();
+                            tvFinalprice.setText(amt);
                                 Log.e("EW",""+finalamt);
                             }
                         }
@@ -273,12 +268,8 @@ public class CartListActivity extends AppCompatActivity implements View.OnClickL
 
                         } else {
                             Toast.makeText(CartListActivity.this, "No Internet Connection!", Toast.LENGTH_SHORT).show();
-
                         }
-
-
                     } else {
-//remove
                         String userId = "1";
 
                         if (Utils.isNetworkConnectedMainThred(CartListActivity.this)) {
@@ -360,22 +351,14 @@ public class CartListActivity extends AppCompatActivity implements View.OnClickL
                 this.tvDiscount = view.findViewById(R.id.tvDiscount);
                 this.cart_item_number = view.findViewById(R.id.cart_item_number);
                 // this.layout_cart_empty=view.findViewById(R.id.layout_cart_empty);
-
-
             }
-
-
         }
 
         public void updateQty(final String pluscount, final String id, final String userid) {
-            //loader.setMessage("Loading...Please Wait..");
-            //  loader.show();
             StringRequest stringRequest = new StringRequest(Request.Method.POST, AppConfig.UPDATEQYT, new Response.Listener<String>() {
                 @Override
                 public void onResponse(String response) {
                     Log.d("testttttttt", response);
-                    loader.dismiss();
-
                     try {
                         //converting the string to json array object
                         JSONObject jsonObject = new JSONObject(response);
@@ -392,9 +375,6 @@ public class CartListActivity extends AppCompatActivity implements View.OnClickL
                                 Toast.makeText(CartListActivity.this, "No Internet Connection!", Toast.LENGTH_SHORT).show();
 
                             }
-
-
-
                         } else {
                              layout_cart_empty.setVisibility(View.VISIBLE);
                             Toast.makeText(mContext,
@@ -466,7 +446,6 @@ public class CartListActivity extends AppCompatActivity implements View.OnClickL
 
                     } catch (JSONException e) {
 
-                        Log.e("testerroor", e.toString());
                         e.printStackTrace();
                     }
                 }

@@ -11,22 +11,24 @@ import android.widget.TextView;
 
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.Model.CategoryModel;
 import com.absolutecurepharma.OrderDetailActivity;
 import com.absolutecurepharma.R;
 import com.squareup.picasso.Picasso;
+
+import java.util.ArrayList;
 
 public  class OrderListAdapter extends RecyclerView.Adapter<OrderListAdapter.ItemRowHolder> {
 
 
     private Context mContext;
-    int [] categoryimage={R.drawable.pharmacy,R.drawable.cosmetics,R.drawable.ayurvedic,R.drawable.vitamin_supplements};
-    String[] categoryname={"Pharmacy","Cosmetics","Ayurvedic","Vitamin & Supplements"};
+    private ArrayList<CategoryModel> categoryModel;
 
 
-    public OrderListAdapter(Context context, int[]categoryimage, String[]categoryname) {
-        this.categoryimage = categoryimage;
-        this.categoryname = categoryname;
+    public OrderListAdapter(Context context,  ArrayList CategoryModel) {
+
         this.mContext = context;
+        this.categoryModel = CategoryModel;
 
     }
 
@@ -39,10 +41,11 @@ public  class OrderListAdapter extends RecyclerView.Adapter<OrderListAdapter.Ite
     }
     @Override
     public void onBindViewHolder(ItemRowHolder itemRowHolder, int i) {
+        CategoryModel catMod = categoryModel.get(i);
+        itemRowHolder.tvProductName.setText(catMod.getProduct_name());
 
-
-        itemRowHolder.tvProductName.setText(categoryname[i]);
-        Picasso.with(mContext).load(categoryimage[i]).fit().centerCrop().into(itemRowHolder.ivProduct);
+       // itemRowHolder.tvProductName.setText(categoryname[i]);
+        //Picasso.with(mContext).load(categoryimage[i]).fit().centerCrop().into(itemRowHolder.ivProduct);
         itemRowHolder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -58,7 +61,7 @@ public  class OrderListAdapter extends RecyclerView.Adapter<OrderListAdapter.Ite
     public int getItemCount() {
 
 
-       return categoryimage.length;
+       return categoryModel.size();
 
 
     }
