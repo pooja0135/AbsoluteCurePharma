@@ -408,6 +408,7 @@
                             app:srcCompat="@drawable/ic_radio_button_checked" />
 
                         <TextView
+                            android:id="@+id/tv_COD"
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
                             android:text="Cash on Delivery"

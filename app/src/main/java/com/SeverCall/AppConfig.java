@@ -26,5 +26,7 @@ public class AppConfig {
 
     public static String MYORDERS =BASE_URL+"getOrders.php";
 
+    public static String PLACEORDER =BASE_URL+"place_order.php";
+
 
 }

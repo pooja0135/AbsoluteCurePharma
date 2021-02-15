@@ -23,6 +23,7 @@ import com.Model.CategoryModel;
 import com.SeverCall.AppConfig;
 import com.SeverCall.Constants;
 import com.absolutecurepharma.customecomponent.CustomLoader;
+import com.absolutecurepharma.utils.Preferences;
 import com.absolutecurepharma.utils.Utils;
 import com.android.volley.Request;
 import com.android.volley.Response;
@@ -43,13 +44,13 @@ import java.util.Map;
 public class CheckOutActivity extends AppCompatActivity implements View.OnClickListener {
 
     ImageView ivBack;
-    TextView tvChange,tvProceed;
+    TextView tvChange,tvProceed,tvFinalprice,tv_COD;
     RecyclerView recyclerview;
     ArrayList<CategoryModel> catlist;
     CustomLoader loader;
+    Preferences pref;
+    String amt;
     CartListAdapter cartListAdapter;
-    int [] categoryimage={R.drawable.pharmacy,R.drawable.cosmetics,R.drawable.ayurvedic,R.drawable.vitamin_supplements};
-    String[] categoryname={"Pharmacy","Cosmetics","Ayurvedic","Vitamin &Supplements"};
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -62,10 +63,12 @@ public class CheckOutActivity extends AppCompatActivity implements View.OnClickL
         tvChange=findViewById(R.id.tvChange);
         tvProceed=findViewById(R.id.tvProceed);
         recyclerview=findViewById(R.id.recyclerview);
+        tvFinalprice=findViewById(R.id.tvFinalprice);
+        tv_COD=findViewById(R.id.tv_COD);
         recyclerview.setLayoutManager(new LinearLayoutManager(this));
         loader = new CustomLoader(CheckOutActivity.this, android.R.style.Theme_Translucent_NoTitleBar_Fullscreen);
         catlist = new ArrayList<>();
-
+        pref=new Preferences(this);
 
         if (Utils.isNetworkConnectedMainThred(this)) {
             getCart();
@@ -89,7 +92,18 @@ public class CheckOutActivity extends AppCompatActivity implements View.OnClickL
                 finish();
                 break;
             case R.id.tvProceed:
-                startActivity(new Intent(this,MainActivity.class));
+                if (Utils.isNetworkConnectedMainThred(this)) {
+                   String userid="1";
+                   String address="1";
+                   String paymod="COD";
+
+                    placeOrder(userid,address,paymod,amt);
+
+                } else {
+                    Toast.makeText(this, "No Internet Connection!", Toast.LENGTH_SHORT).show();
+
+                }
+
                 break;
         }
     }
@@ -132,8 +146,8 @@ public class CheckOutActivity extends AppCompatActivity implements View.OnClickL
                                 Double qty= Double.valueOf(cat.getString("qty"));
                                 Double price= Double.valueOf(cat.getString("selling_price"));
                                 finalamt = finalamt +  price* qty;
-                                String amt=new Double(finalamt).toString();
-                               // tvFinalprice.setText(amt);
+                                 amt=new Double(finalamt).toString();
+                                tvFinalprice.setText(amt);
                                 Log.e("EW",""+finalamt);
                             }
                         }
@@ -275,4 +289,63 @@ public class CheckOutActivity extends AppCompatActivity implements View.OnClickL
     }
 
 
+
+    public void placeOrder(final String userid,final String address,final String paymod,final String amt) {
+        //loader.setMessage("Loading...Please Wait..");
+        loader.show();
+        StringRequest stringRequest = new StringRequest(Request.Method.POST, AppConfig.PLACEORDER, new Response.Listener<String>() {
+            @Override
+            public void onResponse(String response) {
+                Log.d("testttttttt", response);
+                loader.dismiss();
+                catlist.clear();
+                try {
+                    //converting the string to json array object
+                    JSONObject jsonObject = new JSONObject(response);
+
+                    if (jsonObject.getString("message").equalsIgnoreCase("true")) {
+                       String mgs=jsonObject.getString("success_msg");
+                        Toast.makeText(CheckOutActivity.this,
+                                mgs,
+                                Toast.LENGTH_LONG).show();
+
+                    } else {
+                        // layout_cart_empty.setVisibility(View.VISIBLE);
+                        Toast.makeText(CheckOutActivity.this,
+                                jsonObject.getString("success_msg"),
+                                Toast.LENGTH_LONG).show();
+                    }
+                    cartListAdapter = new CartListAdapter(CheckOutActivity.this, catlist);
+                    recyclerview.setAdapter(cartListAdapter);
+
+                } catch (JSONException e) {
+
+                    Log.e("testerroor", e.toString());
+                    e.printStackTrace();
+                }
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+
+            }
+        }) {
+
+            @Override
+            protected Map<String, String> getParams() {
+                // Posting parameters to login url
+                Map<String, String> params = new HashMap<String, String>();
+                params.put("user_id", userid);
+                params.put("payment_mode", paymod);
+                params.put("order_total", amt);
+                params.put("address_id", address);
+
+                Log.e("", "" + params);
+                return params;
+            }
+        };
+
+        //adding our stringrequest to queue
+        Volley.newRequestQueue(this).add(stringRequest);
+    }
 }
