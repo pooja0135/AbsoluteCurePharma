@@ -54,14 +54,6 @@ public class SubcategoryFragment extends Fragment {
         subcatlist=new ArrayList<>();
 
         rvSubCategory.setLayoutManager(new LinearLayoutManager(getActivity()));
-//        subCategoryAdapter= new SubCategoryAdapter(getActivity(), categoryimage, categoryname) {
-//            @Override
-//            protected void onSubCategoryClick(View view, String str) {
-//                replaceFragmentWithAnimation(new ProductListFragment());
-//            }
-//        };
-//        rvSubCategory.setAdapter(subCategoryAdapter);
-
         getProductById(Constants.cat_id);
         return view;
     }
@@ -99,13 +91,13 @@ public class SubcategoryFragment extends Fragment {
                                 catModel.setMarked_price(cat.getString("marked_price"));
                                 catModel.setSelling_price(cat.getString("selling_price"));
                                 catModel.setSize(cat.getString("size"));
+                                catModel.setProduct_id(cat.getString("id"));
                                 catModel.setDescription(cat.getString("description"));
                                 subcatlist.add(catModel);
-                                Log.e("BHAGYAaa",""+subcatlist.size());
+
                                 //replaceFragmentWithAnimation(new SubcategoryFragment());
 
                             }
-
                             subCategoryAdapter = new SubCategoryAdapter(getContext(), subcatlist) {
                                 @Override
                                 protected void onSubCategoryClick(View view, String str) {
@@ -120,15 +112,7 @@ public class SubcategoryFragment extends Fragment {
                                 jsonObject.getString("message")+response,
                                 Toast.LENGTH_LONG).show();
                     }
-
-                    Log.e("BHAGYAaa11",""+subcatlist.size());
-
-                    //creating adapter object and setting it to recyclerview
-
-
                 } catch (JSONException e) {
-
-                    Log.e("testerroor",e.toString());
                     e.printStackTrace();
                 }
             }
@@ -138,7 +122,6 @@ public class SubcategoryFragment extends Fragment {
 
             }
         }){
-
             @Override
             protected Map<String, String> getParams() {
                 // Posting parameters to login url

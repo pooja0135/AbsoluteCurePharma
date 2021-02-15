@@ -46,16 +46,6 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ItemRowH
     private Context mContext;
     private ArrayList<CategoryModel> categoryModel;
     CustomLoader loader;
-//    int [] productimage={R.drawable.product_image1,R.drawable.product_image2,R.drawable.product_image3,R.drawable.product_image4};
-//    String[] productname={"Paracetamol","Borncorid","Cetaphil","Almond"};
-//    String[] productsize={"500mg","200ml","118ml","500gram",};
-
-//    public ProductAdapter(Context context, int[]productimage, String[]productname,String[]productsize) {
-//        this.productimage = productimage;
-//        this.productname = productname;
-//        this.productsize = productsize;
-//        this.mContext = context;
-//    }
 
     public ProductAdapter(Context context, ArrayList<CategoryModel> catlist) {
         mContext=context;

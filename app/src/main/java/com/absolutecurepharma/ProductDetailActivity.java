@@ -20,6 +20,7 @@ import com.absolutecurepharma.adapter.ProductAdapter;
 import com.absolutecurepharma.adapter.ProductDetailPagerAdapter;
 import com.absolutecurepharma.customecomponent.CustomLoader;
 import com.absolutecurepharma.databinding.ActivityProductDetailBinding;
+import com.absolutecurepharma.utils.Preferences;
 import com.absolutecurepharma.utils.Utils;
 import com.android.volley.Request;
 import com.android.volley.Response;
@@ -52,6 +53,7 @@ public class ProductDetailActivity extends AppCompatActivity implements View.OnC
     String productName,companyName,markerdPrice,sellingPrice,sizes,details,prodID;
     TextView tvProductName;
     ActivityProductDetailBinding binding;
+    Preferences pref;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -59,6 +61,7 @@ public class ProductDetailActivity extends AppCompatActivity implements View.OnC
         binding = DataBindingUtil.setContentView(this, R.layout.activity_product_detail);
 
         loader = new CustomLoader(this, android.R.style.Theme_Translucent_NoTitleBar_Fullscreen);
+        pref=new Preferences(this);
         bannerViewpager=findViewById(R.id.bannerViewpager);
         productDetailPagerAdapter=new ProductDetailPagerAdapter(this,array) {
             @Override
@@ -86,8 +89,6 @@ public class ProductDetailActivity extends AppCompatActivity implements View.OnC
                     currentPage = 0;
                 }
                 bannerViewpager.setCurrentItem(currentPage++, true);
-
-
             }
         };
         timer = new Timer(); // This will create a new Thread
@@ -109,10 +110,7 @@ public class ProductDetailActivity extends AppCompatActivity implements View.OnC
         binding.ivBack.setOnClickListener(this);
         binding.ivCart.setOnClickListener(this);
         binding.tvAddToCart.setOnClickListener(this);
-
-
     }
-
     @Override
     public void onClick(View v) {
         switch (v.getId())
@@ -130,7 +128,6 @@ public class ProductDetailActivity extends AppCompatActivity implements View.OnC
                 break;
         }
     }
-
     public void getProductDetails(final String product_id){
         //loader.setMessage("Loading...Please Wait..");
         loader.show();
@@ -148,8 +145,6 @@ public class ProductDetailActivity extends AppCompatActivity implements View.OnC
                         {
                             //traversing through all the object
                             for (int i = 0; i < array.length(); i++) {
-
-                                //getting product object from json array
                                 JSONObject prod = array.getJSONObject(i);
                                 productName=prod.getString("product_name");
                                 companyName=prod.getString("company");
@@ -195,12 +190,10 @@ public class ProductDetailActivity extends AppCompatActivity implements View.OnC
                 // Posting parameters to login url
                 Map<String, String> params = new HashMap<String, String>();
                 params.put("product_id",product_id) ;
-
                 Log.e("",""+params);
                 return params;
             }
-        };;
-        //adding our stringrequest to queue
+        };
         Volley.newRequestQueue(ProductDetailActivity.this).add(stringRequest);
     }
 
@@ -246,7 +239,7 @@ public class ProductDetailActivity extends AppCompatActivity implements View.OnC
                 // Posting parameters to login url
                 Map<String, String> params = new HashMap<String, String>();
                 params.put("prod_id",prodId) ;
-                params.put("user_id","1") ;
+                params.put("user_id",pref.get(Constants.USERID)) ;
                 params.put("qty","1") ;
                 params.put("price",sellingPrice) ;
                 params.put("total",totalPrice) ;

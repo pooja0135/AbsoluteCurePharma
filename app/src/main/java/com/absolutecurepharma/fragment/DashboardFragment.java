@@ -65,12 +65,6 @@ public class DashboardFragment  extends Fragment {
     CustomLoader loader;
 
     int [] array={R.drawable.banner1,R.drawable.banner2};
-//
-//    int [] productimage={R.drawable.product_image1,R.drawable.product_image2,R.drawable.product_image3,R.drawable.product_image4};
-//    String[] productname={"Paracetamol","Borncorid","Cetaphil","Head&shoulders"};
-//    String[] productsize={"500mg","200ml","118ml","400ml",};
-
-
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -98,11 +92,6 @@ public class DashboardFragment  extends Fragment {
 
         rvProduct.setLayoutManager(new GridLayoutManager(getActivity(),2));
         rvCategory.setLayoutManager(new LinearLayoutManager(getActivity(),LinearLayoutManager.HORIZONTAL,false));
-
-//        productAdapter=new ProductAdapter(getActivity(),productimage,productname,productsize);
-//        rvProduct.setAdapter(productAdapter);
-
-
         TabLayout tabLayout = (TabLayout) view.findViewById(R.id.tabDots);
         tabLayout.setupWithViewPager(bannerViewpager, true);
 
@@ -114,9 +103,6 @@ public class DashboardFragment  extends Fragment {
 
             }
         };
-
-
-
         bannerViewpager.setAdapter(mCardAdapterbelow);
         mCardAdapterbelow.notifyDataSetChanged();
         bannerViewpager.setOffscreenPageLimit(2);
@@ -133,8 +119,6 @@ public class DashboardFragment  extends Fragment {
                     currentPage = 0;
                 }
                 bannerViewpager.setCurrentItem(currentPage++, true);
-
-
             }
         };
         timer = new Timer(); // This will create a new Thread

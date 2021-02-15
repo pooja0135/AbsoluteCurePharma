@@ -39,7 +39,7 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
     ActivityRegisterBinding binding;
     String name,email,mobile,password;
     CustomLoader loader;
- Preferences pref;
+    Preferences pref;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -47,10 +47,6 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
 
 
         binding = DataBindingUtil.setContentView(this, R.layout.activity_register);
-
-
-
-        Log.e(TAG,"nisha"+name);
 
         loader = new CustomLoader(this, android.R.style.Theme_Translucent_NoTitleBar_Fullscreen);
          pref=new Preferences(this);

@@ -217,6 +217,7 @@
                                />
 
                             <TextView
+                                android:visibility="gone"
                                 android:id="@+id/tvItemCount"
                                 android:layout_width="wrap_content"
                                 android:layout_height="@dimen/_30sdp"
@@ -273,9 +274,9 @@
                                 android:layout_alignParentRight="true"
                                 android:gravity="center_vertical"
                                 android:paddingRight="@dimen/_10sdp"
-                                android:text=""
+                                android:text="Free"
                                 android:id="@+id/tvDelCharges"
-                                android:textColor="@color/black"
+                                android:textColor="@color/green_700"
                                 android:textSize="@dimen/_10sdp"
                                 />
 
@@ -293,6 +294,7 @@
 
 
                         <RelativeLayout
+                            android:visibility="gone"
                             android:layout_width="match_parent"
                             android:layout_height="@dimen/_30sdp"
                             android:layout_below="@+id/rr1">
@@ -408,6 +410,7 @@
                             app:srcCompat="@drawable/ic_radio_button_checked" />
 
                         <TextView
+                            android:id="@+id/tv_COD"
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
                             android:text="Cash on Delivery"
