@@ -6,6 +6,7 @@ import androidx.databinding.DataBindingUtil;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -14,15 +15,16 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+
 import com.absolutecurepharma.databinding.ActivityAddressListBinding;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 
-public class AddressListActivity extends AppCompatActivity {
+public class AddressListActivity extends AppCompatActivity implements View.OnClickListener {
 
     ActivityAddressListBinding binding;
-
+    ArrayList<HashMap<String, String>> addresslist = new ArrayList<HashMap<String, String>>();
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -30,8 +32,29 @@ public class AddressListActivity extends AppCompatActivity {
         binding = DataBindingUtil.setContentView(this, R.layout.activity_address_list);
 
         binding.recyclerview.setLayoutManager(new GridLayoutManager(this,1));
+        binding.recyclerview.setAdapter(new AddressAdapter(addresslist));
+
+        //setOnClicklistener
+        binding.ivBack.setOnClickListener(this);
+        binding.tvAddAddress.setOnClickListener(this);
+
+
 
     }
+
+    @Override
+    public void onClick(View v) {
+        switch (v.getId())
+        {
+            case R.id.ivBack:
+                finish();
+                break;
+            case R.id.tvAddAddress:
+                startActivity(new Intent(this,AddAddressActivity.class));
+                break;
+        }
+    }
+
 
 
     private class FavNameHolder extends RecyclerView.ViewHolder {
@@ -72,15 +95,12 @@ public class AddressListActivity extends AppCompatActivity {
         public void onBindViewHolder(@NonNull final FavNameHolder holder, final int position) {
 
 
-            holder.tvName.setText(data.get(position).get("Name"));
-            holder.tvPhone.setText(data.get(position).get("MobileNo"));
-            String address=data.get(position).get("Locality")+ "," +data.get(position).get("Address") + "," +data.get(position).get("StateId") + "," +data.get(position).get("CityId") + "," +data.get(position).get("PinCode") ;
-            holder.tvAddress.setText(address);
+
 
         }
 
         public int getItemCount() {
-            return data.size();
+            return 3;
         }
 
         @Override

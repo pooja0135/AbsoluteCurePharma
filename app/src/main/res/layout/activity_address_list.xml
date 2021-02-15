@@ -21,7 +21,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="My Address"
+                android:text="Manage Address"
                 android:textSize="@dimen/_14sdp"
                 android:textColor="@color/white"
                 android:layout_toRightOf="@+id/ivBack"
@@ -30,15 +30,41 @@
                 />
 
         </LinearLayout>
-        <androidx.recyclerview.widget.RecyclerView
-            android:layout_marginTop="@dimen/_10sdp"
-            xmlns:android="http://schemas.android.com/apk/res/android"
-            android:id="@+id/recyclerview"
-            android:background="@color/white"
-            android:scrollbars="vertical"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"/>
 
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+            <TextView
+                android:id="@+id/tvAddAddress"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/_35sdp"
+                android:background="@drawable/rectangle_cart"
+                android:layout_margin="@dimen/_10sdp"
+                android:text="Add Address"
+                android:textSize="@dimen/_12sdp"
+                android:textColor="@color/grey_700"
+                android:textAlignment="center"
+                android:layout_gravity="center"
+                android:gravity="center"/>
+            <androidx.recyclerview.widget.RecyclerView
+                android:layout_margin="@dimen/_10sdp"
+                xmlns:android="http://schemas.android.com/apk/res/android"
+                android:id="@+id/recyclerview"
+                android:background="@color/white"
+                android:scrollbars="vertical"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"/>
+        </LinearLayout>
+
+        <include
+            android:visibility="gone"
+            android:id="@+id/layout_address_empty"
+            layout="@layout/empty_message_layout_address_action"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"/>
     </LinearLayout>
+
+
 
 </layout>

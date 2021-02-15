@@ -7,27 +7,34 @@
     <LinearLayout
         android:orientation="vertical"
         android:id="@+id/llAddress"
-        android:background="@color/white"
+        android:background="@drawable/rectangle"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/_5sdp">
+        android:layout_margin="@dimen/_5sdp">
         <LinearLayout
+            android:layout_marginTop="@dimen/_5sdp"
             android:weightSum="2"
             android:orientation="horizontal"
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
-            <com.absolutecurepharma.customecomponent.CustomTextView
-                android:textSize="@dimen/_14sdp"
+            android:layout_height="wrap_content">
+            <ImageView
+                android:layout_marginTop="@dimen/_5sdp"
+                android:layout_marginLeft="@dimen/_5sdp"
+                android:layout_width="@dimen/_15sdp"
+                android:layout_height="@dimen/_15sdp"
+                app:srcCompat="@drawable/ic_home_address"
+                android:layout_gravity="center"/>
+            <TextView
+                android:layout_weight="1.9"
+                android:textSize="@dimen/_12sdp"
                 android:textColor="@color/black"
                 android:id="@+id/tvName"
-                android:layout_weight="1.9"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:text="Pooja Singh"
-                app:font_name="NunitoSemiBold.ttf"
-                android:layout_marginLeft="@dimen/_10sdp"
-                android:layout_marginTop="@dimen/_10sdp"
-                android:layout_marginBottom="@dimen/_5sdp"
+                android:layout_marginLeft="@dimen/_5sdp"
+                android:layout_marginTop="@dimen/_5sdp"
+
            />
 
 
@@ -57,33 +64,53 @@
 
         </LinearLayout>
 
-        <com.absolutecurepharma.customecomponent.CustomTextView
-            android:textSize="@dimen/_12sdp"
-            android:textColor="@color/black"
+        <TextView
+            android:layout_marginTop="@dimen/_5sdp"
+            android:textSize="@dimen/_10sdp"
+            android:textColor="@color/grey_600"
             android:id="@+id/tvAddress"
-            app:font_name="NunitoRegular.ttf"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="@dimen/_10sdp"
+            android:layout_marginLeft="@dimen/_25sdp"
             android:layout_marginRight="@dimen/_40sdp"
             android:text="H.No4, K.c nath road,Mumbai 226001,Lalbagh Uttar Pradesh"
             />
 
-        <com.absolutecurepharma.customecomponent.CustomTextView
-            android:textSize="@dimen/_11sdp"
-            android:textColor="@color/black"
+        <TextView
+            android:textSize="@dimen/_10sdp"
+            android:textColor="@color/grey_600"
             android:id="@+id/tvPhone"
-            app:font_name="NunitoRegular.ttf"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_margin="@dimen/_10sdp"
+            android:layout_marginLeft="@dimen/_25sdp"
+            android:layout_marginRight="@dimen/_10sdp"
             android:text="8875467677"
+            android:layout_marginBottom="@dimen/_5sdp"
             />
 
-        <View android:layout_width="match_parent"
-            android:layout_height="@dimen/view_width_small"
-            android:background="@color/grey_400"
-            />
+
+        <RelativeLayout
+            android:layout_marginBottom="@dimen/_10sdp"
+            android:layout_marginLeft="@dimen/_25sdp"
+            android:layout_marginRight="@dimen/_25sdp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <ImageView
+                android:padding="@dimen/_4sdp"
+                android:layout_width="@dimen/_20sdp"
+                android:layout_height="@dimen/_20sdp"
+                android:src="@drawable/pencil_edit"
+                app:tint="@color/purple_500"
+                android:id="@+id/ivEdit"/>
+            <ImageView
+                android:layout_alignParentRight="true"
+                android:padding="@dimen/_4sdp"
+                android:layout_width="@dimen/_20sdp"
+                android:layout_height="@dimen/_20sdp"
+                android:src="@drawable/ic_delete"
+                app:tint="@color/purple_500"
+                android:id="@+id/ivDelete"/>
+        </RelativeLayout>
 
     </LinearLayout>
 
