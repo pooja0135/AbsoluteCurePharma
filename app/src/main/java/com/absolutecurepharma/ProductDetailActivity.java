@@ -20,6 +20,7 @@ import com.absolutecurepharma.adapter.ProductAdapter;
 import com.absolutecurepharma.adapter.ProductDetailPagerAdapter;
 import com.absolutecurepharma.customecomponent.CustomLoader;
 import com.absolutecurepharma.databinding.ActivityProductDetailBinding;
+import com.absolutecurepharma.utils.Preferences;
 import com.absolutecurepharma.utils.Utils;
 import com.android.volley.Request;
 import com.android.volley.Response;
@@ -52,6 +53,7 @@ public class ProductDetailActivity extends AppCompatActivity implements View.OnC
     String productName,companyName,markerdPrice,sellingPrice,sizes,details,prodID;
     TextView tvProductName;
     ActivityProductDetailBinding binding;
+    Preferences pref;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -59,6 +61,7 @@ public class ProductDetailActivity extends AppCompatActivity implements View.OnC
         binding = DataBindingUtil.setContentView(this, R.layout.activity_product_detail);
 
         loader = new CustomLoader(this, android.R.style.Theme_Translucent_NoTitleBar_Fullscreen);
+        pref=new Preferences(this);
         bannerViewpager=findViewById(R.id.bannerViewpager);
         productDetailPagerAdapter=new ProductDetailPagerAdapter(this,array) {
             @Override
@@ -236,7 +239,7 @@ public class ProductDetailActivity extends AppCompatActivity implements View.OnC
                 // Posting parameters to login url
                 Map<String, String> params = new HashMap<String, String>();
                 params.put("prod_id",prodId) ;
-                params.put("user_id","1") ;
+                params.put("user_id",pref.get(Constants.USERID)) ;
                 params.put("qty","1") ;
                 params.put("price",sellingPrice) ;
                 params.put("total",totalPrice) ;

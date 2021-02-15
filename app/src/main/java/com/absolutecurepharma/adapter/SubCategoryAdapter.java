@@ -18,6 +18,7 @@ import com.SeverCall.Constants;
 import com.absolutecurepharma.ProductDetailActivity;
 import com.absolutecurepharma.R;
 import com.absolutecurepharma.customecomponent.CustomLoader;
+import com.absolutecurepharma.utils.Preferences;
 import com.absolutecurepharma.utils.Utils;
 import com.android.volley.Request;
 import com.android.volley.Response;
@@ -43,6 +44,7 @@ public abstract class SubCategoryAdapter extends RecyclerView.Adapter<SubCategor
     private ArrayList<CategoryModel> categoryModel;
     CustomLoader loader;
     String finalPrice,totalPrice,prodId;
+    Preferences pref;
     protected abstract void onSubCategoryClick(View view, String str);
 
 
@@ -62,6 +64,7 @@ public abstract class SubCategoryAdapter extends RecyclerView.Adapter<SubCategor
     @Override
     public void onBindViewHolder(ItemRowHolder itemRowHolder, int i) {
         loader = new CustomLoader(mContext, android.R.style.Theme_Translucent_NoTitleBar_Fullscreen);
+        pref=new Preferences(mContext);
         CategoryModel catMod = categoryModel.get(i);
         itemRowHolder.tvSubcategory.setText(catMod.getProduct_name());
         itemRowHolder.tvSize.setText(catMod.getSize());
@@ -88,6 +91,7 @@ public abstract class SubCategoryAdapter extends RecyclerView.Adapter<SubCategor
             @Override
             public void onClick(View view) {
                 if (Utils.isNetworkConnectedMainThred(mContext)) {
+                    prodId=catMod.getProduct_id();
                    addToCart(prodId,finalPrice,totalPrice);
                 } else {
                     Toast.makeText(mContext, "No Internet Connection!", Toast.LENGTH_SHORT).show();
@@ -168,7 +172,7 @@ public abstract class SubCategoryAdapter extends RecyclerView.Adapter<SubCategor
                 // Posting parameters to login url
                 Map<String, String> params = new HashMap<String, String>();
                 params.put("prod_id", prodId) ;
-                params.put("user_id","1") ;
+                params.put("user_id",pref.get(Constants.USERID)) ;
                 params.put("qty","1") ;
                 params.put("price",sellingPrice) ;
                 params.put("total",totalPrice) ;

@@ -44,12 +44,14 @@ import java.util.Map;
 public class CheckOutActivity extends AppCompatActivity implements View.OnClickListener {
 
     ImageView ivBack;
-    TextView tvChange,tvProceed,tvFinalprice,tv_COD;
+    TextView tvChange,tvProceed,tvFinalprice,tv_COD,tvPrice,tvSave;
     RecyclerView recyclerview;
     ArrayList<CategoryModel> catlist;
     CustomLoader loader;
     Preferences pref;
     String amt;
+    double finalamt=0.0;
+    double saveamt;
     CartListAdapter cartListAdapter;
 
     @Override
@@ -65,6 +67,8 @@ public class CheckOutActivity extends AppCompatActivity implements View.OnClickL
         recyclerview=findViewById(R.id.recyclerview);
         tvFinalprice=findViewById(R.id.tvFinalprice);
         tv_COD=findViewById(R.id.tv_COD);
+        tvPrice=findViewById(R.id.tvPrice);
+        tvSave=findViewById(R.id.tvSave);
         recyclerview.setLayoutManager(new LinearLayoutManager(this));
         loader = new CustomLoader(CheckOutActivity.this, android.R.style.Theme_Translucent_NoTitleBar_Fullscreen);
         catlist = new ArrayList<>();
@@ -93,7 +97,7 @@ public class CheckOutActivity extends AppCompatActivity implements View.OnClickL
                 break;
             case R.id.tvProceed:
                 if (Utils.isNetworkConnectedMainThred(this)) {
-                   String userid="1";
+                   String userid=pref.get(Constants.USERID);
                    String address="1";
                    String paymod="COD";
 
@@ -141,13 +145,18 @@ public class CheckOutActivity extends AppCompatActivity implements View.OnClickL
                                 catModel.setCompany(cat.getString("company"));
                                 catModel.setQty(cat.getString("qty"));
                                 catlist.add(catModel);
-                                double finalamt=0.0;
+
 
                                 Double qty= Double.valueOf(cat.getString("qty"));
                                 Double price= Double.valueOf(cat.getString("selling_price"));
+                                Double price2= Double.valueOf(cat.getString("marked_price"));
                                 finalamt = finalamt +  price* qty;
                                  amt=new Double(finalamt).toString();
                                 tvFinalprice.setText(amt);
+                                tvPrice.setText(amt);
+
+                                //saveamt=price2-price;
+                                //tvSave.setText((int) saveamt);
                                 Log.e("EW",""+finalamt);
                             }
                         }
@@ -177,7 +186,7 @@ public class CheckOutActivity extends AppCompatActivity implements View.OnClickL
             protected Map<String, String> getParams() {
                 // Posting parameters to login url
                 Map<String, String> params = new HashMap<String, String>();
-                params.put("user_id", "1");
+                params.put("user_id", pref.get(Constants.USERID));
 
                 Log.e("", "" + params);
                 return params;
@@ -298,7 +307,6 @@ public class CheckOutActivity extends AppCompatActivity implements View.OnClickL
             public void onResponse(String response) {
                 Log.d("testttttttt", response);
                 loader.dismiss();
-                catlist.clear();
                 try {
                     //converting the string to json array object
                     JSONObject jsonObject = new JSONObject(response);

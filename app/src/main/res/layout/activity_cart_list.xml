@@ -27,6 +27,7 @@
         android:layout_toRightOf="@+id/ivBack"/>
 </RelativeLayout>
     <LinearLayout
+
         android:id="@+id/llcartItem"
         android:weightSum="10"
         android:orientation="vertical"
@@ -48,6 +49,7 @@
                 android:layout_height="wrap_content" />
         </LinearLayout>
         <LinearLayout
+            android:id="@+id/linear"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_weight="0.5"
@@ -81,7 +83,7 @@
     </LinearLayout>
 
     <include android:id="@+id/layout_cart_empty"
-        android:visibility="gone"
+       android:visibility="gone"
         layout="@layout/empty_message_layout_action"
         android:layout_width="match_parent"
         android:layout_height="match_parent"/>

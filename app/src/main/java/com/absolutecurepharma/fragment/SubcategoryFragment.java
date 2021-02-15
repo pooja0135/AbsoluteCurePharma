@@ -91,9 +91,10 @@ public class SubcategoryFragment extends Fragment {
                                 catModel.setMarked_price(cat.getString("marked_price"));
                                 catModel.setSelling_price(cat.getString("selling_price"));
                                 catModel.setSize(cat.getString("size"));
+                                catModel.setProduct_id(cat.getString("id"));
                                 catModel.setDescription(cat.getString("description"));
                                 subcatlist.add(catModel);
-                                Log.e("BHAGYAaa",""+subcatlist.size());
+
                                 //replaceFragmentWithAnimation(new SubcategoryFragment());
 
                             }

@@ -39,7 +39,7 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
     ActivityRegisterBinding binding;
     String name,email,mobile,password;
     CustomLoader loader;
- Preferences pref;
+    Preferences pref;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
