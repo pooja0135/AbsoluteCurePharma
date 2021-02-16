@@ -34,5 +34,9 @@ public class AppConfig {
 
     public static String PLACEORDER =BASE_URL+"place_order.php";
 
+    public static String GETADDRESS =BASE_URL+"getAddress.php";
+
+    public static String DELETEADDRESS =BASE_URL+"delete_address.php";
+
 
 }

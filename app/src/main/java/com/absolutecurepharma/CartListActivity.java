@@ -102,7 +102,7 @@ public class CartListActivity extends AppCompatActivity implements View.OnClickL
                 startActivity(new Intent(this, MainActivity.class));
                 break;
             case R.id.tvProceed:
-                startActivity(new Intent(this, CheckOutActivity.class));
+                startActivity(new Intent(this, AddressListActivity.class));
                 break;
         }
     }

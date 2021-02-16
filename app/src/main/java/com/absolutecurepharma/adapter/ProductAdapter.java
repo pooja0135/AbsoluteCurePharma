@@ -64,7 +64,7 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ItemRowH
     public void onBindViewHolder(ItemRowHolder itemRowHolder, int i) {
         loader = new CustomLoader(mContext, android.R.style.Theme_Translucent_NoTitleBar_Fullscreen);
 
-        CategoryModel catMod = categoryModel.get(i);
+        CategoryModel   catMod = categoryModel.get(i);
         itemRowHolder.tvProductName.setText(catMod.getProduct_name());
         itemRowHolder.tvSize.setText(catMod.getSize());
         itemRowHolder.tvOldPrice.setText("\u20b9"+ catMod.getMarked_price());
