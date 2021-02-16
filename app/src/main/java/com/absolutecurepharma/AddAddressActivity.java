@@ -10,10 +10,12 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.Model.AddressItem;
 import com.Model.CategoryModel;
 import com.SeverCall.AppConfig;
 import com.SeverCall.Constants;
@@ -51,6 +53,7 @@ public class AddAddressActivity extends AppCompatActivity {
 
 
     ArrayList<HashMap<String,String>> arrayList;
+    ArrayList<HashMap<String,String>> arrayCity;
 
     private static final String TAG = AddAddressActivity.class.getSimpleName();
     @Override
@@ -60,10 +63,30 @@ public class AddAddressActivity extends AppCompatActivity {
 
 
         arrayList=new ArrayList<>();
+        arrayCity=new ArrayList<>();
 
         loader = new CustomLoader(this, android.R.style.Theme_Translucent_NoTitleBar_Fullscreen);
 
         pref=new Preferences(this);
+
+
+        binding.spinnerState.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+
+
+                if (Utils.isNetworkConnectedMainThred(AddAddressActivity.this)){
+                    getCity(arrayList.get(position).get("state_id"));
+                } else {
+                    Toast.makeText(AddAddressActivity.this, "No Internet Connection!", Toast.LENGTH_SHORT).show();
+                }
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+
+            }
+        });
 
 
         if (Utils.isNetworkConnectedMainThred(AddAddressActivity.this)){
@@ -209,7 +232,73 @@ public class AddAddressActivity extends AppCompatActivity {
         //adding our stringrequest to queue
         Volley.newRequestQueue(AddAddressActivity.this).add(stringRequest);
     }
+    public void getCity(String state_id){
+        //loader.setMessage("Loading...Please Wait..");
+        loader.show();
+        StringRequest stringRequest = new StringRequest(Request.Method.POST, AppConfig.GETCITY,new Response.Listener<String>() {
+            @Override
+            public void onResponse(String response) {
+                Log.d("Getcity", response);
 
+                loader.dismiss();
+
+                try {
+                    //converting the string to json array object
+                    JSONObject jsonObject = new JSONObject(response);
+                    arrayCity.clear();
+
+                    if(jsonObject.getString("Success").equalsIgnoreCase("true")) {
+
+                        JSONArray array = jsonObject.getJSONArray("City");
+                        {
+
+
+                            HashMap<String,String> map;
+                            //traversing through all the object
+                            for (int i = 0; i < array.length(); i++) {
+                                map=new HashMap<>();
+
+                                //getting product object from json array
+                                JSONObject cat = array.getJSONObject(i);
+                                map.put("city_id",cat.getString("city_id"));
+                                map.put("key",cat.getString("city_name"));
+                                arrayCity.add(map);
+                            }
+
+                            binding.spinnerCity.setAdapter(new SpinnerAdapter(AddAddressActivity.this,R.layout.spinner_adapter,arrayCity));
+
+                        }
+                    }
+                    else {
+                        Toast.makeText(AddAddressActivity.this,
+                                jsonObject.getString("message"),
+                                Toast.LENGTH_LONG).show();
+                    }
+
+                } catch (JSONException e) {
+
+                    Log.e("testerroor",e.toString());
+                    e.printStackTrace();
+                }
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+
+            }
+        }){
+            @Override
+            protected Map<String, String> getParams() {
+                // Posting parameters to login url
+                Map<String, String> params = new HashMap<String, String>();
+                params.put("state_id",state_id);
+                Log.e("",""+params);
+                return params;
+            }
+        };
+        //adding our stringrequest to queue
+        Volley.newRequestQueue(this).add(stringRequest);
+    }
 
 
 //***************************************************************************//
@@ -250,7 +339,6 @@ public class AddAddressActivity extends AppCompatActivity {
 
             }
         }) {
-
 
             @Override
             protected Map<String, String> getParams() {

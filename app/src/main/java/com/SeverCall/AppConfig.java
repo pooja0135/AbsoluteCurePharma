@@ -18,6 +18,8 @@ public class AppConfig {
 
     public static String GETSTATE =BASE_URL+"getstate.php";
 
+    public static String GETCITY =BASE_URL+"getCity.php";
+
     public static String GETPRODUCT =BASE_URL+"getProducts.php";
 
     public static String PRODUCTDETAILS =BASE_URL+"getProductDetails.php";
