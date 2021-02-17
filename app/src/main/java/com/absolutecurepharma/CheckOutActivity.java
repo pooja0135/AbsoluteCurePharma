@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.app.Dialog;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Paint;
@@ -11,9 +12,12 @@ import android.os.Bundle;
 import android.os.Vibrator;
 import android.text.Layout;
 import android.util.Log;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.Window;
+import android.view.WindowManager;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -23,6 +27,7 @@ import com.Model.CategoryModel;
 import com.SeverCall.AppConfig;
 import com.SeverCall.Constants;
 import com.absolutecurepharma.customecomponent.CustomLoader;
+import com.absolutecurepharma.utils.AppSettings;
 import com.absolutecurepharma.utils.Preferences;
 import com.absolutecurepharma.utils.Utils;
 import com.android.volley.Request;
@@ -355,5 +360,44 @@ public class CheckOutActivity extends AppCompatActivity implements View.OnClickL
 
         //adding our stringrequest to queue
         Volley.newRequestQueue(this).add(stringRequest);
+    }
+
+    //========================Dialog=======================//
+
+    public void SuccessPopup() {
+        final Dialog dialog = new Dialog(this, android.R.style.Theme_Translucent_NoTitleBar);
+        dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+        dialog.setContentView(R.layout.alert);
+        Window window = dialog.getWindow();
+        WindowManager.LayoutParams wlp = window.getAttributes();
+        wlp.gravity = Gravity.CENTER;
+        wlp.flags &= ~WindowManager.LayoutParams.FLAG_BLUR_BEHIND;
+        window.setAttributes(wlp);
+        dialog.getWindow().setLayout(WindowManager.LayoutParams.MATCH_PARENT, WindowManager.LayoutParams.MATCH_PARENT);
+        //  dialog.show();
+        dialog.setCancelable(true);
+        dialog.setCanceledOnTouchOutside(true);
+        dialog.getWindow().setBackgroundDrawableResource(R.color.grey_400);
+        dialog.show();
+
+        Thread timerThread = new Thread() {
+            public void run() {
+                try {
+                    sleep(2600);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                } finally {
+                    dialog.dismiss();
+                    pref.set(AppSettings.count, "0");
+                    pref.commit();
+                    Intent intent = new Intent(CheckOutActivity.this, OrderConfirmationActivity.class);
+                    startActivity(intent);
+                    overridePendingTransition(R.anim.enter_from_right, R.anim.exit_to_right);
+                    finishAffinity();
+                }
+            }
+        };
+
+        timerThread.start();
     }
 }
