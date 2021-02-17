@@ -7,11 +7,14 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 
+import com.SeverCall.Constants;
 import com.absolutecurepharma.databinding.ActivityMyAccountBinding;
+import com.absolutecurepharma.utils.Preferences;
 
 public class MyAccountActivity extends AppCompatActivity implements View.OnClickListener {
 
     ActivityMyAccountBinding binding;
+    Preferences pref;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -24,6 +27,9 @@ public class MyAccountActivity extends AppCompatActivity implements View.OnClick
         binding.rlOrder.setOnClickListener(this);
         binding.rlAddress.setOnClickListener(this);
         binding.rlChangePassword.setOnClickListener(this);
+        pref=new Preferences(this);
+        binding.tvName.setText(pref.get(Constants.FULLNAME));
+        binding.tvPhone.setText(pref.get(Constants.MOBILENUMBER));
 
     }
 

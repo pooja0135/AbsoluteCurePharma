@@ -46,6 +46,7 @@ public class ProductDetailActivity extends AppCompatActivity implements View.OnC
     int [] array={R.drawable.product_image1,R.drawable.product_image1};
     int currentPage = 0;
     Timer timer;
+    int count=0;
     long DELAY_MS = 1000;
     long PERIOD_MS = 3000;
     ImageView ivBack,ivCart;
@@ -79,6 +80,7 @@ public class ProductDetailActivity extends AppCompatActivity implements View.OnC
         binding.bannerViewpager.setClipToPadding(false);
         binding.bannerViewpager.setCurrentItem(0, true);
         binding.bannerViewpager.setPageMargin(10);
+
 
         final int NUM_PAGES = array.length;
         final Handler handler = new Handler();
@@ -122,7 +124,8 @@ public class ProductDetailActivity extends AppCompatActivity implements View.OnC
                 startActivity(new Intent(this,CartListActivity.class));
                 break;
             case R.id.tvAddToCart:
-
+                String counter= String.valueOf(count+1);
+                binding.tvCount.setText(counter);
                 prodID=Constants.product_id;
                addToCart(prodID,sellingPrice,sellingPrice);
                 break;

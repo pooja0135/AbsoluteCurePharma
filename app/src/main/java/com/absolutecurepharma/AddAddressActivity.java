@@ -112,27 +112,20 @@ public class AddAddressActivity extends AppCompatActivity {
         }
         else if(binding.edMobile.getText().toString().trim().isEmpty()||binding.edMobile.getText().toString().trim().length()<10)
         {
-            binding.edName.setError("Enter 10 digit phone number");
+            binding.edMobile.setError("Enter 10 digit phone number");
         }
         else if(binding.edLocality.getText().toString().trim().isEmpty())
             {
-                binding.edName.setError("This field can not be blank");
+                binding.edLocality.setError("This field can not be blank");
                  }
         else if(binding.edAddress.getText().toString().trim().isEmpty())
         {
-            binding.edName.setError("This field can not be blank");
+            binding.edAddress.setError("This field can not be blank");
         }
-        else if(binding.spinnerState.getSelectedItemPosition()==0)
-        {
-            binding.edName.setError("Select State");
-        }
-        else if(binding.spinnerCity.getSelectedItemPosition()==0)
-        {
-            binding.edName.setError("Select City");
-        }
+
         else if(binding.edPincode.getText().toString().trim().isEmpty())
         {
-            binding.edName.setError("This field can not be blank");
+            binding.edPincode.setError("This field can not be blank");
         }
         else
         {
@@ -317,7 +310,7 @@ public class AddAddressActivity extends AppCompatActivity {
 
                     if(jObj.getString("Success").equalsIgnoreCase("true")) {
 
-                        //startActivity(new Intent(AddAddressActivity.this,LoginActivity.class));
+                        startActivity(new Intent(AddAddressActivity.this,AddressListActivity.class));
                         Toast.makeText(getApplicationContext(), "Address added Sucessfully", Toast.LENGTH_LONG).show();
                     }
                     else {

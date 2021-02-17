@@ -40,5 +40,7 @@ public class AppConfig {
 
     public static String DELETEADDRESS =BASE_URL+"delete_address.php";
 
+    public static String CHANGEPASSWORD =BASE_URL+"change_password.php";
+
 
 }
