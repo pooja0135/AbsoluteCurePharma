@@ -157,6 +157,8 @@ public class LoginActivity extends AppCompatActivity  implements View.OnClickLis
         }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
+Log.e("",""+error);
+                loader.dismiss();
             }
         }) {
 

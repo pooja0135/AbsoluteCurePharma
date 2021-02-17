@@ -12,7 +12,13 @@ public class AppConfig {
 
     public static String REGISTER_URL =BASE_URL+"Registration.php";
 
+    public static String ADD_ADDRESS =BASE_URL+"add_address.php";
+
     public static String GETCATEGORY =BASE_URL+"getCategory.php";
+
+    public static String GETSTATE =BASE_URL+"getstate.php";
+
+    public static String GETCITY =BASE_URL+"getCity.php";
 
     public static String GETPRODUCT =BASE_URL+"getProducts.php";
 
@@ -29,6 +35,10 @@ public class AppConfig {
     public static String MYORDERS =BASE_URL+"getOrders.php";
 
     public static String PLACEORDER =BASE_URL+"place_order.php";
+
+    public static String GETADDRESS =BASE_URL+"getAddress.php";
+
+    public static String DELETEADDRESS =BASE_URL+"delete_address.php";
 
 
 }
