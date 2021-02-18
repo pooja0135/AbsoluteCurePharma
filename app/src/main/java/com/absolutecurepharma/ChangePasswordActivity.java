@@ -1,14 +1,132 @@
 package com.absolutecurepharma;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.databinding.DataBindingUtil;
 
+import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
+import android.view.View;
+import android.widget.Toast;
 
-public class ChangePasswordActivity extends AppCompatActivity {
+import com.SeverCall.AppConfig;
+import com.SeverCall.Constants;
+import com.absolutecurepharma.customecomponent.CustomLoader;
+import com.absolutecurepharma.databinding.ActivityChangePasswordBinding;
+import com.absolutecurepharma.utils.Preferences;
+import com.absolutecurepharma.utils.Utils;
+import com.android.volley.DefaultRetryPolicy;
+import com.android.volley.Request;
+import com.android.volley.RequestQueue;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.StringRequest;
+import com.android.volley.toolbox.Volley;
+
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.util.HashMap;
+import java.util.Map;
+
+public class ChangePasswordActivity extends AppCompatActivity implements View.OnClickListener {
+    ActivityChangePasswordBinding binding;
+    CustomLoader loader;
+
+    Preferences pref;
+    private static final String TAG = ChangePasswordActivity.class.getSimpleName();
+    String contact,password,email,newpassword,confirmpassword;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_change_password);
+        binding = DataBindingUtil.setContentView(this, R.layout.activity_change_password);
+        loader = new CustomLoader(this, android.R.style.Theme_Translucent_NoTitleBar_Fullscreen);
+        pref=new Preferences(this);
+        binding.tvSubmit.setOnClickListener(this);
+
+    }
+
+    @Override
+    public void onClick(View v) {
+        checkValidation();
+    }
+
+    private void checkValidation(){
+        email=  binding.etEmail.getText().toString();
+        password=  binding.etPassword.getText().toString();
+        newpassword=  binding.etNewPassword.getText().toString();
+        confirmpassword=  binding.etConfirmPassword.getText().toString();
+        contact=  binding.etContact.getText().toString();
+        if (!password.isEmpty() && !newpassword.isEmpty() ) {
+
+            if (Utils.isNetworkConnectedMainThred(ChangePasswordActivity.this)){
+              String userid=pref.get(Constants.USERID);
+                changePass(userid, password,newpassword);
+            } else {
+                Toast.makeText(this, "No Internet Connection!", Toast.LENGTH_SHORT).show();
+            }
+
+        }
+        else{
+            Toast.makeText(getApplicationContext(),
+                    "Please enter the credentials!", Toast.LENGTH_LONG)
+                    .show();
+        }
+    }
+
+
+
+    //****************************************************************//
+    private void changePass(final String userid, final String password,final String newpassword) {
+        loader.show();
+        StringRequest strReq = new StringRequest(Request.Method.POST,
+                AppConfig.CHANGEPASSWORD, new Response.Listener<String>() {
+            @Override
+            public void onResponse(String response) {
+                Log.d(TAG, "Paswword Change " + response.toString());
+                loader.dismiss();
+
+                try {
+                    JSONObject object = new JSONObject(response);
+
+                    if(object.getString("Success").equalsIgnoreCase("true")) {
+
+                        Toast.makeText(getApplicationContext(), "Login Success!", Toast.LENGTH_LONG).show();
+                    }
+                    else {
+                        Toast.makeText(getApplicationContext(), "wrong credentials", Toast.LENGTH_LONG).show();
+                    }
+                } catch (JSONException e) {
+                    // JSON error
+                    e.printStackTrace();
+                    Toast.makeText(getApplicationContext(), "Json error: " + e.getMessage(), Toast.LENGTH_LONG).show();
+                }
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                Log.e("",""+error);
+                loader.dismiss();
+            }
+        }) {
+
+            @Override
+            protected Map<String, String> getParams() {
+                // Posting parameters to login url
+                Map<String, String> params = new HashMap<String, String>();
+                params.put("id", userid);
+                params.put("old_password", password);
+                params.put("new_password",newpassword);
+                Log.e("",""+params);
+                return params;
+            }
+        };
+        RequestQueue requestQueue= Volley.newRequestQueue(this);
+        strReq.setRetryPolicy(new DefaultRetryPolicy(
+                10000,
+                DefaultRetryPolicy.DEFAULT_MAX_RETRIES,
+                DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
+        requestQueue.add(strReq);
     }
 }
