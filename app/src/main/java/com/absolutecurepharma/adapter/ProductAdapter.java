@@ -89,6 +89,8 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ItemRowH
             public void onClick(View v) {
                 Constants.product_id=catMod.getProduct_id();
                 Log.e("Product ID",""+catMod.getProduct_id());
+
+
                 mContext.startActivity(new Intent(mContext,ProductDetailActivity.class));
 
             }

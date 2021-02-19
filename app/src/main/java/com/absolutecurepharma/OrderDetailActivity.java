@@ -21,18 +21,14 @@ public class OrderDetailActivity extends AppCompatActivity {
         binding = DataBindingUtil.setContentView(this, R.layout.activity_order_detail);
 
         Bundle data = getIntent().getExtras();
-        CategoryModel model = (CategoryModel) data.getParcelable("order");
-        Log.e("nishaaa",""+model.getOrder_id());
-
+        CategoryModel model =  data.getParcelable("order");
+        Log.e("nishaaa",""+model.getProduct_name());
 
        // binding.tvOrderId.setText(model.getOrder_id());
         binding.ivBack.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
                 startActivity(new Intent(OrderDetailActivity.this,OrderListActivity.class));
-
-
             }
         });
 

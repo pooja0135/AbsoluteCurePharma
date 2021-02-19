@@ -90,6 +90,7 @@ public class AddressListActivity extends AppCompatActivity implements View.OnCli
         }
     }
 
+
     class AddressAdapter extends RecyclerView.Adapter<AddressListActivity.AddressAdapter.Holder> {
 
         private Context mContext;
@@ -109,21 +110,23 @@ public class AddressListActivity extends AppCompatActivity implements View.OnCli
 
         @Override
         public void onBindViewHolder(AddressListActivity.AddressAdapter.Holder itemRowHolder, int i) {
-
+            AddressItem addr = addrmodel.get(i);
 
             if(row_index==i)
             {
+                String addrid = addr.getId();
                 itemRowHolder.ivradioOn.setVisibility(View.VISIBLE);
                 itemRowHolder.ivradio.setVisibility(View.GONE);
             }
             else
             {
+                String addrid = addr.getId();
                 itemRowHolder.ivradioOn.setVisibility(View.GONE);
                 itemRowHolder.ivradio.setVisibility(View.VISIBLE);
             }
 
             loader = new CustomLoader(mContext, android.R.style.Theme_Translucent_NoTitleBar_Fullscreen);
-            AddressItem addr = addrmodel.get(i);
+
             itemRowHolder.tvName.setText(addr.getDeliverTo());
             String adres=addr.getAddress1()+addr.getAddress2()+"\nPincode-"+addr.getPinCode();
             itemRowHolder.tvAddress.setText(adres);

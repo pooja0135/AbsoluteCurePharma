@@ -41,7 +41,6 @@ public class SubcategoryFragment extends Fragment {
     CustomLoader loader;
     ArrayList<CategoryModel> subcatlist;
 
-
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {

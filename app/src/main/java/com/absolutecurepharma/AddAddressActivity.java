@@ -130,7 +130,7 @@ public class AddAddressActivity extends AppCompatActivity {
         else
         {
             if (Utils.isNetworkConnectedMainThred(AddAddressActivity.this)){
-                AddAddressAPI(pref.get(Constants.USERID),binding.edName.getText().toString(),"1","1",binding.edMobile.getText().toString(),binding.edLocality.getText().toString(),binding.edAddress.getText().toString(),binding.edPincode.getText().toString());
+                AddAddressAPI(pref.get(Constants.USERID),binding.edName.getText().toString(),arrayList.get(binding.spinnerState.getSelectedItemPosition()).get("state_id"),arrayCity.get(binding.spinnerCity.getSelectedItemPosition()).get("city_id").toString(),binding.edMobile.getText().toString(),binding.edLocality.getText().toString(),binding.edAddress.getText().toString(),binding.edPincode.getText().toString());
             } else {
                 Toast.makeText(this, "No Internet Connection!", Toast.LENGTH_SHORT).show();
             }
@@ -304,7 +304,6 @@ public class AddAddressActivity extends AppCompatActivity {
             public void onResponse(String response) {
                 Log.d(TAG, "Address Response: " + response.toString());
                 loader.dismiss();
-
                 try {
                     JSONObject jObj = new JSONObject(response);
 

@@ -14,54 +14,22 @@ public class CategoryModel implements Parcelable {
     private String product_image;
     private String order_id;
 
-    protected CategoryModel(Parcel in) {
-        cat_id = in.readString();
-        cat_name = in.readString();
-        cat_image = in.readString();
-        product_name = in.readString();
-        marked_price = in.readString();
-        selling_price = in.readString();
-        product_image = in.readString();
-        order_id = in.readString();
-        order_total = in.readString();
-        order_date = in.readString();
-        order_status = in.readString();
-        delivery_date = in.readString();
-        product_qty = in.readString();
-        total_price = in.readString();
-        qty = in.readString();
-        company = in.readString();
-        description = in.readString();
-        product_id = in.readString();
-        size = in.readString();
-    }
 
-    public static final Creator<CategoryModel> CREATOR = new Creator<CategoryModel>() {
-        @Override
-        public CategoryModel createFromParcel(Parcel in) {
-            return new CategoryModel(in);
-        }
-
-        @Override
-        public CategoryModel[] newArray(int size) {
-            return new CategoryModel[size];
-        }
-    };
 
     public CategoryModel() {}
 
-    public CategoryModel(String order_id) {
-//        this.cat_id = cat_id;
-//        this.product_name = product_name;
-//        this.marked_price = marked_price;
-//        this.selling_price = selling_price;
-//        this.product_image = product_image;
+    public CategoryModel(String product_name, String marked_price, String selling_price, String product_image, String order_id, String order_total, String order_date, String order_status, String delivery_date, String product_qty, String total_price) {
+        this.product_name = product_name;
+        this.marked_price = marked_price;
+        this.selling_price = selling_price;
+        this.product_image = product_image;
         this.order_id = order_id;
-//        this.order_total = order_total;
-//        this.order_date = order_date;
-//        this.order_status = order_status;
-//        this.delivery_date = delivery_date;
-//        this.product_qty = product_qty;
+        this.order_total = order_total;
+        this.order_date = order_date;
+        this.order_status = order_status;
+        this.delivery_date = delivery_date;
+        this.product_qty = product_qty;
+        this.total_price = total_price;
     }
 
     public String getOrder_id() {
@@ -235,25 +203,89 @@ public class CategoryModel implements Parcelable {
     }
 
 
-
-
-
-
     @Override
     public int describeContents() {
         return 0;
     }
 
     @Override
-    public void writeToParcel(Parcel parcel, int i) {
-        parcel.writeString(order_total);
-        parcel.writeString(order_date);
-        parcel.writeString(order_status);
-        parcel.writeString(order_id);
-        parcel.writeString(product_name);
-
-
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeString(this.cat_id);
+        dest.writeString(this.cat_name);
+        dest.writeString(this.cat_image);
+        dest.writeString(this.product_name);
+        dest.writeString(this.marked_price);
+        dest.writeString(this.selling_price);
+        dest.writeString(this.product_image);
+        dest.writeString(this.order_id);
+        dest.writeString(this.order_total);
+        dest.writeString(this.order_date);
+        dest.writeString(this.order_status);
+        dest.writeString(this.delivery_date);
+        dest.writeString(this.product_qty);
+        dest.writeString(this.total_price);
+        dest.writeString(this.qty);
+        dest.writeString(this.company);
+        dest.writeString(this.description);
+        dest.writeString(this.product_id);
+        dest.writeString(this.size);
     }
+
+    public void readFromParcel(Parcel source) {
+        this.cat_id = source.readString();
+        this.cat_name = source.readString();
+        this.cat_image = source.readString();
+        this.product_name = source.readString();
+        this.marked_price = source.readString();
+        this.selling_price = source.readString();
+        this.product_image = source.readString();
+        this.order_id = source.readString();
+        this.order_total = source.readString();
+        this.order_date = source.readString();
+        this.order_status = source.readString();
+        this.delivery_date = source.readString();
+        this.product_qty = source.readString();
+        this.total_price = source.readString();
+        this.qty = source.readString();
+        this.company = source.readString();
+        this.description = source.readString();
+        this.product_id = source.readString();
+        this.size = source.readString();
+    }
+
+    protected CategoryModel(Parcel in) {
+        this.cat_id = in.readString();
+        this.cat_name = in.readString();
+        this.cat_image = in.readString();
+        this.product_name = in.readString();
+        this.marked_price = in.readString();
+        this.selling_price = in.readString();
+        this.product_image = in.readString();
+        this.order_id = in.readString();
+        this.order_total = in.readString();
+        this.order_date = in.readString();
+        this.order_status = in.readString();
+        this.delivery_date = in.readString();
+        this.product_qty = in.readString();
+        this.total_price = in.readString();
+        this.qty = in.readString();
+        this.company = in.readString();
+        this.description = in.readString();
+        this.product_id = in.readString();
+        this.size = in.readString();
+    }
+
+    public static final Parcelable.Creator<CategoryModel> CREATOR = new Parcelable.Creator<CategoryModel>() {
+        @Override
+        public CategoryModel createFromParcel(Parcel source) {
+            return new CategoryModel(source);
+        }
+
+        @Override
+        public CategoryModel[] newArray(int size) {
+            return new CategoryModel[size];
+        }
+    };
 }
 
 

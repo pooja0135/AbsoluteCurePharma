@@ -55,8 +55,8 @@ public  class OrderListAdapter extends RecyclerView.Adapter<OrderListAdapter.Ite
             @Override
             public void onClick(View v) {
                 Intent intent=new Intent(mContext, OrderDetailActivity.class);
-                Log.e("tetsinhgsgsgs",""+catMod.getOrder_id());
-                intent.putExtra("order", new CategoryModel(catMod.getOrder_id()));
+               // intent.putExtra("order", new CategoryModel(catMod.getProduct_name(), catMod.getMarked_price(), catMod.getSelling_price(), catMod.getProduct_image(), catMod.getOrder_id(), catMod.getOrder_total(),catMod.getOrder_date(), catMod.getOrder_status(), catMod.getDelivery_date(), catMod.getProduct_qty(),catMod.getTotal_price()));
+                intent.putExtra("order", catMod);
                 mContext.startActivity(intent);
             }
         });

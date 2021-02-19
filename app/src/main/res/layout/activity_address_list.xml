@@ -57,6 +57,39 @@
                 android:layout_height="wrap_content"/>
         </LinearLayout>
 
+        <RelativeLayout
+
+            android:id="@+id/rrCod"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/_25sdp"
+            android:background="@color/white"
+            android:elevation="@dimen/_3sdp">
+
+            <ImageView
+                android:id="@+id/imageView8"
+                android:layout_width="@dimen/_15sdp"
+                android:layout_height="@dimen/_15sdp"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:layout_marginRight="@dimen/_10sdp"
+                app:srcCompat="@drawable/ic_radio_button_checked" />
+
+            <TextView
+                android:id="@+id/tv_COD"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:text="Cash on Delivery"
+                android:textSize="@dimen/_12sdp"
+                android:tag="Selected"
+                android:textColor="@color/black"
+                android:paddingLeft="@dimen/_10sdp"
+                android:gravity="center_vertical"
+                android:layout_toLeftOf="@+id/imageView8"
+                android:layout_toStartOf="@+id/imageView8"
+                />
+
+        </RelativeLayout>
+
         <include
             android:visibility="gone"
             android:id="@+id/layout_address_empty"

@@ -36,6 +36,7 @@ import android.util.Base64;
 import android.util.Log;
 import android.view.Display;
 import android.view.Gravity;
+import android.view.KeyEvent;
 import android.view.View;
 import android.view.View.MeasureSpec;
 import android.view.ViewGroup;
@@ -46,6 +47,10 @@ import android.widget.ListAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
+
+
+
+import androidx.fragment.app.Fragment;
 
 import com.absolutecurepharma.R;
 import com.google.android.material.snackbar.Snackbar;
@@ -65,33 +70,14 @@ import java.util.Locale;
 import java.util.TimeZone;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
-
-
-
-
-//import org.apache.commons.httpclient.methods.PostMethod;
-//import org.apache.commons.httpclient.methods.multipart.ByteArrayPartSource;
-//import org.apache.commons.httpclient.methods.multipart.FilePart;
-//import org.apache.commons.httpclient.methods.multipart.MultipartRequestEntity;
-//import org.apache.commons.httpclient.methods.multipart.Part;
-//import org.apache.commons.httpclient.methods.multipart.StringPart;
-//import com.community.dcp.sync.SyncService;
-
-
 public class Utils {
-
 	private static Dialog alert;
-
 	Context context;
-
-
-
 	public static void setGradient(int Color1, int Color2, Button vu) {
 		Shader textShader = new LinearGradient(0, 0, 0, 20, Color1, Color2,
 				TileMode.CLAMP);
 		vu.getPaint().setShader(textShader);
 	}
-
 	public static void CopyStream(InputStream is, OutputStream os) {
 		final int buffer_size = 1024;
 		try {
@@ -105,22 +91,16 @@ public class Utils {
 		} catch (Exception ex) {
 		}
 	}
-
-
-
 	// ============================================================
-
 	public static void log(String tag, String msg) {
 		Log.d(tag, msg);
 	}
-
 	// ==================================================================
-
 	public static void exception(String tag, Exception exp, String msg) {
 		Log.d(tag, exp.getMessage() + " at " + msg);
 	}
 
-	// ===================================================================
+	// ==================================================================
 
 /*	public static String getCompleteApiUrl(Context ctx, int api) {
 
@@ -136,8 +116,6 @@ public class Utils {
 				+ api;
 	}
 
-
-	
 
 //	public static String GetCountryZipCode(Context ctx){
 //	    String CountryID="";
@@ -156,27 +134,17 @@ public class Utils {
 //	    }
 //	    return CountryZipCode;
 //	}
-	
 
 	// ======================================================================
 	public static void onError(Context ctx, Exception e) {
 		showToast(ctx, "Error: " + e.getLocalizedMessage(), Toast.LENGTH_LONG);
 		Log.d("", "Error =====> " + e.getMessage());
 	}
-
-
-
-
-
 	// ======================================================================
 	public static void showToast(Context ctx, String text, int duration) {
 		Toast.makeText(ctx, text, duration).show();
 	}
-
-
 	// ======================================================================
-
-
 	public static void showCustomToast(Context ctx , String msg, TextView tv )
 	{
 
@@ -186,6 +154,40 @@ public class Utils {
 		toast.show();
 
 	}
+
+
+
+/*
+	public static void backPress(View view, Context context, Fragment fragment)
+	{
+		//Back
+		view.setFocusableInTouchMode(true);
+		view.requestFocus();
+		view.setOnKeyListener(new View.OnKeyListener() {
+			@Override
+			public boolean onKey(View v, int keyCode, KeyEvent event) {
+				if (event.getAction() == KeyEvent.ACTION_DOWN) {
+					if (keyCode == KeyEvent.KEYCODE_BACK) {
+
+						Activity activity = (Activity) context;
+						//FragmentManager fragmentManager = activity.getFragmentManager();
+						FragmentManager fragmentManager =activity. getFragmentManager();
+						//FragmentTransaction transaction = activity.getFragmentManager().beginTransaction();
+						FragmentTransaction transaction=activity.getFragmentManager().beginTransaction();
+
+						transaction.replace(R.id.main_fragment_container,fragment );
+
+						//transaction.setCustomAnimations(R.anim.enter_from_left, R.anim.exit_to_right, R.anim.enter_from_right, R.anim.exit_to_left);
+
+						transaction.commit();
+						return true;
+					}
+				}
+				return false;
+			}
+		});
+	}
+*/
 
 
 	// ======================================================================

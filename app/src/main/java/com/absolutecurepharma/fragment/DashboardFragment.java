@@ -26,18 +26,13 @@ import com.absolutecurepharma.adapter.CategoryAdapter;
 import com.absolutecurepharma.adapter.ProductAdapter;
 import com.absolutecurepharma.customecomponent.CustomLoader;
 import com.absolutecurepharma.utils.Utils;
-import com.android.volley.AuthFailureError;
-import com.android.volley.NetworkError;
-import com.android.volley.NoConnectionError;
-import com.android.volley.ParseError;
 import com.android.volley.Request;
 import com.android.volley.Response;
-import com.android.volley.ServerError;
-import com.android.volley.TimeoutError;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.google.android.material.tabs.TabLayout;
+
 
 import org.json.JSONArray;
 import org.json.JSONException;

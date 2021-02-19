@@ -64,7 +64,6 @@ public class CheckOutActivity extends AppCompatActivity implements View.OnClickL
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_check_out);
 
-
         //findViewById
         ivBack=findViewById(R.id.ivBack);
         tvChange=findViewById(R.id.tvChange);
@@ -81,10 +80,8 @@ public class CheckOutActivity extends AppCompatActivity implements View.OnClickL
 
         if (Utils.isNetworkConnectedMainThred(this)) {
             getCart();
-
         } else {
             Toast.makeText(this, "No Internet Connection!", Toast.LENGTH_SHORT).show();
-
         }
 
         //setonCLicklistener
