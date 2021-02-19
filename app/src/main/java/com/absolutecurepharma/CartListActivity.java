@@ -25,6 +25,7 @@ import com.SeverCall.AppConfig;
 import com.SeverCall.Constants;
 
 import com.absolutecurepharma.customecomponent.CustomLoader;
+import com.absolutecurepharma.utils.Preferences;
 import com.absolutecurepharma.utils.Utils;
 import com.android.volley.Request;
 import com.android.volley.Response;
@@ -58,6 +59,7 @@ public class CartListActivity extends AppCompatActivity implements View.OnClickL
     CustomLoader loader;
     LinearLayout layout_cart_empty;
     ArrayList<CategoryModel> catlist;
+    Preferences pref;
 
 
     @Override
@@ -73,6 +75,7 @@ public class CartListActivity extends AppCompatActivity implements View.OnClickL
         tvProceed = findViewById(R.id.tvProceed);
         layout_cart_empty = findViewById(R.id.layout_cart_empty);
         loader = new CustomLoader(CartListActivity.this, android.R.style.Theme_Translucent_NoTitleBar_Fullscreen);
+        pref=new Preferences(this);
         catlist = new ArrayList<>();
 
         if (Utils.isNetworkConnectedMainThred(this)) {
@@ -117,6 +120,7 @@ public class CartListActivity extends AppCompatActivity implements View.OnClickL
                 Log.d("testttttttt", response);
                 loader.dismiss();
                 catlist.clear();
+                double finalamt=0.0;
                 try {
                     //converting the string to json array object
                     JSONObject jsonObject = new JSONObject(response);
@@ -139,7 +143,7 @@ public class CartListActivity extends AppCompatActivity implements View.OnClickL
                                 catModel.setCompany(cat.getString("company"));
                                 catModel.setQty(cat.getString("qty"));
                                 catlist.add(catModel);
-                                double finalamt=0.0;
+
 
                                 Double qty= Double.valueOf(cat.getString("qty"));
                                 Double price= Double.valueOf(cat.getString("selling_price"));
@@ -175,7 +179,7 @@ public class CartListActivity extends AppCompatActivity implements View.OnClickL
             protected Map<String, String> getParams() {
                 // Posting parameters to login url
                 Map<String, String> params = new HashMap<String, String>();
-                params.put("user_id", "1");
+                params.put("user_id", pref.get(Constants.USERID));
 
                 Log.e("", "" + params);
                 return params;
@@ -240,10 +244,11 @@ public class CartListActivity extends AppCompatActivity implements View.OnClickL
             itemRowHolder.ivDelete.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    String userId = "1";
+                    String userId = pref.get(Constants.USERID);
+                    String prodId = catMod.getProduct_id();
 
                     if (Utils.isNetworkConnectedMainThred(CartListActivity.this)) {
-                        deleteFromCart(userId, Constants.product_id);
+                        deleteFromCart(userId, prodId);
 
                     } else {
                         Toast.makeText(CartListActivity.this, "No Internet Connection!", Toast.LENGTH_SHORT).show();
@@ -261,19 +266,20 @@ public class CartListActivity extends AppCompatActivity implements View.OnClickL
 
                         itemRowHolder.cart_item_number.setText(String.valueOf(count));
                         String pluscount = String.valueOf(count);
-                        Constants.product_id = catMod.getProduct_id();
-                        String userid = "1";
+                        String prodId = catMod.getProduct_id();
+                        String userid =pref.get(Constants.USERID);
                         if (Utils.isNetworkConnectedMainThred(CartListActivity.this)) {
-                            updateQty(pluscount, Constants.product_id, userid);
+                            updateQty(pluscount, prodId, userid);
 
                         } else {
                             Toast.makeText(CartListActivity.this, "No Internet Connection!", Toast.LENGTH_SHORT).show();
                         }
                     } else {
-                        String userId = "1";
+                        String userId = pref.get(Constants.USERID);
+                        String prodId = catMod.getProduct_id();;
 
                         if (Utils.isNetworkConnectedMainThred(CartListActivity.this)) {
-                            deleteFromCart(userId, Constants.product_id);
+                            deleteFromCart(userId, prodId);
 
                         } else {
                             Toast.makeText(CartListActivity.this, "No Internet Connection!", Toast.LENGTH_SHORT).show();
@@ -295,11 +301,11 @@ public class CartListActivity extends AppCompatActivity implements View.OnClickL
                     //vibe.vibrate(100);
                     itemRowHolder.cart_item_number.setText(String.valueOf(count));
                     String pluscount = String.valueOf(count);
-                    Constants.product_id = catMod.getProduct_id();
-                    String userid = "1";
+                  String prodId = catMod.getProduct_id();
+                    String userid = pref.get(Constants.USERID);
 
                     if (Utils.isNetworkConnectedMainThred(CartListActivity.this)) {
-                        updateQty(pluscount, Constants.product_id, userid);
+                        updateQty(pluscount, prodId, userid);
 
                     } else {
                         Toast.makeText(CartListActivity.this, "No Internet Connection!", Toast.LENGTH_SHORT).show();
@@ -354,7 +360,7 @@ public class CartListActivity extends AppCompatActivity implements View.OnClickL
             }
         }
 
-        public void updateQty(final String pluscount, final String id, final String userid) {
+        public void updateQty(final String pluscount, final String prodID, final String userid) {
             StringRequest stringRequest = new StringRequest(Request.Method.POST, AppConfig.UPDATEQYT, new Response.Listener<String>() {
                 @Override
                 public void onResponse(String response) {
@@ -401,7 +407,7 @@ public class CartListActivity extends AppCompatActivity implements View.OnClickL
                     Map<String, String> params = new HashMap<String, String>();
                     params.put("user_id", userid);
                     params.put("qty", pluscount);
-                    params.put("product_id", Constants.product_id);
+                    params.put("product_id", prodID);
 
                     Log.e("", "" + params);
                     return params;
@@ -413,7 +419,7 @@ public class CartListActivity extends AppCompatActivity implements View.OnClickL
         }
 
 
-        public void deleteFromCart(final String id, final String userid) {
+        public void deleteFromCart(final String userid, final String proID) {
             //loader.setMessage("Loading...Please Wait..");
               loader.show();
             StringRequest stringRequest = new StringRequest(Request.Method.POST, AppConfig.DELETEPRODUCT, new Response.Listener<String>() {
@@ -460,8 +466,8 @@ public class CartListActivity extends AppCompatActivity implements View.OnClickL
                 protected Map<String, String> getParams() {
                     // Posting parameters to login url
                     Map<String, String> params = new HashMap<String, String>();
-                    params.put("user_id", id);
-                    params.put("product_id", Constants.product_id);
+                    params.put("user_id", userid);
+                    params.put("product_id", proID);
 
                     Log.e("deleteee", "" + params);
                     return params;

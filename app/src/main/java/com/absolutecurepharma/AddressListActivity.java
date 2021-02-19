@@ -195,7 +195,7 @@ public class AddressListActivity extends AppCompatActivity implements View.OnCli
             public void onResponse(String response) {
                 Log.d("testttttttt", response);
                 loader.dismiss();
-
+                addresslist.clear();
                 try {
                     //converting the string to json array object
                     JSONObject jsonObject = new JSONObject(response);

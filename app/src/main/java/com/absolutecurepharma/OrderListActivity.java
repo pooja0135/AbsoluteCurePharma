@@ -98,12 +98,19 @@ public class OrderListActivity extends AppCompatActivity {
                                 CategoryModel catModel = new CategoryModel();
 //                                //adding the product to product list
                                 catModel.setProduct_name(cat.getString("product_name"));
-//                                catModel.setProduct_image(cat.getString("product_image"));
-//                                catModel.setMarked_price(cat.getString("marked_price"));
-//                                catModel.setSelling_price(cat.getString("selling_price"));
-//                                catModel.setSize(cat.getString("size"));
-//                                catModel.setProduct_id(cat.getString("id"));
-//                                prodlist.add(catModel);
+                               catModel.setCompany(cat.getString("company"));
+                                catModel.setProduct_image(cat.getString("product_image"));
+                                catModel.setSelling_price(cat.getString("selling_price"));
+                                catModel.setOrder_id(cat.getString("order_id"));
+                                catModel.setOrder_total(cat.getString("order_total"));
+                                catModel.setOrder_date(cat.getString("order_date"));
+                                catModel.setOrder_status(cat.getString("order_status"));
+                                catModel.setDelivery_date(cat.getString("delivery_date"));
+                                catModel.setProduct_qty(cat.getString("product_qty"));
+                                catModel.setTotal_price(cat.getString("total_price"));
+
+
+                                orderList.add(catModel);
                             }
                         }
                     }
