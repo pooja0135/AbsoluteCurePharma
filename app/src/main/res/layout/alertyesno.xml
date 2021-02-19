@@ -27,8 +27,7 @@
                 android:layout_height="@dimen/_40sdp"
                 android:gravity="center"
                 android:text="Confirmation Alert"
-              android:background="@color/purple_500"
-
+                android:background="@color/purple_500"
                 android:textColor="@color/white"
                 android:textSize="@dimen/_14sdp" />
 

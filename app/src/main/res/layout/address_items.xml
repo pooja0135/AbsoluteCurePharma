@@ -12,7 +12,6 @@
         android:layout_height="wrap_content"
         android:layout_margin="@dimen/_5sdp">
         <LinearLayout
-            android:layout_marginTop="@dimen/_5sdp"
             android:weightSum="2"
             android:orientation="horizontal"
             android:layout_width="match_parent"
@@ -25,6 +24,8 @@
                 app:srcCompat="@drawable/ic_home_address"
                 android:layout_gravity="center"/>
             <TextView
+                android:layout_gravity="center"
+                android:layout_marginBottom="@dimen/_5sdp"
                 android:layout_weight="1.9"
                 android:textSize="@dimen/_12sdp"
                 android:textColor="@color/black"
@@ -39,25 +40,27 @@
 
 
             <ImageView
-                android:src="@drawable/radio_on"
-                android:layout_gravity="center"
                 android:layout_weight=".1"
+                android:layout_marginTop="@dimen/_5sdp"
+                app:srcCompat="@drawable/ic_radio_on_button"
+                android:layout_gravity="center"
                 android:id="@+id/ivradioOn"
                 android:visibility="gone"
-                android:layout_width="@dimen/_17sdp"
-                android:layout_height="@dimen/_17sdp"
+                android:layout_width="@dimen/_15sdp"
+                android:layout_height="@dimen/_15sdp"
                 android:layout_alignParentRight="true"
                 android:layout_centerVertical="true"
                 android:layout_marginRight="@dimen/_13sdp"/>
 
             <ImageView
+                android:layout_marginTop="@dimen/_5sdp"
                 android:visibility="gone"
-                android:src="@drawable/radio_off"
+                app:srcCompat="@drawable/ic_radio_off"
                 android:layout_gravity="center"
                 android:layout_weight=".1"
                 android:id="@+id/ivradio"
-                android:layout_width="@dimen/_17sdp"
-                android:layout_height="@dimen/_17sdp"
+                android:layout_width="@dimen/_15sdp"
+                android:layout_height="@dimen/_15sdp"
                 android:layout_alignParentRight="true"
                 android:layout_centerVertical="true"
                 android:layout_marginRight="@dimen/_13sdp"/>
@@ -65,7 +68,6 @@
         </LinearLayout>
 
         <TextView
-            android:layout_marginTop="@dimen/_5sdp"
             android:textSize="@dimen/_10sdp"
             android:textColor="@color/grey_600"
             android:id="@+id/tvAddress"

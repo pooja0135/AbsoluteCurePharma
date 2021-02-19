@@ -53,6 +53,8 @@ public class AddressListActivity extends AppCompatActivity implements View.OnCli
     CustomLoader loader;
     AddressAdapter addressAdapter;
     Preferences pref;
+    private int row_index = -1;
+    String areaId="";
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -108,10 +110,22 @@ public class AddressListActivity extends AppCompatActivity implements View.OnCli
         @Override
         public void onBindViewHolder(AddressListActivity.AddressAdapter.Holder itemRowHolder, int i) {
 
+
+            if(row_index==i)
+            {
+                itemRowHolder.ivradioOn.setVisibility(View.VISIBLE);
+                itemRowHolder.ivradio.setVisibility(View.GONE);
+            }
+            else
+            {
+                itemRowHolder.ivradioOn.setVisibility(View.GONE);
+                itemRowHolder.ivradio.setVisibility(View.VISIBLE);
+            }
+
             loader = new CustomLoader(mContext, android.R.style.Theme_Translucent_NoTitleBar_Fullscreen);
             AddressItem addr = addrmodel.get(i);
             itemRowHolder.tvName.setText(addr.getDeliverTo());
-            String adres=addr.getAddress1()+addr.getAddress2()+addr.getPinCode();
+            String adres=addr.getAddress1()+addr.getAddress2()+"\nPincode-"+addr.getPinCode();
             itemRowHolder.tvAddress.setText(adres);
             itemRowHolder.ivDelete.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -127,6 +141,19 @@ public class AddressListActivity extends AppCompatActivity implements View.OnCli
                     }
                 }
             });
+
+
+            itemRowHolder.llAddress.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    row_index=i;
+                    notifyDataSetChanged();
+                    areaId=addr.getId();
+                }
+            });
+
+
+
 
         }
         @Override
