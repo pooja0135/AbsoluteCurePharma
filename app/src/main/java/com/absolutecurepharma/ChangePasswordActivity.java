@@ -43,6 +43,8 @@ public class ChangePasswordActivity extends AppCompatActivity implements View.On
         binding = DataBindingUtil.setContentView(this, R.layout.activity_change_password);
         loader = new CustomLoader(this, android.R.style.Theme_Translucent_NoTitleBar_Fullscreen);
         pref=new Preferences(this);
+        binding.etEmail.setText(pref.get(Constants.EMAIL));
+        binding.etContact.setText(pref.get(Constants.MOBILENUMBER));
         binding.tvSubmit.setOnClickListener(this);
 
     }
@@ -53,11 +55,11 @@ public class ChangePasswordActivity extends AppCompatActivity implements View.On
     }
 
     private void checkValidation(){
-        email=  binding.etEmail.getText().toString();
+
         password=  binding.etPassword.getText().toString();
         newpassword=  binding.etNewPassword.getText().toString();
         confirmpassword=  binding.etConfirmPassword.getText().toString();
-        contact=  binding.etContact.getText().toString();
+
         if (!password.isEmpty() && !newpassword.isEmpty() ) {
 
             if (Utils.isNetworkConnectedMainThred(ChangePasswordActivity.this)){
@@ -90,12 +92,16 @@ public class ChangePasswordActivity extends AppCompatActivity implements View.On
                 try {
                     JSONObject object = new JSONObject(response);
 
-                    if(object.getString("Success").equalsIgnoreCase("true")) {
+                    if(object.getString("success").equalsIgnoreCase("true")) {
 
-                        Toast.makeText(getApplicationContext(), "Login Success!", Toast.LENGTH_LONG).show();
+                        Toast.makeText(getApplicationContext(), object.getString("message"), Toast.LENGTH_LONG).show();
+
+                        binding.etPassword.setText("");
+                        binding.etConfirmPassword.setText("");
+                        binding.etNewPassword.setText("");
                     }
                     else {
-                        Toast.makeText(getApplicationContext(), "wrong credentials", Toast.LENGTH_LONG).show();
+                        Toast.makeText(getApplicationContext(), "please try again later", Toast.LENGTH_LONG).show();
                     }
                 } catch (JSONException e) {
                     // JSON error

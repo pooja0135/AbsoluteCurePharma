@@ -34,7 +34,7 @@ ActivityEditProfileBinding binding;
 
     Preferences pref;
     private static final String TAG = ChangePasswordActivity.class.getSimpleName();
-    String name,contact,userid;
+    String name,contact,userid,email,gender;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -42,8 +42,8 @@ ActivityEditProfileBinding binding;
         binding = DataBindingUtil.setContentView(this, R.layout.activity_edit_profile);
         loader = new CustomLoader(this, android.R.style.Theme_Translucent_NoTitleBar_Fullscreen);
         pref=new Preferences(this);
-        binding.edName.setText(pref.get(Constants.FULLNAME));
-        binding.edEmail.setText(pref.get(Constants.EMAIL));
+       // binding.edName.setText(pref.get(Constants.FULLNAME));
+     //   binding.edEmail.setText(pref.get(Constants.EMAIL));
         binding.etContact.setText(pref.get(Constants.MOBILENUMBER));
         binding.tvSubmit.setOnClickListener(this);
     }
@@ -55,15 +55,16 @@ ActivityEditProfileBinding binding;
 
     private void checkValidation(){
         name=binding.edName.getText().toString();
-        contact=binding.etContact.getText().toString();
         userid=pref.get(Constants.USERID);
+        email=binding.edEmail.getText().toString();
+        gender="male";
 
 
-        if (!userid.isEmpty() && !name.isEmpty() && !contact.isEmpty() ) {
+        if (!name.isEmpty() && !email.isEmpty() ) {
 
             if (Utils.isNetworkConnectedMainThred(EditProfileActivity.this)){
 
-                editProfile(userid, name,contact);
+                editProfile(userid, name,email,gender);
             } else {
                 Toast.makeText(this, "No Internet Connection!", Toast.LENGTH_SHORT).show();
             }
@@ -79,24 +80,29 @@ ActivityEditProfileBinding binding;
 
 
     //****************************************************************//
-    private void editProfile(final String userid, final String password,final String newpassword) {
+    private void editProfile(final String userid, final String full_name,final String email,final String gender) {
         loader.show();
         StringRequest strReq = new StringRequest(Request.Method.POST,
                 AppConfig.EDITPROFILE, new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
-                Log.d(TAG, "Paswword Change " + response.toString());
+                Log.d(TAG, "Edit Profile" + response.toString());
                 loader.dismiss();
 
                 try {
                     JSONObject object = new JSONObject(response);
 
-                    if(object.getString("Success").equalsIgnoreCase("true")) {
+                    if(object.getString("success").equalsIgnoreCase("true")) {
 
-                        Toast.makeText(getApplicationContext(), "Login Success!", Toast.LENGTH_LONG).show();
+                        Toast.makeText(getApplicationContext(), "Successfully Updated Profile!", Toast.LENGTH_LONG).show();
+                        pref.set(Constants.FULLNAME,binding.edName.getText().toString());
+                        pref.set(Constants.EMAIL, binding.edEmail.getText().toString());
+                        pref.commit();
+                        binding.edEmail.setText(pref.get(Constants.EMAIL));
+                        binding.edName.setText(pref.get(Constants.FULLNAME));
                     }
                     else {
-                        Toast.makeText(getApplicationContext(), "wrong credentials", Toast.LENGTH_LONG).show();
+                        Toast.makeText(getApplicationContext(), "try later", Toast.LENGTH_LONG).show();
                     }
                 } catch (JSONException e) {
                     // JSON error
@@ -117,8 +123,9 @@ ActivityEditProfileBinding binding;
                 // Posting parameters to login url
                 Map<String, String> params = new HashMap<String, String>();
                 params.put("id", userid);
-                params.put("old_password", password);
-                params.put("new_password",newpassword);
+                params.put("full_name", full_name);
+                params.put("email",email);
+                params.put("gender",gender);
                 Log.e("",""+params);
                 return params;
             }
