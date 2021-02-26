@@ -48,6 +48,7 @@
                     android:padding="@dimen/_10sdp"
                     android:id="@+id/ivCart"/>
                 <TextView
+                    android:visibility="gone"
                     android:textSize="@dimen/_8sdp"
                     android:textColor="@color/white"
                     android:gravity="center"

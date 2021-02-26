@@ -7,6 +7,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.fragment.app.Fragment;
@@ -56,6 +57,7 @@ public class DashboardFragment  extends Fragment {
     long PERIOD_MS = 5000;
     ArrayList<CategoryModel>catlist;
     ArrayList<CategoryModel>prodlist;
+    TextView tvCount;
 
     CustomLoader loader;
 
@@ -71,6 +73,7 @@ public class DashboardFragment  extends Fragment {
         bannerViewpager=view.findViewById(R.id.bannerViewpager);
         rvCategory     =view.findViewById(R.id.rvCategory);
         rvProduct     =view.findViewById(R.id.rvProduct);
+
 
 
         loader = new CustomLoader(getContext(), android.R.style.Theme_Translucent_NoTitleBar_Fullscreen);
@@ -167,7 +170,7 @@ public class DashboardFragment  extends Fragment {
                     }
                     else {
                         Toast.makeText(getContext(),
-                                jsonObject.getString("message")+response,
+                                jsonObject.getString("message"),
                                 Toast.LENGTH_LONG).show();
                     }
                     //creating adapter object and setting it to recyclerview
@@ -223,7 +226,7 @@ public class DashboardFragment  extends Fragment {
                     }
                     else {
                         Toast.makeText(getContext(),
-                                jsonObject.getString("message")+response,
+                                jsonObject.getString("message"),
                                 Toast.LENGTH_LONG).show();
                     }
                     //creating adapter object and setting it to recyclerview

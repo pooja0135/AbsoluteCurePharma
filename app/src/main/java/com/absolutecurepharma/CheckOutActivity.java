@@ -49,7 +49,9 @@ import java.util.Map;
 public class CheckOutActivity extends AppCompatActivity implements View.OnClickListener {
 
     ImageView ivBack;
+
     TextView tvChange,tvProceed,tvFinalprice,tv_COD,tvPrice,tvSave;
+
     RecyclerView recyclerview;
     ArrayList<CategoryModel> catlist;
     CustomLoader loader;
@@ -58,7 +60,7 @@ public class CheckOutActivity extends AppCompatActivity implements View.OnClickL
     double finalamt=0.0;
     double saveamt;
     CartListAdapter cartListAdapter;
-
+    TextView tvName,tvAddress,tvPhoneNumber,tvCartItemCount;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -73,10 +75,17 @@ public class CheckOutActivity extends AppCompatActivity implements View.OnClickL
         tv_COD=findViewById(R.id.tv_COD);
         tvPrice=findViewById(R.id.tvPrice);
         tvSave=findViewById(R.id.tvSave);
+        tvName=findViewById(R.id.tvName);
+        tvPhoneNumber=findViewById(R.id.tvPhoneNumber);
+        tvCartItemCount=findViewById(R.id.tvCartItemCount);
+        tvAddress=findViewById(R.id.tvAddress);
+
         recyclerview.setLayoutManager(new LinearLayoutManager(this));
         loader = new CustomLoader(CheckOutActivity.this, android.R.style.Theme_Translucent_NoTitleBar_Fullscreen);
         catlist = new ArrayList<>();
         pref=new Preferences(this);
+        tvAddress.setText(pref.get(Constants.ADDRESS));
+        tvPhoneNumber.setText("\nPhone Number-"+pref.get(Constants.SELECTEDPHONE));
 
         if (Utils.isNetworkConnectedMainThred(this)) {
             getCart();
@@ -100,7 +109,7 @@ public class CheckOutActivity extends AppCompatActivity implements View.OnClickL
             case R.id.tvProceed:
                 if (Utils.isNetworkConnectedMainThred(this)) {
                    String userid=pref.get(Constants.USERID);
-                   String address="1";
+                   String address=pref.get(Constants.ADDRRESID);
                    String paymod="COD";
 
                     placeOrder(userid,address,paymod,amt);
@@ -161,6 +170,8 @@ public class CheckOutActivity extends AppCompatActivity implements View.OnClickL
                                 //tvSave.setText((int) saveamt);
                                 Log.e("EW",""+finalamt);
                             }
+
+                            tvCartItemCount.setText("CART ITEM("+ catlist.size()+")");
                         }
                     } else {
                        // layout_cart_empty.setVisibility(View.VISIBLE);

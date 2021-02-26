@@ -171,7 +171,7 @@
 
                         <TextView
                             android:paddingLeft="@dimen/_2sdp"
-                            android:id="@+id/tvName"
+                                android:id="@+id/tvName"
                             android:textSize="@dimen/_10sdp"
                             android:textColor="@color/black"
                             android:text="Pooja Singh"

@@ -152,8 +152,13 @@ public class CartListActivity extends AppCompatActivity implements View.OnClickL
                             tvFinalprice.setText(amt);
                                 Log.e("EW",""+finalamt);
                             }
+
+                            pref.set(Constants.count,""+catlist.size());
+                            pref.commit();
                         }
                     } else {
+                        pref.set(Constants.count,"0");
+                        pref.commit();
                         layout_cart_empty.setVisibility(View.VISIBLE);
                         Toast.makeText(CartListActivity.this,
                                 jsonObject.getString("message"),

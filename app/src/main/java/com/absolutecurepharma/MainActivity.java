@@ -43,6 +43,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     LinearLayout llLogout;
     public static ImageView ivMenu,ivCart;
     Preferences pref;
+    TextView tvCount;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -61,7 +62,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         llCart = headerview.findViewById(R.id.llCart);
         llShare = headerview.findViewById(R.id.llShare);
         llLogout = headerview.findViewById(R.id.llLogout);
-
+        tvCount = findViewById(R.id.tvCount);
 
 
         //setOnClickListener
@@ -75,8 +76,12 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         ivCart.setOnClickListener(this);
         ivMenu.setOnClickListener(this);
 
+        if (!pref.get(Constants.count).isEmpty()) {
+            tvCount.setText(pref.get(Constants.count));
+        }
 
         replaceFragmentWithAnimation(new DashboardFragment());
+
     }
 
     public void replaceFragmentWithAnimation(Fragment fragment) {
@@ -91,7 +96,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         switch (v.getId())
         {
             case R.id.rlHome:
-                replaceFragmentWithAnimation(new DashboardFragment());
+                startActivity(new Intent(this,MainActivity.class));
                 drawer.closeDrawer(GravityCompat.START);
                 break;
 
@@ -195,5 +200,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
 
     }
+
 
 }

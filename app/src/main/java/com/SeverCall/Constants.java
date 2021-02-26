@@ -12,6 +12,10 @@ public class Constants {
     public static String cat_id= "cat_id";
 
     public static String product_id= "product_id";
+    public static String ADDRRESID= "addrid";
+    public static String ADDRESS= "adres";
+    public static String SELECTEDPHONE= "phone";
+    public static String count= "count";
 
 
 }

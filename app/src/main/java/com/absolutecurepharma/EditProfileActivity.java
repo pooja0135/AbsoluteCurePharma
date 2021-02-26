@@ -42,8 +42,8 @@ ActivityEditProfileBinding binding;
         binding = DataBindingUtil.setContentView(this, R.layout.activity_edit_profile);
         loader = new CustomLoader(this, android.R.style.Theme_Translucent_NoTitleBar_Fullscreen);
         pref=new Preferences(this);
-       // binding.edName.setText(pref.get(Constants.FULLNAME));
-     //   binding.edEmail.setText(pref.get(Constants.EMAIL));
+        binding.edName.setText(pref.get(Constants.FULLNAME));
+        binding.edEmail.setText(pref.get(Constants.EMAIL));
         binding.etContact.setText(pref.get(Constants.MOBILENUMBER));
         binding.tvSubmit.setOnClickListener(this);
     }

@@ -55,6 +55,7 @@ public class ProductDetailActivity extends AppCompatActivity implements View.OnC
     TextView tvProductName;
     ActivityProductDetailBinding binding;
     Preferences pref;
+    TextView tv_count;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -64,6 +65,11 @@ public class ProductDetailActivity extends AppCompatActivity implements View.OnC
         loader = new CustomLoader(this, android.R.style.Theme_Translucent_NoTitleBar_Fullscreen);
         pref=new Preferences(this);
         bannerViewpager=findViewById(R.id.bannerViewpager);
+        tv_count=findViewById(R.id.tvCount);
+
+        if (!pref.get(Constants.count).isEmpty()) {
+            binding.tvCount.setText(pref.get(Constants.count));
+        }
         productDetailPagerAdapter=new ProductDetailPagerAdapter(this,array) {
             @Override
             protected void onBannerClick(View view, String str) {
@@ -124,8 +130,25 @@ public class ProductDetailActivity extends AppCompatActivity implements View.OnC
                 startActivity(new Intent(this,CartListActivity.class));
                 break;
             case R.id.tvAddToCart:
-                String counter= String.valueOf(count+1);
-                binding.tvCount.setText(counter);
+                if (!pref.get(Constants.count).isEmpty()) {
+
+                    int count=Integer.parseInt(pref.get(Constants.count))+1;
+                    binding.tvCount.setText(""+count);
+
+                }
+                else
+                {
+                    pref.set(Constants.count,"1");
+                    pref.commit();
+
+                    binding.tvCount.setText("1");
+                }
+
+
+
+//                String counter= String.valueOf(count+1);
+//                pref.set(Constants.COUNT,counter)
+//                binding.tvCount.setText(counter);
                 prodID=Constants.product_id;
                addToCart(prodID,sellingPrice,sellingPrice);
                 break;

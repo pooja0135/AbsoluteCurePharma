@@ -55,6 +55,9 @@ public class AddressListActivity extends AppCompatActivity implements View.OnCli
     Preferences pref;
     private int row_index = -1;
     String areaId="";
+    Boolean status =false;
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -75,6 +78,7 @@ public class AddressListActivity extends AppCompatActivity implements View.OnCli
         //setOnClicklistener
         binding.ivBack.setOnClickListener(this);
         binding.tvAddAddress.setOnClickListener(this);
+        binding.tvProceed.setOnClickListener(this);
     }
 
     @Override
@@ -87,12 +91,20 @@ public class AddressListActivity extends AppCompatActivity implements View.OnCli
             case R.id.tvAddAddress:
                 startActivity(new Intent(this,AddAddressActivity.class));
                 break;
+            case R.id.tvProceed:
+                if(status== true){
+                    startActivity(new Intent(this,CheckOutActivity.class));
+                }
+                else{
+                    Toast.makeText(this,"Please Select Address",Toast.LENGTH_LONG).show();
+                }
+
+                break;
         }
     }
 
 
     class AddressAdapter extends RecyclerView.Adapter<AddressListActivity.AddressAdapter.Holder> {
-
         private Context mContext;
         private ArrayList<AddressItem> addrmodel;
         CustomLoader loader;
@@ -115,6 +127,9 @@ public class AddressListActivity extends AppCompatActivity implements View.OnCli
             if(row_index==i)
             {
                 String addrid = addr.getId();
+               pref.set(Constants.ADDRRESID,addrid);
+               pref.commit();
+               status=true;
                 itemRowHolder.ivradioOn.setVisibility(View.VISIBLE);
                 itemRowHolder.ivradio.setVisibility(View.GONE);
             }
@@ -124,12 +139,16 @@ public class AddressListActivity extends AppCompatActivity implements View.OnCli
                 itemRowHolder.ivradioOn.setVisibility(View.GONE);
                 itemRowHolder.ivradio.setVisibility(View.VISIBLE);
             }
-
             loader = new CustomLoader(mContext, android.R.style.Theme_Translucent_NoTitleBar_Fullscreen);
 
             itemRowHolder.tvName.setText(addr.getDeliverTo());
-            String adres=addr.getAddress1()+addr.getAddress2()+"\nPincode-"+addr.getPinCode();
+            String adres=addr.getAddress1()+" " +addr.getAddress2()+" "+addr.getCity_name() +" ,"+ addr.getState_name()+"\nPincode-"+addr.getPinCode();
+
             itemRowHolder.tvAddress.setText(adres);
+            pref.set(Constants.ADDRESS,adres);
+            pref.set(Constants.SELECTEDPHONE,addr.getMobileNo());
+            pref.commit();
+
             itemRowHolder.ivDelete.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
@@ -145,7 +164,6 @@ public class AddressListActivity extends AppCompatActivity implements View.OnCli
                 }
             });
 
-
             itemRowHolder.llAddress.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
@@ -154,10 +172,6 @@ public class AddressListActivity extends AppCompatActivity implements View.OnCli
                     areaId=addr.getId();
                 }
             });
-
-
-
-
         }
         @Override
         public int getItemCount() {
@@ -220,8 +234,8 @@ public class AddressListActivity extends AppCompatActivity implements View.OnCli
                                 additem.setAddress1(addr.getString("address1"));
                                 additem.setAddress2(addr.getString("address2"));
                                 additem.setPinCode(addr.getString("pin_code"));
-                              // additem.setState_name(addr.getString("state_name"));
-                              //  additem.setCity_name(addr.getString("city_name"));
+                               additem.setState_name(addr.getString("state_name"));
+                                additem.setCity_name(addr.getString("city_name"));
                                    addresslist.add(additem);
 
                             }
