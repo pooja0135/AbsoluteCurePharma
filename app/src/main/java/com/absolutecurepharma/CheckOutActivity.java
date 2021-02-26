@@ -326,6 +326,7 @@ public class CheckOutActivity extends AppCompatActivity implements View.OnClickL
 
                     if (jsonObject.getString("message").equalsIgnoreCase("true")) {
                        String mgs=jsonObject.getString("success_msg");
+                        SuccessPopup();
                         Toast.makeText(CheckOutActivity.this,
                                 mgs,
                                 Toast.LENGTH_LONG).show();
