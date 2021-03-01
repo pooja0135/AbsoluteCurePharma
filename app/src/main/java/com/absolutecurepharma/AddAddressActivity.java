@@ -102,6 +102,13 @@ public class AddAddressActivity extends AppCompatActivity {
             }
         });
 
+        binding.ivBack.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(AddAddressActivity.this,AddressListActivity.class));
+            }
+        });
+
     }
     public void validation()
     {

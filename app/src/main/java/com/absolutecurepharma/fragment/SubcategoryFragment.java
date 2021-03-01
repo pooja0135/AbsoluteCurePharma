@@ -2,6 +2,7 @@ package com.absolutecurepharma.fragment;
 
 import android.os.Bundle;
 import android.util.Log;
+import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -46,6 +47,20 @@ public class SubcategoryFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         view = inflater.inflate(R.layout.subcategory_fragment, container, false);
+        view.setFocusableInTouchMode(true);
+        view.requestFocus();
+        view.setOnKeyListener(new View.OnKeyListener() {
+            @Override
+            public boolean onKey(View v, int keyCode, KeyEvent event) {
+                if (event.getAction() == KeyEvent.ACTION_DOWN) {
+                    if (keyCode == KeyEvent.KEYCODE_BACK) {
+                        replaceFragmentWithAnimation(new DashboardFragment());
+                        return true;
+                    }
+                }
+                return false;
+            }
+        });
         // DrawerActivity.ivHome.setVisibility(View.VISIBLE);
 
         rvSubCategory=view.findViewById(R.id.rvSubCategory);

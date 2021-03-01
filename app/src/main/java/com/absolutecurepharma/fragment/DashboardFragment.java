@@ -1,8 +1,10 @@
 package com.absolutecurepharma.fragment;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.util.Log;
+import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -68,6 +70,8 @@ public class DashboardFragment  extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         view = inflater.inflate(R.layout.dashboard_fragment, container, false);
+
+
         // DrawerActivity.ivHome.setVisibility(View.VISIBLE);
 
         bannerViewpager=view.findViewById(R.id.bannerViewpager);

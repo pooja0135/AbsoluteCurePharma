@@ -46,12 +46,23 @@ public class ChangePasswordActivity extends AppCompatActivity implements View.On
         binding.etEmail.setText(pref.get(Constants.EMAIL));
         binding.etContact.setText(pref.get(Constants.MOBILENUMBER));
         binding.tvSubmit.setOnClickListener(this);
+        binding.ivBack.setOnClickListener(this);
 
     }
 
     @Override
     public void onClick(View v) {
-        checkValidation();
+        switch (v.getId())
+        {
+            case R.id.tvSubmit:
+                checkValidation();
+                break;
+            case R.id.ivBack:
+                finish();
+                break;
+        }
+
+
     }
 
     private void checkValidation(){

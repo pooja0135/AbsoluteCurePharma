@@ -38,7 +38,7 @@ public class MyAccountActivity extends AppCompatActivity implements View.OnClick
         switch (v.getId())
         {
             case R.id.ivBack:
-                finish();
+                startActivity(new Intent(MyAccountActivity.this,MainActivity.class));
                 break;
             case R.id.rlEdit:
                 startActivity(new Intent(MyAccountActivity.this,EditProfileActivity.class));
@@ -53,5 +53,12 @@ public class MyAccountActivity extends AppCompatActivity implements View.OnClick
                 startActivity(new Intent(MyAccountActivity.this,ChangePasswordActivity.class));
                 break;
         }
+    }
+
+
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        startActivity(new Intent(MyAccountActivity.this,MainActivity.class));
     }
 }

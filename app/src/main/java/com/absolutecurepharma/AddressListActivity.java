@@ -86,7 +86,7 @@ public class AddressListActivity extends AppCompatActivity implements View.OnCli
         switch (v.getId())
         {
             case R.id.ivBack:
-                finish();
+                startActivity(new Intent(this,MyAccountActivity.class));
                 break;
             case R.id.tvAddAddress:
                 startActivity(new Intent(this,AddAddressActivity.class));
@@ -103,6 +103,11 @@ public class AddressListActivity extends AppCompatActivity implements View.OnCli
         }
     }
 
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        startActivity(new Intent(this,MyAccountActivity.class));
+    }
 
     class AddressAdapter extends RecyclerView.Adapter<AddressListActivity.AddressAdapter.Holder> {
         private Context mContext;
