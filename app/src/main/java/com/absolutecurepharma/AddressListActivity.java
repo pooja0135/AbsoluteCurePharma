@@ -56,6 +56,7 @@ public class AddressListActivity extends AppCompatActivity implements View.OnCli
     private int row_index = -1;
     String areaId="";
     Boolean status =false;
+    String pagestatus="1";
 
 
     @Override
@@ -89,6 +90,7 @@ public class AddressListActivity extends AppCompatActivity implements View.OnCli
                 startActivity(new Intent(this,MyAccountActivity.class));
                 break;
             case R.id.tvAddAddress:
+                Constants.PAGE = "2";
                 startActivity(new Intent(this,AddAddressActivity.class));
                 break;
             case R.id.tvProceed:
@@ -168,6 +170,27 @@ public class AddressListActivity extends AppCompatActivity implements View.OnCli
                     }
                 }
             });
+            itemRowHolder.ivEdit.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    if (Utils.isNetworkConnectedMainThred(AddressListActivity.this)) {
+
+                        Constants.PAGE = "1";
+
+                        Intent intent=new Intent(mContext, AddAddressActivity.class);
+                        // intent.putExtra("order", new CategoryModel(catMod.getProduct_name(), catMod.getMarked_price(), catMod.getSelling_price(), catMod.getProduct_image(), catMod.getOrder_id(), catMod.getOrder_total(),catMod.getOrder_date(), catMod.getOrder_status(), catMod.getDelivery_date(), catMod.getProduct_qty(),catMod.getTotal_price()));
+                        intent.putExtra("address", addr);
+                        mContext.startActivity(intent);
+
+
+
+
+                    } else {
+                        Toast.makeText(AddressListActivity.this, "No Internet Connection!", Toast.LENGTH_SHORT).show();
+
+                    }
+                }
+            });
 
             itemRowHolder.llAddress.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -191,6 +214,7 @@ public class AddressListActivity extends AppCompatActivity implements View.OnCli
             ImageView ivradio;
             ImageView ivradioOn;
             ImageView ivDelete;
+            ImageView ivEdit;
 
             LinearLayout llAddress;
 
@@ -204,6 +228,7 @@ public class AddressListActivity extends AppCompatActivity implements View.OnCli
                 ivradioOn=itemView.findViewById(R.id.ivradioOn);
                 llAddress=itemView.findViewById(R.id.llAddress);
                 ivDelete=itemView.findViewById(R.id.ivDelete);
+                ivEdit=itemView.findViewById(R.id.ivEdit);
             }
         }
     }

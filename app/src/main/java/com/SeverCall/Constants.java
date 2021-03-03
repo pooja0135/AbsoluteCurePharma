@@ -16,6 +16,7 @@ public class Constants {
     public static String ADDRESS= "adres";
     public static String SELECTEDPHONE= "phone";
     public static String count= "count";
+    public static String PAGE= "PAGE";
 
 
 }

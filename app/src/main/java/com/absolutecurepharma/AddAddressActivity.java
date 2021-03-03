@@ -61,14 +61,31 @@ public class AddAddressActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         binding = DataBindingUtil.setContentView(this, R.layout.activity_add_address);
 
-
         arrayList=new ArrayList<>();
         arrayCity=new ArrayList<>();
 
         loader = new CustomLoader(this, android.R.style.Theme_Translucent_NoTitleBar_Fullscreen);
-
         pref=new Preferences(this);
 
+        if(Constants.PAGE == "1"){
+            Bundle data = getIntent().getExtras();
+            AddressItem model =  data.getParcelable("address");
+           binding.edName.setText(model.getDeliverTo());
+           binding.edMobile.setText(pref.get(Constants.MOBILENUMBER));
+           binding.edLocality.setText(model.getAddress1());
+           binding.edAddress.setText(model.getAddress2());
+           binding.edPincode.setText(model.getPinCode());
+
+
+            for(int j=0;j<arrayCity.size();j++)
+            {
+                if(arrayCity.get(j).get("key").equalsIgnoreCase(model.getCity_name()))
+                {
+                   binding.spinnerCity.setSelection(j);
+                }
+            }
+
+        }
 
         binding.spinnerState.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
@@ -137,7 +154,13 @@ public class AddAddressActivity extends AppCompatActivity {
         else
         {
             if (Utils.isNetworkConnectedMainThred(AddAddressActivity.this)){
-                AddAddressAPI(pref.get(Constants.USERID),binding.edName.getText().toString(),arrayList.get(binding.spinnerState.getSelectedItemPosition()).get("state_id"),arrayCity.get(binding.spinnerCity.getSelectedItemPosition()).get("city_id").toString(),binding.edMobile.getText().toString(),binding.edLocality.getText().toString(),binding.edAddress.getText().toString(),binding.edPincode.getText().toString());
+                if(Constants.PAGE == "1"){
+                    UpdateAddressAPI(pref.get(Constants.ADDRRESID),binding.edName.getText().toString(),arrayList.get(binding.spinnerState.getSelectedItemPosition()).get("state_id"),arrayCity.get(binding.spinnerCity.getSelectedItemPosition()).get("city_id").toString(),pref.get(Constants.MOBILENUMBER),binding.edLocality.getText().toString(),binding.edAddress.getText().toString(),binding.edPincode.getText().toString());
+                }
+                else{
+                    AddAddressAPI(pref.get(Constants.USERID),binding.edName.getText().toString(),arrayList.get(binding.spinnerState.getSelectedItemPosition()).get("state_id"),arrayCity.get(binding.spinnerCity.getSelectedItemPosition()).get("city_id").toString(),binding.edMobile.getText().toString(),binding.edLocality.getText().toString(),binding.edAddress.getText().toString(),binding.edPincode.getText().toString());
+                }
+
             } else {
                 Toast.makeText(this, "No Internet Connection!", Toast.LENGTH_SHORT).show();
             }
@@ -365,4 +388,71 @@ public class AddAddressActivity extends AppCompatActivity {
 
         requestQueue.add(strReq);
     }
+
+
+    private void UpdateAddressAPI(final String customer_id,final String deliver_to,final String state_id,final String city_id,final String mobile_no,final String address1,final String address2,final String pin_code ) {
+        loader.show();
+        StringRequest strReq = new StringRequest(Request.Method.POST,
+                AppConfig.UPDATEADDRESS, new Response.Listener<String>() {
+
+            @Override
+            public void onResponse(String response) {
+                Log.d(TAG, "Address Response: " + response.toString());
+                loader.dismiss();
+                try {
+                    JSONObject jObj = new JSONObject(response);
+
+                    if(jObj.getString("success").equalsIgnoreCase("true")) {
+
+                        startActivity(new Intent(AddAddressActivity.this,AddressListActivity.class));
+                        Toast.makeText(getApplicationContext(), "Address Update Sucessfully", Toast.LENGTH_LONG).show();
+                    }
+                    else {
+                        // Toast.makeText(getApplicationContext(), "wrong credentials", Toast.LENGTH_LONG).show();
+                    }
+
+
+                } catch (JSONException e) {
+                    // JSON error
+                    e.printStackTrace();
+                    Toast.makeText(getApplicationContext(), "Json error: " + e.getMessage(), Toast.LENGTH_LONG).show();
+                }
+
+            }
+        }, new Response.ErrorListener() {
+
+            @Override
+            public void onErrorResponse(VolleyError error) {
+
+            }
+        }) {
+
+            @Override
+            protected Map<String, String> getParams() {
+                // Posting parameters to login url
+                Map<String, String> params = new HashMap<String, String>();
+                params.put("Id", customer_id);
+                params.put("deliver_to", deliver_to);
+                params.put("state_id",state_id);
+                params.put("city_id",city_id);
+                params.put("mobile_no",mobile_no);
+                params.put("address1",address1);
+                params.put("address2",address2);
+                params.put("pin_code",pin_code);
+                Log.e("",""+params);
+
+                return params;
+            }
+
+        };
+        RequestQueue requestQueue= Volley.newRequestQueue(this);
+        strReq.setRetryPolicy(new DefaultRetryPolicy(
+                10000,
+                DefaultRetryPolicy.DEFAULT_MAX_RETRIES,
+                DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
+
+        requestQueue.add(strReq);
+    }
+
+
 }

@@ -14,6 +14,8 @@ public class AppConfig {
 
     public static String ADD_ADDRESS =BASE_URL+"add_address.php";
 
+    public static String UPDATEADDRESS =BASE_URL+"updateAddress.php";
+
     public static String GETCATEGORY =BASE_URL+"getCategory.php";
 
     public static String GETSTATE =BASE_URL+"getstate.php";
